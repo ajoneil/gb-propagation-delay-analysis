@@ -25,8 +25,10 @@ See [`output/critical_paths_report.md`](output/critical_paths_report.md) for the
 
 ```
 parse_gateboy.py              # Parser & graph builder (~2000 lines)
+build_explorer.py             # Builds interactive HTML explorer
 metroboy/                     # GateBoy source (git submodule / clone)
 docs/
+  index.html                  # Interactive explorer (GitHub Pages)
   gateboy-structure.md        # GateBoy type system & naming conventions
   graph-stats.md              # Graph extraction statistics
 output/
@@ -38,6 +40,16 @@ output/
   race_pairs.json             # Signal race pair detection results
   signal_concordance.md       # GateBoy ↔ Pan Docs signal name mapping
 ```
+
+## Interactive Explorer
+
+Browse the analysis interactively at **[ajoneil.github.io/gmb-ppu-analysis](https://ajoneil.github.io/gmb-ppu-analysis/)**.
+
+Features:
+- **Race Pairs** — sortable/filterable table with expandable detail panels showing observable effects
+- **Critical Paths** — browse all 1,270 paths by category, depth, phase; click to see full gate chain trace
+- **Search** — find any signal by GateBoy cell name or Pan Docs register name
+- **Graph Explorer** — click any signal to see its inputs, outputs, and all paths flowing through it
 
 ## Usage
 
@@ -53,6 +65,9 @@ pip install networkx
 
 # Run analysis (reads from metroboy/src/GateBoyLib/)
 python parse_gateboy.py
+
+# Build interactive explorer (writes docs/index.html)
+python build_explorer.py
 ```
 
 Outputs are written to `output/` and `docs/`.
