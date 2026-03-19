@@ -655,7 +655,7 @@
       "node_type": "combinatorial",
       "source_file": "GateBoyCpuBus.cpp",
       "source_line": 201,
-      "gate_func": "not1"
+      "gate_func": "nor2"
     },
     {
       "name": "GateBoyCpuBus:SYKE_ADDR_HIp_new",
@@ -33663,6 +33663,21 @@
       "edge_type": "data"
     },
     {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "GateBoyPixPipe:XORE_SYS_RSTp",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "GateBoyRegisters:XORE_SYS_RSTp",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "SOTO_DBG_VRAMp",
+      "edge_type": "data"
+    },
+    {
       "src": "GateBoyLCD:XORE_SYS_RSTp",
       "dst": "GateBoyLCD:WESY_SYS_RSTn",
       "edge_type": "data"
@@ -46939,16 +46954,6 @@
     },
     {
       "src": "GateBoyDMA:CUNU_SYS_RSTn",
-      "dst": "GateBoyPixPipe:XORE_SYS_RSTp",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyDMA:CUNU_SYS_RSTn",
-      "dst": "GateBoyRegisters:XORE_SYS_RSTp",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyDMA:CUNU_SYS_RSTn",
       "dst": "LENE_DMA_TRIG_d4_odd",
       "edge_type": "data"
     },
@@ -46970,11 +46975,6 @@
     {
       "src": "GateBoyDMA:CUNU_SYS_RSTn",
       "dst": "LARA_DMA_LATCHn_odd",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyDMA:CUNU_SYS_RSTn",
-      "dst": "SOTO_DBG_VRAMp",
       "edge_type": "data"
     },
     {

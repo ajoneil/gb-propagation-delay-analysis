@@ -1417,6 +1417,57 @@ def format_path_report(paths, G, races=None, max_paths=30):
     lines.append("> the ones that cause observable timing discrepancies in emulators.\n")
 
     # =========================================================================
+    # KEY FINDINGS
+    # =========================================================================
+    lines.append("---")
+    lines.append("## Key Findings for Emulator Developers\n")
+
+    lines.append("### The Core Problem\n")
+    lines.append("A behavioral emulator resolves all combinatorial logic instantaneously within a")
+    lines.append("single tick. On real hardware, signals propagate through chains of gates with")
+    lines.append("finite delay. When two signals feed into the same flip-flop but arrive at")
+    lines.append("different times, the hardware may capture a different value than an emulator")
+    lines.append("that resolves both signals simultaneously.\n")
+    lines.append("This analysis identifies **547 signal race points** where inputs to a single")
+    lines.append("decision point differ by 3 or more gate depths. The largest differentials")
+    lines.append("exceed a full half T-cycle, meaning the late signal may not settle before")
+    lines.append("the next clock edge.\n")
+
+    lines.append("### The Two Dominant Late-Arriving Signal Classes\n")
+    lines.append("Almost every significant race in the PPU involves one of two late-arriving signal types:\n")
+    lines.append("1. **CLKPIPE (pixel pipe shift clock)** — 52 fan-out, feeds every pixel-level")
+    lines.append("   decision. Arrives through a long clock buffer chain. The pipe shift clock is")
+    lines.append("   the latest signal to settle at every pixel pipeline DFF, meaning the pipe")
+    lines.append("   effectively shifts one propagation delay after the data it's shifting is ready.")
+    lines.append("   This affects: sprite pipe timing, fine scroll match, pixel counter, window fetch.\n")
+    lines.append("2. **Line/fetch reset signals** (NYXU_BFETCH_RSTn, ATEJ_LINE_RST_TRIGp) —")
+    lines.append("   these pass through the VID_RST chain (8 gates from AFER+LCDC) then through")
+    lines.append("   line-end and scan-done logic. They arrive 15-17 gates after the data signals")
+    lines.append("   they reset. This affects: tile fetch counter, scan done, sprite store reset.\n")
+
+    lines.append("### What This Means in Practice\n")
+    lines.append("| Emulator Assumption | Hardware Reality | Affected Behavior |")
+    lines.append("|---------------------|-----------------|-------------------|")
+    lines.append("| Pixel pipe shifts when CLKPIPE fires | Pipe data is ready ~80-240ns before CLKPIPE arrives | Sprite/BG pixel positioning may be off by one dot |")
+    lines.append("| Fine scroll match resolves same dot as pixel counter | SCX fine match (depth 3) is ready long before CLKPIPE (depth 16) | Fine scroll may effectively apply one dot late |")
+    lines.append("| Tile fetch resets instantly when conditions are met | BFETCH reset (depth 17) arrives after fetch counter clock (depth 7) | Fetch state machine may run one extra cycle before reset |")
+    lines.append("| Sprite store X regs reset on line reset | Store reset (depth 17) arrives long after sprite X data (depth 1) | Sprite position capture at line boundaries may be one dot off |")
+    lines.append("| Scan done immediately stops OAM scan | Scan done signal (depth 17) races against line end (depth 0) | OAM scan may run one dot longer than expected |")
+    lines.append("")
+    lines.append("### Caveats\n")
+    lines.append("- Gate delay estimates (5-15ns) are rough. Actual delays depend on fan-out,")
+    lines.append("  wire length, and process variation. The relative rankings are more reliable")
+    lines.append("  than the absolute nanosecond estimates.")
+    lines.append("- Not all races produce observable effects. A race only matters if the late")
+    lines.append("  signal's arrival changes the captured value — which depends on the specific")
+    lines.append("  input data at that moment.")
+    lines.append("- The parser captures ~96% of signals (121 unresolved references remain,")
+    lines.append("  mostly CPU address bus bits). Reported depths are lower bounds.")
+    lines.append("- This analysis is structural, not temporal. It identifies *where* races")
+    lines.append("  exist, not *when* they fire during a frame. Cross-referencing with specific")
+    lines.append("  test ROM failures would validate which races produce observable effects.\n")
+
+    # =========================================================================
     # OPERATIONAL PATHS — grouped by category
     # =========================================================================
     lines.append("---")
