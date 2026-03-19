@@ -27,8 +27,9 @@ See [`output/critical_paths_report.md`](output/critical_paths_report.md) for the
 parse_gateboy.py              # Parser & graph builder (~2000 lines)
 build_explorer.py             # Builds interactive HTML explorer
 metroboy/                     # GateBoy source (git submodule / clone)
-docs/
+site/
   index.html                  # Interactive explorer (GitHub Pages)
+docs/
   gateboy-structure.md        # GateBoy type system & naming conventions
   graph-stats.md              # Graph extraction statistics
 output/
@@ -66,7 +67,7 @@ pip install networkx
 # Run analysis (reads from metroboy/src/GateBoyLib/)
 python parse_gateboy.py
 
-# Build interactive explorer (writes docs/index.html)
+# Build interactive explorer (writes site/index.html)
 python build_explorer.py
 ```
 
