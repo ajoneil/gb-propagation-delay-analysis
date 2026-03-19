@@ -5,6 +5,15 @@ GateBoy PPU Combinatorial Path Analysis — Parser & Graph Builder
 Extracts a signal dependency graph from the GateBoy gate-level simulator source.
 Identifies registered (clocked) vs combinatorial nodes and builds a directed graph
 suitable for critical path analysis.
+
+Key design decisions:
+- Wire/triwire local variables are scoped by source file ("file_stem:WIRE_NAME")
+  because 726+ wire names appear in multiple files. Without scoping, the last
+  definition wins and cross-file edges silently connect to the wrong node.
+- Nodes from reg_new paths (DFF updates, gate assigns, bus writes, sig_in/sig_out)
+  are global since their names come from unique state struct field names.
+- Computed methods (GateBoyState.cpp, GateBoyCpuBus.cpp, GateBoyPins.cpp) are
+  parsed as gate chains with the method name as a global combinatorial node.
 """
 
 import re
@@ -44,6 +53,13 @@ GATE_FILES = [
     "GateBoyPins.cpp",       # Pin logic
 ]
 
+# Additional files with computed methods (parsed separately)
+COMPUTED_METHOD_FILES = [
+    "GateBoyState.cpp",
+    "GateBoyCpuBus.cpp",
+    "GateBoyPins.cpp",
+]
+
 # Gate functions — these are combinatorial
 GATE_FUNCTIONS = {
     "not1", "and2", "and3", "and4", "and5", "and6", "and7",
@@ -81,6 +97,15 @@ OUTPUT_ACCESSORS = {
     "qp_ext_old", "qp_ext_new", "qn_ext_new",
 }
 
+# Methods to skip when matching computed method calls
+SKIP_METHODS = (
+    REGISTERED_METHODS | BUS_METHODS |
+    {'hold', 'sig_in', 'sig_out', 'set_data', 'set_addr', 'pin_in',
+     'pin_out', 'pin_io', 'pin_io_any', 'pin_clk', 'rst', 'set',
+     'clkgood_new', 'clkgood_old', 'clk_new', 'clk_old',
+     'reset', 'poweron', 'check_old', 'check_new'}
+)
+
 
 # ============================================================================
 # Data structures
@@ -96,6 +121,7 @@ class Node:
     gate_func: str = ""                # Gate function if combinatorial (not1, and2, etc.)
     state_path: str = ""               # Full path in GateBoyState if applicable
     comment: str = ""                  # Die page reference comment
+    display_name: str = ""             # Short name for display (without file scope prefix)
 
 
 @dataclass
@@ -109,6 +135,41 @@ class Edge:
 class ParseResult:
     nodes: dict = field(default_factory=dict)   # name -> Node
     edges: list = field(default_factory=list)    # list of Edge
+    # Maps bare wire name -> set of scoped names (file_stem:WIRE_NAME)
+    wire_scopes: dict = field(default_factory=lambda: {})
+    # Set of global node names (registered, gate_output, bus, boundary, computed methods)
+    global_names: set = field(default_factory=set)
+    # Set of known computed method names (from GateBoyState, GateBoyCpuABus, PinsSys)
+    computed_methods: set = field(default_factory=set)
+
+
+# ============================================================================
+# Scoping helpers
+# ============================================================================
+
+def file_stem(fname: str) -> str:
+    """Get file stem for scoping: 'GateBoy.cpp' -> 'GateBoy'."""
+    return Path(fname).stem
+
+
+def scoped_name(fname: str, wire_name: str) -> str:
+    """Create a file-scoped wire name: 'GateBoy:AVOR_SYS_RSTp'."""
+    return f"{file_stem(fname)}:{wire_name}"
+
+
+def display_name_from_scoped(name: str) -> str:
+    """Strip file scope prefix for display: 'GateBoy:AVOR_SYS_RSTp' -> 'AVOR_SYS_RSTp'."""
+    if ':' in name:
+        return name.split(':', 1)[1]
+    return name
+
+
+def register_scoped_wire(result: ParseResult, fname: str, wire_name: str):
+    """Register a wire name in the scope tracking structures."""
+    sname = scoped_name(fname, wire_name)
+    if wire_name not in result.wire_scopes:
+        result.wire_scopes[wire_name] = set()
+    result.wire_scopes[wire_name].add(sname)
 
 
 # ============================================================================
@@ -144,7 +205,7 @@ def extract_signal_refs(expr: str, result: ParseResult = None) -> list:
     Returns list of (signal_name, is_registered_read, temporal_phase) tuples.
 
     When is_registered_read=True and temporal_phase="old", this represents a read
-    from the previous tick — a clock boundary. The edge should come from a
+    from the previous tick -- a clock boundary. The edge should come from a
     special "@old" boundary node, not the current-tick computation.
     """
     refs = []
@@ -153,7 +214,7 @@ def extract_signal_refs(expr: str, result: ParseResult = None) -> list:
     # patterns so we don't double-count them in the local wire pattern
     matched_spans = []
 
-    # Pattern 1: reg_old.path.accessor() — reading a registered output from previous phase
+    # Pattern 1: reg_old.path.accessor() -- reading a registered output from previous phase
     for m in re.finditer(
         r'reg_old\.(.+?)\.(' + '|'.join(OUTPUT_ACCESSORS) + r')\(\)',
         expr
@@ -164,7 +225,7 @@ def extract_signal_refs(expr: str, result: ParseResult = None) -> list:
         refs.append((sig_name, True, "old"))
         matched_spans.append(m.span())
 
-    # Pattern 2: reg_new.path.accessor() — reading a registered/gate output from current phase
+    # Pattern 2: reg_new.path.accessor() -- reading a registered/gate output from current phase
     for m in re.finditer(
         r'reg_new\.(.+?)\.(' + '|'.join(OUTPUT_ACCESSORS) + r')\(\)',
         expr
@@ -175,7 +236,7 @@ def extract_signal_refs(expr: str, result: ParseResult = None) -> list:
         refs.append((sig_name, True, "new"))
         matched_spans.append(m.span())
 
-    # Pattern 2b: reg_new.path.method_name() — calling a method that returns a wire
+    # Pattern 2b: reg_new.path.method_name() -- calling a computed method
     # e.g. reg_new.XAPO_VID_RSTn_new(), reg_new.cpu_abus.SYRO_FE00_FFFF_new()
     for m in re.finditer(
         r'reg_new\.(.+?)\b(\w+)\(\)',
@@ -186,18 +247,87 @@ def extract_signal_refs(expr: str, result: ParseResult = None) -> list:
         # Skip if this is an accessor we already matched
         if method_name in OUTPUT_ACCESSORS:
             continue
-        # Skip DFF/latch methods
-        if method_name in REGISTERED_METHODS | BUS_METHODS | {'hold', 'sig_in', 'sig_out',
-                                                               'set_data', 'set_addr', 'pin_in',
-                                                               'pin_out', 'pin_io', 'pin_io_any',
-                                                               'pin_clk', 'rst', 'set'}:
+        # Skip DFF/latch methods and other non-signal methods
+        if method_name in SKIP_METHODS:
             continue
-        # This is likely a computed method on a state struct (e.g. XAPO_VID_RSTn_new())
-        # These are boundary signals computed from state
+        # This is a computed method call -- reference the global method node
         refs.append((method_name, True, "new"))
         matched_spans.append(m.span())
 
-    # Pattern 3: Local wire references — just variable names that match known signal patterns
+    # Pattern 2c: pins.sys.method_name() -- calling PinsSys computed methods
+    # e.g. pins.sys.UCOB_CLKBADp_new(), pins.sys.UPOJ_MODE_PRODn_new()
+    for m in re.finditer(
+        r'pins\.sys\.(\w+)\(\)',
+        expr
+    ):
+        method_name = m.group(1)
+        if method_name in OUTPUT_ACCESSORS | SKIP_METHODS:
+            continue
+        refs.append((method_name, True, "new"))
+        matched_spans.append(m.span())
+
+    # Pattern 2d: pins.sys.FIELD.accessor() -- reading a pin register
+    # e.g. pins.sys.PIN_71_RST.qp_int_new(), pins.sys.PIN_74_CLK.clkgood_new()
+    for m in re.finditer(
+        r'pins\.sys\.(\w+)\.(' + '|'.join(OUTPUT_ACCESSORS) + r'|clkgood_new|clkgood_old|clk_new|clk_old)\(\)',
+        expr
+    ):
+        sig_name = m.group(1)
+        accessor = m.group(2)
+        phase = "old" if accessor.endswith("_old") else "new"
+        refs.append((sig_name, True, phase))
+        matched_spans.append(m.span())
+
+    # Pattern 2e: Direct or nested member access FIELD.accessor() -- used inside computed
+    # methods where `this->` members are accessed without reg_new prefix.
+    # Handles both one-level (BUS_CPU_A15p.out_new()) and two-level
+    # (sys_rst.AFER_SYS_RSTp.qp_new(), reg_lcdc.XONA_LCDC_LCDENp.qp_new())
+    accessor_pat = '|'.join(OUTPUT_ACCESSORS) + r'|clkgood_new|clkgood_old|clk_new|clk_old'
+    # Two-level: struct.FIELD.accessor()
+    for m in re.finditer(
+        r'\b(\w+)\.(\w+)\.(' + accessor_pat + r')\(\)',
+        expr
+    ):
+        struct_name = m.group(1)
+        field_name = m.group(2)
+        accessor = m.group(3)
+        # Skip if already matched
+        in_matched = False
+        for start, end in matched_spans:
+            if start <= m.start() < end:
+                in_matched = True
+                break
+        if in_matched:
+            continue
+        if struct_name in ('reg_old', 'reg_new', 'pins'):
+            continue
+        phase = "old" if accessor.endswith("_old") else "new"
+        refs.append((field_name, True, phase))
+        matched_spans.append(m.span())
+
+    # One-level: FIELD.accessor() -- only at word boundary, not after a dot
+    for m in re.finditer(
+        r'(?<!\.)(\b\w+)\.(' + accessor_pat + r')\(\)',
+        expr
+    ):
+        field_name = m.group(1)
+        accessor = m.group(2)
+        # Skip if already matched by any previous pattern
+        in_matched = False
+        for start, end in matched_spans:
+            if start <= m.start() < end:
+                in_matched = True
+                break
+        if in_matched:
+            continue
+        # Skip struct names
+        if field_name in ('reg_old', 'reg_new', 'pins', 'sys'):
+            continue
+        phase = "old" if accessor.endswith("_old") else "new"
+        refs.append((field_name, True, phase))
+        matched_spans.append(m.span())
+
+    # Pattern 3: Local wire references -- just variable names that match known signal patterns
     for m in re.finditer(r'\b([A-Z][A-Z0-9]{3,}_\w+)\b', expr):
         candidate = m.group(1)
         pos = m.start()
@@ -241,6 +371,7 @@ def add_edge_for_ref(ref_name: str, is_reg: bool, phase: str, dst_name: str,
         if boundary_name not in result.nodes:
             result.nodes[boundary_name] = Node(
                 name=boundary_name,
+                display_name=f"{ref_name}@old",
                 node_type="registered",  # acts as path terminator
                 reg_type="clock_boundary",
                 source_file=file,
@@ -248,13 +379,18 @@ def add_edge_for_ref(ref_name: str, is_reg: bool, phase: str, dst_name: str,
                 state_path=f"reg_old.{ref_name}",
                 comment=f"Clock boundary read of {ref_name}",
             )
+            result.global_names.add(boundary_name)
         result.edges.append(Edge(src=boundary_name, dst=dst_name))
     else:
         result.edges.append(Edge(src=ref_name, dst=dst_name))
 
 
 def parse_wire_assignment(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: wire NAME = gate_func(args...) or wire NAME = expr"""
+    """Parse: wire NAME = gate_func(args...) or wire NAME = expr
+
+    Wire/triwire local variables are scoped by file to avoid collisions
+    when the same wire name appears in multiple files.
+    """
     # Match wire declarations with gate function calls
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?(?:wire|triwire)\s+(\w+)\s*=\s*(.+?)\s*;',
@@ -263,9 +399,13 @@ def parse_wire_assignment(line: str, file: str, lineno: int, result: ParseResult
     if not m:
         return False
 
-    name = m.group(1)
+    bare_name = m.group(1)
     expr = m.group(2)
     comment = extract_comment(line)
+
+    # Scope the wire name by file
+    name = scoped_name(file, bare_name)
+    register_scoped_wire(result, file, bare_name)
 
     # Determine the gate function
     gate_func = ""
@@ -280,6 +420,7 @@ def parse_wire_assignment(line: str, file: str, lineno: int, result: ParseResult
 
     node = Node(
         name=name,
+        display_name=bare_name,
         node_type="combinatorial",
         source_file=file,
         source_line=lineno,
@@ -297,7 +438,7 @@ def parse_wire_assignment(line: str, file: str, lineno: int, result: ParseResult
 
 
 def parse_reg_update(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: reg_new.path.dffXX(args...) — registered element update."""
+    """Parse: reg_new.path.dffXX(args...) -- registered element update."""
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?reg_new\.(.+?)\.(' + '|'.join(REGISTERED_METHODS) + r')\s*\((.+?)\)\s*;',
         line
@@ -315,6 +456,7 @@ def parse_reg_update(line: str, file: str, lineno: int, result: ParseResult):
 
     node = Node(
         name=sig_name,
+        display_name=sig_name,
         node_type="registered",
         reg_type=method,
         state_path=path,
@@ -323,8 +465,9 @@ def parse_reg_update(line: str, file: str, lineno: int, result: ParseResult):
         comment=comment,
     )
     result.nodes[sig_name] = node
+    result.global_names.add(sig_name)
 
-    # Parse arguments — typically (CLK, RST, D) or (CLK, D) or (SET, RST) etc.
+    # Parse arguments -- typically (CLK, RST, D) or (CLK, D) or (SET, RST) etc.
     # All arguments are dependencies
     refs = extract_signal_refs(args_str, result)
     for ref_name, is_reg, phase in refs:
@@ -334,7 +477,7 @@ def parse_reg_update(line: str, file: str, lineno: int, result: ParseResult):
 
 
 def parse_gate_assign(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: reg_new.path <<= expr — Gate type assignment (combinatorial stored in state)."""
+    """Parse: reg_new.path <<= expr -- Gate type assignment (combinatorial stored in state)."""
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?reg_new\.(.+?)\s*<<=\s*(.+?)\s*;',
         line
@@ -357,6 +500,7 @@ def parse_gate_assign(line: str, file: str, lineno: int, result: ParseResult):
 
     node = Node(
         name=sig_name,
+        display_name=sig_name,
         node_type="gate_output",  # combinatorial but stored in state
         state_path=path,
         source_file=file,
@@ -365,6 +509,7 @@ def parse_gate_assign(line: str, file: str, lineno: int, result: ParseResult):
         comment=comment,
     )
     result.nodes[sig_name] = node
+    result.global_names.add(sig_name)
 
     refs = extract_signal_refs(expr, result)
     for ref_name, is_reg, phase in refs:
@@ -374,7 +519,7 @@ def parse_gate_assign(line: str, file: str, lineno: int, result: ParseResult):
 
 
 def parse_bus_write(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: reg_new.path.tri_bus(triwire_name) — bus write."""
+    """Parse: reg_new.path.tri_bus(triwire_name) -- bus write."""
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?reg_new\.(.+?)\.tri_bus\s*\((.+?)\)\s*;',
         line
@@ -393,6 +538,7 @@ def parse_bus_write(line: str, file: str, lineno: int, result: ParseResult):
     if sig_name not in result.nodes:
         node = Node(
             name=sig_name,
+            display_name=sig_name,
             node_type="bus",
             state_path=path,
             source_file=file,
@@ -400,6 +546,7 @@ def parse_bus_write(line: str, file: str, lineno: int, result: ParseResult):
             comment=comment,
         )
         result.nodes[sig_name] = node
+        result.global_names.add(sig_name)
 
     refs = extract_signal_refs(args_str, result)
     for ref_name, is_reg, phase in refs:
@@ -409,7 +556,7 @@ def parse_bus_write(line: str, file: str, lineno: int, result: ParseResult):
 
 
 def parse_sig_assign(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: reg_new.path.sig_in(expr) or sig_out(expr) — boundary signals."""
+    """Parse: reg_new.path.sig_in(expr) or sig_out(expr) -- boundary signals."""
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?reg_new\.(.+?)\.(sig_in|sig_out)\s*\((.+?)\)\s*;',
         line
@@ -427,6 +574,7 @@ def parse_sig_assign(line: str, file: str, lineno: int, result: ParseResult):
 
     node = Node(
         name=sig_name,
+        display_name=sig_name,
         node_type="boundary",
         state_path=path,
         source_file=file,
@@ -434,6 +582,7 @@ def parse_sig_assign(line: str, file: str, lineno: int, result: ParseResult):
         comment=comment,
     )
     result.nodes[sig_name] = node
+    result.global_names.add(sig_name)
 
     refs = extract_signal_refs(args_str, result)
     for ref_name, is_reg, phase in refs:
@@ -443,21 +592,21 @@ def parse_sig_assign(line: str, file: str, lineno: int, result: ParseResult):
 
 
 def parse_hold(line: str, file: str, lineno: int, result: ParseResult):
-    """Parse: reg_new.path.hold() — hold current value."""
+    """Parse: reg_new.path.hold() -- hold current value."""
     m = re.match(
         r'\s*(?:/\*[^*]*\*/\s*)?reg_new\.(.+?)\.hold\s*\(\)\s*;',
         line
     )
     if not m:
         return False
-    # Just note the node exists — hold doesn't create new dependencies
+    # Just note the node exists -- hold doesn't create new dependencies
     return True
 
 
 def parse_file(filepath: Path, result: ParseResult):
     """Parse a single GateBoy source file."""
     if not filepath.exists():
-        print(f"  [SKIP] {filepath.name} — not found")
+        print(f"  [SKIP] {filepath.name} -- not found")
         return
 
     text = filepath.read_text()
@@ -509,36 +658,305 @@ def parse_file(filepath: Path, result: ParseResult):
     print(f"  {fname}: {parsed} statements parsed")
 
 
-def resolve_edges(result: ParseResult):
-    """Clean up edges: remove references to unknown nodes, deduplicate."""
-    known = set(result.nodes.keys())
+# ============================================================================
+# Computed method parsing
+# ============================================================================
 
-    # Track edges that reference unknown signals — these might be:
-    # 1. Constants (EXT_vcc, EXT_gnd)
-    # 2. Signals from outside our parse scope
-    # 3. Misidentified tokens
+def parse_computed_methods(filepath: Path, result: ParseResult):
+    """Parse computed methods from GateBoyState.cpp, GateBoyCpuBus.cpp, GateBoyPins.cpp.
+
+    These files define methods like:
+        wire GateBoyState::XAPO_VID_RSTn_new() const { ... }
+        wire GateBoyCpuABus::TUNA_0000_FDFF_new() const { ... }
+        wire PinsSys::UCOB_CLKBADp_new() const { ... }
+
+    The method name becomes a global combinatorial node. Internal wires are
+    scoped to the source file. References to other computed methods create
+    edges to those global nodes.
+    """
+    if not filepath.exists():
+        print(f"  [SKIP] {filepath.name} -- not found")
+        return
+
+    text = filepath.read_text()
+    fname = filepath.name
+    parsed = 0
+
+    # Pattern for method declarations (both _new and _old variants)
+    # Matches: wire ClassName::MethodName() const { ... }
+    # Handle both single-line and multi-line method bodies
+    method_pattern = re.compile(
+        r'(?:/\*[^*]*\*/\s*)?wire\s+\w+::(\w+)\s*\(\)\s*const\s*\{',
+    )
+
+    pos = 0
+    while pos < len(text):
+        m = method_pattern.search(text, pos)
+        if not m:
+            break
+
+        method_name = m.group(1)
+        body_start = m.end()
+
+        # Find the matching closing brace
+        brace_depth = 1
+        i = body_start
+        while i < len(text) and brace_depth > 0:
+            if text[i] == '{':
+                brace_depth += 1
+            elif text[i] == '}':
+                brace_depth -= 1
+            i += 1
+
+        body = text[body_start:i - 1]  # exclude the closing brace
+        lineno = text[:m.start()].count('\n') + 1
+
+        pos = i  # advance past this method
+
+        # Skip _old and _any variants -- we only care about _new for current-tick analysis
+        # But also parse _old methods from PinsSys since they are called from other files
+        # Actually, we should parse all of them since they may be referenced
+        # Skip non-signal methods
+        if method_name in ('reset', 'poweron', 'check_old', 'check_new'):
+            continue
+
+        # Determine the gate function from the return expression or last wire assignment
+        gate_func = ""
+        for gf in GATE_FUNCTIONS:
+            if re.search(rf'\b{gf}\s*\(', body):
+                gate_func = gf
+                break
+
+        # Create the global method node
+        node = Node(
+            name=method_name,
+            display_name=method_name,
+            node_type="combinatorial",
+            source_file=fname,
+            source_line=lineno,
+            gate_func=gate_func,
+            comment="",
+        )
+        result.nodes[method_name] = node
+        result.global_names.add(method_name)
+        result.computed_methods.add(method_name)
+
+        # Parse internal wire declarations within the method body
+        # These are scoped to the file
+        internal_wires = []
+        for wm in re.finditer(
+            r'(?:/\*[^*]*\*/\s*)?(?:wire|triwire)\s+(\w+)\s*=\s*(.+?)\s*;',
+            body
+        ):
+            wire_name = wm.group(1)
+            wire_expr = wm.group(2)
+
+            sname = scoped_name(fname, wire_name)
+            register_scoped_wire(result, fname, wire_name)
+
+            wire_gate_func = ""
+            for gf in GATE_FUNCTIONS:
+                if re.search(rf'\b{gf}\s*\(', wire_expr):
+                    wire_gate_func = gf
+                    break
+
+            wire_node = Node(
+                name=sname,
+                display_name=wire_name,
+                node_type="combinatorial",
+                source_file=fname,
+                source_line=lineno,
+                gate_func=wire_gate_func,
+                comment=extract_comment(wm.group(0)),
+            )
+            result.nodes[sname] = wire_node
+            internal_wires.append((sname, wire_name, wire_expr))
+
+            # Parse dependencies of this internal wire
+            refs = extract_signal_refs(wire_expr, result)
+            for ref_name, is_reg, phase in refs:
+                add_edge_for_ref(ref_name, is_reg, phase, sname, result, fname, lineno)
+
+        # Parse the return statement to connect internal wires to the method node.
+        # If the return variable has the same name as the method, merge them:
+        # replace the method node with the scoped wire (avoids double-counting).
+        ret_match = re.search(r'return\s+(\w+)\s*;', body)
+        if ret_match:
+            ret_var = ret_match.group(1)
+            ret_scoped = scoped_name(fname, ret_var)
+            if ret_var == method_name and ret_scoped in result.nodes:
+                # The internal wire IS the method output. Promote the scoped wire
+                # to be the global method node instead of having two separate nodes.
+                scoped_node = result.nodes[ret_scoped]
+                # Remove the scoped wire node
+                del result.nodes[ret_scoped]
+                # Update the method node with the scoped wire's attributes
+                result.nodes[method_name].gate_func = scoped_node.gate_func
+                result.nodes[method_name].comment = scoped_node.comment
+                # Redirect all edges that pointed to/from the scoped wire
+                for edge in result.edges:
+                    if edge.src == ret_scoped:
+                        edge.src = method_name
+                    if edge.dst == ret_scoped:
+                        edge.dst = method_name
+                # Remove from wire_scopes
+                if ret_var in result.wire_scopes:
+                    result.wire_scopes[ret_var].discard(ret_scoped)
+            elif ret_scoped in result.nodes:
+                result.edges.append(Edge(src=ret_scoped, dst=method_name))
+            elif ret_var in result.nodes:
+                result.edges.append(Edge(src=ret_var, dst=method_name))
+
+        # If there are no internal wires (simple return of a function call),
+        # parse dependencies directly on the method body
+        if not internal_wires:
+            refs = extract_signal_refs(body, result)
+            for ref_name, is_reg, phase in refs:
+                add_edge_for_ref(ref_name, is_reg, phase, method_name, result, fname, lineno)
+
+        # Also handle calls to other computed methods within the body
+        # e.g. XAPO_VID_RSTn_new() called as a bare function (within same class)
+        for cm in re.finditer(r'\b(\w+_(?:new|old))\(\)', body):
+            callee = cm.group(1)
+            if callee == method_name:
+                continue  # skip self
+            if callee in OUTPUT_ACCESSORS | SKIP_METHODS:
+                continue
+            # Check if this is inside a wire assignment expression we already parsed
+            # If so, the dependency is already captured via the wire's refs
+            already_handled = False
+            for sname, wire_name, wire_expr in internal_wires:
+                if callee + '()' in wire_expr:
+                    already_handled = True
+                    break
+            if not already_handled:
+                # Direct method call not in a wire assignment -- connect to method node
+                result.edges.append(Edge(src=callee, dst=method_name))
+
+        # Handle member references like sys_rst.AFER_SYS_RSTp.qp_new() within method bodies
+        # These resolve to registered elements. Already handled by extract_signal_refs
+        # via the pattern matching on field.accessor() -- but we need to handle
+        # the case where these are on `this` members (no reg_new prefix).
+        for rm in re.finditer(
+            r'(\w+)\.(\w+)\.(' + '|'.join(OUTPUT_ACCESSORS) + r'|clkgood_new|clkgood_old|clk_new|clk_old)\(\)',
+            body
+        ):
+            struct_name = rm.group(1)
+            field_name = rm.group(2)
+            accessor = rm.group(3)
+            # Skip if this was already matched inside a wire expression
+            if struct_name in ('reg_old', 'reg_new', 'pins'):
+                continue
+            phase = "old" if accessor.endswith("_old") else "new"
+            # field_name is the registered element
+            # Find which internal wire (or method) this belongs to
+            rm_start = rm.start()
+            target = method_name  # default: edge to the method node
+            for sname, wire_name, wire_expr in internal_wires:
+                if field_name in wire_expr:
+                    target = sname
+                    break
+            add_edge_for_ref(field_name, True, phase, target, result, fname, lineno)
+
+        parsed += 1
+
+    if parsed > 0:
+        print(f"  {fname}: {parsed} computed methods parsed")
+
+
+# ============================================================================
+# Edge resolution with file scoping
+# ============================================================================
+
+def resolve_scoped_edges(result: ParseResult):
+    """Resolve edges considering file-scoped wire names.
+
+    For each edge, if the source is a bare wire name (not already scoped):
+    1. If it exists as a global node, use it directly
+    2. If it exists as a scoped wire in the same file as the destination, use that
+    3. If it exists as a scoped wire in exactly one file, use that
+    4. Otherwise, mark as unresolved
+
+    For destination nodes, they are already resolved (scoped during parse).
+    """
+    known = set(result.nodes.keys())
     unknown_refs = set()
 
     resolved_edges = []
     seen = set()
 
     for edge in result.edges:
-        key = (edge.src, edge.dst)
+        src = edge.src
+        dst = edge.dst
+
+        # Resolve source if it's a bare name
+        resolved_src = _resolve_ref(src, dst, result, known)
+
+        if resolved_src is None:
+            unknown_refs.add(src)
+            continue
+
+        key = (resolved_src, dst)
         if key in seen:
             continue
         seen.add(key)
 
-        if edge.src in known:
-            resolved_edges.append(edge)
-        else:
-            unknown_refs.add(edge.src)
+        if resolved_src == dst:
+            continue  # no self-loops
+
+        resolved_edges.append(Edge(src=resolved_src, dst=dst, edge_type=edge.edge_type))
 
     result.edges = resolved_edges
     return unknown_refs
 
 
+def _resolve_ref(src: str, dst: str, result: ParseResult, known: set) -> Optional[str]:
+    """Resolve a signal reference to a known node name.
+
+    Returns the resolved node name, or None if unresolvable.
+    """
+    # Already a known node (global or scoped)
+    if src in known:
+        return src
+
+    # Check if src is a bare wire name that needs scoping
+    if src in result.wire_scopes:
+        scoped_candidates = result.wire_scopes[src]
+
+        # Try same-file scope first: if dst is scoped, use the same file
+        if ':' in dst:
+            dst_stem = dst.split(':')[0]
+            same_file = f"{dst_stem}:{src}"
+            if same_file in scoped_candidates and same_file in known:
+                return same_file
+        else:
+            # dst is a global name -- check its source file
+            dst_node = result.nodes.get(dst)
+            if dst_node and dst_node.source_file:
+                dst_stem = file_stem(dst_node.source_file)
+                same_file = f"{dst_stem}:{src}"
+                if same_file in scoped_candidates and same_file in known:
+                    return same_file
+
+        # If only one scope exists, use it
+        valid = [s for s in scoped_candidates if s in known]
+        if len(valid) == 1:
+            return valid[0]
+
+        # If multiple scopes exist, we cannot disambiguate -- use any
+        # This is a best-effort fallback; ideally all should be resolved above
+        if valid:
+            return valid[0]
+
+    # Check if it's a computed method name
+    if src in result.computed_methods and src in known:
+        return src
+
+    return None
+
+
 def classify_gate_outputs(result: ParseResult):
-    """Gate outputs (type 'gate_output') are combinatorial — they just happen to be
+    """Gate outputs (type 'gate_output') are combinatorial -- they just happen to be
     stored in state for cross-function visibility. For path analysis they should be
     treated as combinatorial (path continues through them)."""
     for node in result.nodes.values():
@@ -565,6 +983,7 @@ def build_graph(result: ParseResult):
             gate_func=node.gate_func,
             state_path=node.state_path,
             comment=node.comment,
+            display_name=node.display_name or display_name_from_scoped(name),
         )
 
     for edge in result.edges:
@@ -707,10 +1126,10 @@ def find_critical_paths(DAG, G_original):
         nt = DAG.nodes[n].get('node_type', '')
 
         if is_path_terminator(DAG, n):
-            # Registered node — path starts here with depth 0
+            # Registered node -- path starts here with depth 0
             dist[n] = (0, [n])
         else:
-            # Combinatorial node — find longest incoming path + 1
+            # Combinatorial node -- find longest incoming path + 1
             best_depth = -1
             best_path = []
             for pred in DAG.predecessors(n):
@@ -722,7 +1141,7 @@ def find_critical_paths(DAG, G_original):
             if best_depth >= 0:
                 dist[n] = (best_depth + 1, best_path + [n])
             else:
-                # No predecessors with known distance — this is a root
+                # No predecessors with known distance -- this is a root
                 dist[n] = (1, [n])
 
     # Now find paths that terminate at registered nodes.
@@ -753,6 +1172,11 @@ def find_critical_paths(DAG, G_original):
             unique_paths.append((depth, path))
 
     return unique_paths
+
+
+def _display(G, node_name):
+    """Get display name for a node, stripping file scope prefix."""
+    return G.nodes[node_name].get('display_name', '') or display_name_from_scoped(node_name)
 
 
 def format_path_report(paths, G, max_paths=30):
@@ -794,8 +1218,8 @@ def format_path_report(paths, G, max_paths=30):
         dst_node = G.nodes.get(path[-1], {})
 
         lines.append(f"### Path {i+1}: Depth {depth} ({min_delay}-{max_delay} ns, {pct:.0f}% of half T-cycle)")
-        lines.append(f"**Source:** `{path[0]}` ({src_node.get('node_type', '?')}, {src_node.get('reg_type', '')})")
-        lines.append(f"**Sink:** `{path[-1]}` ({dst_node.get('node_type', '?')}, {dst_node.get('reg_type', '')})")
+        lines.append(f"**Source:** `{_display(G, path[0])}` ({src_node.get('node_type', '?')}, {src_node.get('reg_type', '')})")
+        lines.append(f"**Sink:** `{_display(G, path[-1])}` ({dst_node.get('node_type', '?')}, {dst_node.get('reg_type', '')})")
         lines.append(f"**Source file:** `{src_node.get('source_file', '?')}:{src_node.get('source_line', '?')}`")
         lines.append("")
         lines.append("```")
@@ -805,6 +1229,7 @@ def format_path_report(paths, G, max_paths=30):
             gf = nd.get('gate_func', '')
             sf = nd.get('source_file', '')
             sl = nd.get('source_line', '')
+            dn = _display(G, node_name)
 
             if nt in ('registered', 'bus', 'boundary'):
                 marker = f"[{nt.upper()}]"
@@ -812,7 +1237,7 @@ def format_path_report(paths, G, max_paths=30):
                 marker = f"[{gf}]" if gf else "[comb]"
 
             loc = f"{sf}:{sl}" if sf else ""
-            lines.append(f"  {'  ' * j}{marker} {node_name}  ({loc})")
+            lines.append(f"  {'  ' * j}{marker} {dn}  ({loc})")
         lines.append("```\n")
 
     return "\n".join(lines)
@@ -832,7 +1257,8 @@ def export_graph_json(G, filepath: Path):
     for name, attrs in G.nodes(data=True):
         data["nodes"].append({
             "name": name,
-            **{k: v for k, v in attrs.items() if v},
+            "display_name": attrs.get('display_name', display_name_from_scoped(name)),
+            **{k: v for k, v in attrs.items() if v and k != 'display_name'},
         })
 
     for src, dst, attrs in G.edges(data=True):
@@ -867,6 +1293,7 @@ def export_paths_json(paths, G, filepath: Path):
             nd = G.nodes.get(node_name, {})
             path_data["nodes"].append({
                 "name": node_name,
+                "display_name": _display(G, node_name),
                 "node_type": nd.get('node_type', ''),
                 "gate_func": nd.get('gate_func', ''),
                 "source_file": nd.get('source_file', ''),
@@ -891,18 +1318,31 @@ def main():
 
     result = ParseResult()
 
+    # Phase 1: Parse computed methods first so their global nodes exist
+    # when we parse the gate files
+    print("\nParsing computed methods...")
+    for fname in COMPUTED_METHOD_FILES:
+        filepath = GATEBOY_SRC / fname
+        parse_computed_methods(filepath, result)
+
+    print(f"  Computed method nodes: {len(result.computed_methods)}")
+
+    # Phase 2: Parse all gate logic files
     print("\nParsing source files...")
     for fname in GATE_FILES:
         filepath = GATEBOY_SRC / fname
         parse_file(filepath, result)
 
     print(f"\nRaw parse: {len(result.nodes)} nodes, {len(result.edges)} edges")
+    scoped_wire_count = sum(len(v) for v in result.wire_scopes.values())
+    dup_wire_names = sum(1 for v in result.wire_scopes.values() if len(v) > 1)
+    print(f"  Scoped wires: {scoped_wire_count} ({dup_wire_names} wire names appear in multiple files)")
 
     # Classify gate_output nodes as combinatorial
     classify_gate_outputs(result)
 
-    # Resolve edges
-    unknown = resolve_edges(result)
+    # Resolve edges with file-scoped lookup
+    unknown = resolve_scoped_edges(result)
     print(f"Resolved edges: {len(result.edges)} (removed refs to {len(unknown)} unknown signals)")
 
     if unknown:
@@ -929,7 +1369,7 @@ def main():
     DAG, removed_edges = build_dag_for_analysis(G)
     print(f"  Removed {len(removed_edges)} edges to break cycles")
     for src, dst in removed_edges[:10]:
-        print(f"    {src} -> {dst}")
+        print(f"    {_display(G, src)} -> {_display(G, dst)}")
 
     # Critical path analysis
     print("\nFinding critical paths...")
@@ -954,7 +1394,7 @@ def main():
     # Write stats
     stats_path = Path("docs/graph-stats.md")
     with open(stats_path, 'w') as f:
-        f.write("# GateBoy PPU Dependency Graph — Statistics\n\n")
+        f.write("# GateBoy PPU Dependency Graph -- Statistics\n\n")
         f.write(f"| Metric | Value |\n")
         f.write(f"|--------|-------|\n")
         f.write(f"| Total nodes | {stats['total_nodes']} |\n")
@@ -974,7 +1414,7 @@ def main():
             f.write("These edges were removed to create a DAG for path analysis.\n")
             f.write("They represent feedback loops (typically through async set/reset of DFFs).\n\n")
             for src, dst in removed_edges:
-                f.write(f"- `{src}` → `{dst}`\n")
+                f.write(f"- `{_display(G, src)}` -> `{_display(G, dst)}`\n")
 
     print(f"Stats written to {stats_path}")
 

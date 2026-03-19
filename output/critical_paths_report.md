@@ -1,155 +1,850 @@
 # GateBoy PPU Critical Combinatorial Paths
 
-Static analysis of the GateBoy gate-level simulator to identify deep combinatorial
-paths in the PPU that may exhibit propagation delay effects on real hardware.
+Ranked by combinatorial gate depth between registered elements.
+
+Showing top 30 of 1270 paths with depth >= 1.
 
 ## Timing Reference
 
 - Game Boy master clock: 4.194304 MHz
-- T-cycle period: ~238.4 ns (one full machine cycle = 4 T-cycles = ~953.7 ns)
+- T-cycle period: ~238.4 ns
 - Half T-cycle: ~119.2 ns
-- Estimated gate delay (Sharp SM83 CMOS process, ~5µm): **5-15 ns per gate**
-- Paths exceeding ~8 gates (40-120 ns) approach the half T-cycle boundary
+- Estimated gate delay (Sharp CMOS): 5-15 ns per gate
+- Paths exceeding ~8-24 gates may cause signals to arrive late
 
-## Summary
+## Depth Distribution
 
-| Category | Paths | Max Depth | Max Delay (worst) | Key Signals |
-|----------|-------|-----------|-------------------|-------------|
-| VRAM Bus | 51 | 14 | 210 ns | CPU→VRAM data transfer |
-| Sprite System | 268 | 12 | 180 ns | Sprite match, SCX fine match |
-| Scroll/Window | 23 | 12 | 180 ns | PAHO_X8_SYNC, fine scroll |
-| Pixel Pipeline | 80 | 12 | 180 ns | Sprite pipe shift, palette |
-| Pixel Counter | 100 | 12 | 180 ns | XEHO..SYBE (PX0-PX7) |
-| Interrupts | 6 | 12 | 180 ns | STAT interrupt from PX match |
-| Tile Fetcher | 30 | 11 | 165 ns | Window fetch trigger, BFETCH |
-| OAM Bus | 86 | 11 | 165 ns | OAM write signals |
-| DMA | 21 | 10 | 150 ns | DMA address registers |
-| LCD/STAT Timing | 26 | 10 | 150 ns | LYC register writes, STAT |
+| Depth | Count | Est. Delay (min) | Est. Delay (max) | % of Half T-cycle |
+|-------|-------|-------------------|-------------------|--------------------|
+| 19 | 1 | 95 ns | 285 ns | 239% **CRITICAL** |
+| 17 | 87 | 85 ns | 255 ns | 214% **CRITICAL** |
+| 16 | 57 | 80 ns | 240 ns | 201% **CRITICAL** |
+| 15 | 12 | 75 ns | 225 ns | 189% **CRITICAL** |
+| 14 | 29 | 70 ns | 210 ns | 176% **CRITICAL** |
+| 13 | 23 | 65 ns | 195 ns | 164% **CRITICAL** |
+| 12 | 1 | 60 ns | 180 ns | 151% **CRITICAL** |
+| 11 | 7 | 55 ns | 165 ns | 138% **CRITICAL** |
+| 10 | 130 | 50 ns | 150 ns | 126% **CRITICAL** |
+| 9 | 44 | 45 ns | 135 ns | 113% **CRITICAL** |
+| 8 | 45 | 40 ns | 120 ns | 101% **CRITICAL** |
+| 7 | 71 | 35 ns | 105 ns | 88% **CRITICAL** |
+| 6 | 314 | 30 ns | 90 ns | 76% **CRITICAL** |
+| 5 | 73 | 25 ns | 75 ns | 63% **CRITICAL** |
+| 4 | 53 | 20 ns | 60 ns | 50% **CRITICAL** |
+| 3 | 24 | 15 ns | 45 ns | 38% |
+| 2 | 181 | 10 ns | 30 ns | 25% |
+| 1 | 118 | 5 ns | 15 ns | 13% |
 
-## Analysis by Functional Area
+## Top 30 Deepest Paths
 
-### 1. VRAM Bus Data Path (depth 14)
-
-The deepest PPU-relevant path is the CPU-to-VRAM data transfer:
-
-```
-[REG]  AFUR_ABCDxxxx         — Clock phase register
- [not1]  ATYP_ABCDxxxx       — Clock inversion
-  [not1]  AJAX_xxxxEFGH      — Phase decode
-   [or_and3] AGUT_xxCDEFGH   — Phase gating
-    [nor2]  AWOD_ABxxxxxx     — Phase window
-     [not1]  ABUZ_EXT_RAM_CS  — RAM chip select timing
-      [nand2] TUCA_CPU_VRAM_RDp — VRAM read enable
-       [not1]  TOLE_CPU_VRAM_RDp
-        [and2]  SERE_CPU_VRAM_RDp — Combined VRAM read
-         [and2]  SAZO_CBD_TO_VPDp — CPU-bus-to-VRAM-data enable
-          [not1]  RYJE → [not1] REVO → [and2] ROCY → [not1] RAHU
-           [tri10_np] TEME_CD0_TO_VD0 — Tri-state driver
-            [BUS]  BUS_VRAM_D0-7p   — VRAM data bus
-```
-
-**Impact:** This path controls when CPU write data appears on the VRAM data bus. At 14 gates deep (70-210 ns), the data may not be stable on the VRAM bus before the write strobe closes. This could explain why VRAM writes during rendering have timing-sensitive effects — the data bus settling time competes with the rendering hardware's VRAM reads.
-
-### 2. Pixel Pipe Clock & Fine Scroll (depth 12)
-
-The pixel pipe shift clock (`CLKPIPE`) has a 12-gate path:
+### Path 1: Depth 19 (95-285 ns, 239% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `LAXU_BFETCH_S0p_odd` (registered, dff17_any)
+**Source file:** `GateBoyReset.cpp:34`
 
 ```
-[REG]  ARYS_xBxDxFxH        — Clock source (registered)
-  [nand2] AVET_AxCxExGx     — Phase gen
-   [not1] ATAL → [not1] AZOF → [not1] ZAXY → [not1] ZEME → [not1] ALET
-    — 5 inverter chain for clock buffering
-     [not1] MYVO_AxCxExGx
-      [nor3] VYBO_CLKPIPE    — Pipe clock gate (rendering + fetch state)
-       [and3] TYFA_CLKPIPE   — Combined clock enable
-        [not1] SEGU_CLKPIPE  — Pixel pipe shift clock
-         [not1] ROXO_CLKPIPE — Inverted pipe clock
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [nor2] ANOM_LINE_RSTn_odd_new  (GateBoy.cpp:754)
+                              [not1] BALU_LINE_RSTp_odd_new  (GateBoy.cpp:755)
+                                [or3] BEBU_SCAN_DONE_tn_odd_new  (GateBoy.cpp:767)
+                                  [not1] AVAP_SCAN_DONE_tp_odd  (GateBoy.cpp:768)
+                                    [nor3] NYXU_BFETCH_RSTn  (GateBoy.cpp:1181)
+                                      [nand3] MOCE_BFETCH_DONEn  (GateBoy.cpp:1195)
+                                        [nand2] LEBO_ODD  (GateBoy.cpp:1185)
+                                          [REGISTERED] LAXU_BFETCH_S0p_odd  (GateBoy.cpp:1188)
 ```
 
-**Key sinks from CLKPIPE:**
-- `PUXA_SCX_FINE_MATCH` (depth 12) — SCX fine scroll match detection
-- `PAHO_X8_SYNC` (depth 12) — Pixel X=8 sync (left margin end)
-- `XEHO_PX0p` through `SYBE_PX7p` (depth 12) — Pixel counter bits
-- `NURO_SPR_PIPE_A0` etc. (depth 12) — Sprite pipe shift register
-- `RYFA_WIN_FETCHn_A` (depth 11) — Window fetch trigger
-
-**Impact:** The pixel pipe clock is the beating heart of the PPU's rendering phase. Every pixel's output timing depends on this 12-gate chain settling. A 60-180 ns delay here directly affects:
-- When fine scroll comparison triggers (SCX low 3 bits)
-- When the pixel counter crosses X=8 (left margin/window)
-- When sprite pipe pixels shift out
-- When window fetching begins
-
-This is a prime candidate for one-dot timing discrepancies. In a behavioral emulator, CLKPIPE fires instantly, but on real hardware the 5-inverter clock buffer chain alone adds 25-75 ns of delay before the pipe clock is even generated.
-
-### 3. Sprite X-Position Match (depth 12)
-
-The sprite match system has depth-12 paths involving the pixel counter:
+### Path 2: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `SIG_CPU_CLKREQ` (boundary, )
+**Sink:** `SIG_CPU_BOWA_Axxxxxxx` (boundary, )
+**Source file:** `GateBoy.cpp:685`
 
 ```
-[CLKPIPE chain, depth 10] → XEHO_PX0p → ... → sprite X comparator
+  [BOUNDARY] SIG_CPU_CLKREQ  (GateBoy.cpp:685)
+    [not1] ABOL_CLKREQn  (GateBoyClocks.cpp:51)
+      [nor3] BAPY_xxxxxxGH  (GateBoyClocks.cpp:58)
+        [not1] BERU_ABCDEFxx  (GateBoyClocks.cpp:65)
+          [not1] BUFA_xxxxxxGH  (GateBoyClocks.cpp:66)
+            [not1] BOLO_ABCDEFxx  (GateBoyClocks.cpp:67)
+              [nand4] BEJA_xxxxEFGH  (GateBoyClocks.cpp:72)
+                [not1] BANE_ABCDxxxx  (GateBoyClocks.cpp:73)
+                  [not1] BELO_xxxxEFGH  (GateBoyClocks.cpp:74)
+                    [not1] BAZE_ABCDxxxx  (GateBoyClocks.cpp:75)
+                      [nand3] BUTO_xBCDEFGH  (GateBoyClocks.cpp:76)
+                        [not1] BELE_Axxxxxxx  (GateBoyClocks.cpp:77)
+                          [or2] BYJU_Axxxxxxx  (GateBoyClocks.cpp:78)
+                            [not1] BALY_xBCDEFGH  (GateBoyClocks.cpp:79)
+                              [and2] BUVU_Axxxxxxx  (GateBoyClocks.cpp:81)
+                                [not1] BYXO_xBCDEFGH  (GateBoyClocks.cpp:82)
+                                  [not1] BEDO_Axxxxxxx  (GateBoyClocks.cpp:83)
+                                    [not1] BOWA_xBCDEFGH  (GateBoyClocks.cpp:84)
+                                      [BOUNDARY] SIG_CPU_BOWA_Axxxxxxx  (GateBoyClocks.cpp:88)
 ```
 
-The pixel counter feeds into sprite X-position comparators (10 sprites × 8 bits each). The full path from clock register to sprite match decision is 12 gates deep. This means:
-- Sprite match signals arrive late relative to the pixel pipe clock
-- The "one-dot" offset for sprite rendering start could be partially explained by this propagation delay
-- Different sprites at different X positions have the same depth (the comparator is parallel), but the match-priority encoder adds further depth
-
-### 4. STAT Interrupt from Pixel Match (depth 12)
+### Path 3: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `BESU_SCAN_DONEn_odd` (registered, nor_latch)
+**Source file:** `GateBoyReset.cpp:34`
 
 ```
-XEHO_PX0p → [mode transition logic] → LALU_FF0F_D1p (STAT interrupt)
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [nor2] ANOM_LINE_RSTn_odd_new  (GateBoy.cpp:754)
+                              [not1] BALU_LINE_RSTp_odd_new  (GateBoy.cpp:755)
+                                [or3] BEBU_SCAN_DONE_tn_odd_new  (GateBoy.cpp:767)
+                                  [not1] AVAP_SCAN_DONE_tp_odd  (GateBoy.cpp:768)
+                                    [or2] ASEN_SCAN_DONE_tp_odd_new  (GateBoy.cpp:770)
+                                      [REGISTERED] BESU_SCAN_DONEn_odd  (GateBoy.cpp:771)
 ```
 
-The STAT interrupt for H-blank is generated from mode transition logic that depends on the pixel counter (which depends on CLKPIPE). At depth 12, the interrupt request arrives ~60-180 ns after the clock edge, which can shift the apparent timing of STAT interrupt relative to other events by one or more dots.
-
-### 5. Window Fetch Trigger (depth 11)
-
-```
-[CLKPIPE chain] → RYFA_WIN_FETCHn_A
-```
-
-Window fetch start depends on CLKPIPE and the window position comparator. At depth 11 (55-165 ns), the window fetch trigger arrives after the pixel pipe has already shifted — the window's first pixel may appear one dot later than expected.
-
-### 6. LCD/STAT Register Writes (depth 10)
-
-CPU writes to LYC, SCX, SCY, and other PPU registers go through a 10-gate path from clock phase registers:
+### Path 4: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `LOVY_TFETCH_DONEp` (registered, dff17)
+**Source file:** `GateBoyReset.cpp:34`
 
 ```
-ADYK_xxxDEFGx → [clock decode] → [CPU write enable] → [register DFF]
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [nor2] ANOM_LINE_RSTn_odd_new  (GateBoy.cpp:754)
+                              [not1] BALU_LINE_RSTp_odd_new  (GateBoy.cpp:755)
+                                [or3] BEBU_SCAN_DONE_tn_odd_new  (GateBoy.cpp:767)
+                                  [not1] AVAP_SCAN_DONE_tp_odd  (GateBoy.cpp:768)
+                                    [nor3] NYXU_BFETCH_RSTn  (GateBoy.cpp:1181)
+                                      [REGISTERED] LOVY_TFETCH_DONEp  (GateBoy.cpp:1193)
 ```
 
-The 10-gate depth (50-150 ns) means register write values settle late within the T-cycle. This can cause race conditions where a write to SCX during rendering might not take effect until the next dot.
+### Path 5: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `LAXU_BFETCH_S0p_odd` (registered, dff17_any)
+**Source file:** `GateBoyReset.cpp:34`
 
-## Paths of Special Interest for Emulator Timing
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [nor2] ANOM_LINE_RSTn_odd_new  (GateBoy.cpp:754)
+                              [not1] BALU_LINE_RSTp_odd_new  (GateBoy.cpp:755)
+                                [or3] BEBU_SCAN_DONE_tn_odd_new  (GateBoy.cpp:767)
+                                  [not1] AVAP_SCAN_DONE_tp_odd  (GateBoy.cpp:768)
+                                    [nor3] NYXU_BFETCH_RSTn  (GateBoy.cpp:1181)
+                                      [REGISTERED] LAXU_BFETCH_S0p_odd  (GateBoy.cpp:1188)
+```
 
-### The "One Dot" Candidates
+### Path 6: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `LONY_TFETCHINGp` (registered, nand_latch)
+**Source file:** `GateBoyReset.cpp:34`
 
-These paths are most likely to cause signals to arrive one dot (one T-cycle = ~238 ns) late:
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [nor2] ANOM_LINE_RSTn_odd_new  (GateBoy.cpp:754)
+                              [not1] BALU_LINE_RSTp_odd_new  (GateBoy.cpp:755)
+                                [or3] BEBU_SCAN_DONE_tn_odd_new  (GateBoy.cpp:767)
+                                  [not1] AVAP_SCAN_DONE_tp_odd  (GateBoy.cpp:768)
+                                    [nor3] NYXU_BFETCH_RSTn  (GateBoy.cpp:1181)
+                                      [REGISTERED] LONY_TFETCHINGp  (GateBoy.cpp:1199)
+```
 
-1. **CLKPIPE → Pixel Counter → Sprite Match** (depth 12, 60-180 ns)
-   - If the worst-case delay exceeds half a T-cycle, the sprite match signal doesn't settle before the next clock edge, effectively delaying it by one dot.
+### Path 7: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `XEPE_STORE0_X0p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-2. **CLKPIPE → SCX Fine Match** (depth 12, 60-180 ns)
-   - Fine scroll comparison result arrives late, potentially shifting the visible start of background tiles.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] XEPE_STORE0_X0p  (GateBoySpriteStore.cpp:105)
+```
 
-3. **CLKPIPE → Window Fetch Trigger** (depth 11, 55-165 ns)
-   - Window appearance may be delayed by one dot due to late trigger.
+### Path 8: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `YLAH_STORE0_X1p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-4. **Clock → VRAM Bus Data** (depth 14, 70-210 ns)
-   - CPU VRAM writes during rendering may not be visible to the PPU until one dot later.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] YLAH_STORE0_X1p  (GateBoySpriteStore.cpp:106)
+```
 
-### The Inverter Chain Tax
+### Path 9: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `ZOLA_STORE0_X2p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-A significant portion of every deep path is clock buffering inverter chains (5-8 gates of just `not1 → not1 → not1`). In real silicon, these are deliberate clock tree buffers — they're there to drive the high fan-out clock signals. The delay they add is a real physical effect but it's a constant offset, not signal-dependent. A behavioral emulator could model this as a fixed clock skew rather than per-signal delay.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] ZOLA_STORE0_X2p  (GateBoySpriteStore.cpp:107)
+```
 
-## Caveats
+### Path 10: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `ZULU_STORE0_X3p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-1. **Gate delay estimates are rough.** The 5-15 ns range assumes basic CMOS gates in Sharp's ~5µm process. Actual delays depend on fan-out, wire length, and VCC.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] ZULU_STORE0_X3p  (GateBoySpriteStore.cpp:108)
+```
 
-2. **Not all gates are equal.** NOR/NAND gates with 4+ inputs are slower than inverters. Our depth count treats all gates equally — a weighted model would give more accurate relative rankings.
+### Path 11: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `WELO_STORE0_X4p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-3. **The parser captures ~85% of signals.** Some computed methods on state structs (e.g., `XAPO_VID_RSTn_new()`) are resolved but not all cross-function references are fully traced. The reported depths are lower bounds.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] WELO_STORE0_X4p  (GateBoySpriteStore.cpp:109)
+```
 
-4. **Feedback loops were broken.** 62 edges were removed to create the DAG. These represent async set/reset paths through DFFs — real hardware feedback that we linearize for analysis. The removed edges are mostly in interrupt logic and bus arbitration.
+### Path 12: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `XUNY_STORE0_X5p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
 
-5. **Temporal boundaries are respected.** Reads from `reg_old` (previous tick) are treated as registered boundaries. This is correct for synchronous paths but may undercount delays in asynchronous control paths.
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] XUNY_STORE0_X5p  (GateBoySpriteStore.cpp:110)
+```
+
+### Path 13: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `WOTE_STORE0_X6p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] WOTE_STORE0_X6p  (GateBoySpriteStore.cpp:111)
+```
+
+### Path 14: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `XAKO_STORE0_X7p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] DYWE_STORE0_RSTp  (GateBoySpriteStore.cpp:72)
+                                    [not1] DYNA_STORE0_RSTn  (GateBoySpriteStore.cpp:83)
+                                      [REGISTERED] XAKO_STORE0_X7p  (GateBoySpriteStore.cpp:112)
+```
+
+### Path 15: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DANY_STORE1_X0p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DANY_STORE1_X0p  (GateBoySpriteStore.cpp:114)
+```
+
+### Path 16: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DUKO_STORE1_X1p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DUKO_STORE1_X1p  (GateBoySpriteStore.cpp:115)
+```
+
+### Path 17: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DESU_STORE1_X2p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DESU_STORE1_X2p  (GateBoySpriteStore.cpp:116)
+```
+
+### Path 18: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DAZO_STORE1_X3p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DAZO_STORE1_X3p  (GateBoySpriteStore.cpp:117)
+```
+
+### Path 19: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DAKE_STORE1_X4p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DAKE_STORE1_X4p  (GateBoySpriteStore.cpp:118)
+```
+
+### Path 20: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `CESO_STORE1_X5p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] CESO_STORE1_X5p  (GateBoySpriteStore.cpp:119)
+```
+
+### Path 21: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DYFU_STORE1_X6p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] DYFU_STORE1_X6p  (GateBoySpriteStore.cpp:120)
+```
+
+### Path 22: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `CUSY_STORE1_X7p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] EFEV_STORE1_RSTp  (GateBoySpriteStore.cpp:73)
+                                    [not1] DOKU_STORE1_RSTn  (GateBoySpriteStore.cpp:84)
+                                      [REGISTERED] CUSY_STORE1_X7p  (GateBoySpriteStore.cpp:121)
+```
+
+### Path 23: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `FOKA_STORE2_X0p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] FOKA_STORE2_X0p  (GateBoySpriteStore.cpp:123)
+```
+
+### Path 24: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `FYTY_STORE2_X1p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] FYTY_STORE2_X1p  (GateBoySpriteStore.cpp:124)
+```
+
+### Path 25: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `FUBY_STORE2_X2p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] FUBY_STORE2_X2p  (GateBoySpriteStore.cpp:125)
+```
+
+### Path 26: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `GOXU_STORE2_X3p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] GOXU_STORE2_X3p  (GateBoySpriteStore.cpp:126)
+```
+
+### Path 27: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DUHY_STORE2_X4p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] DUHY_STORE2_X4p  (GateBoySpriteStore.cpp:127)
+```
+
+### Path 28: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `EJUF_STORE2_X5p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] EJUF_STORE2_X5p  (GateBoySpriteStore.cpp:128)
+```
+
+### Path 29: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `ENOR_STORE2_X6p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] ENOR_STORE2_X6p  (GateBoySpriteStore.cpp:129)
+```
+
+### Path 30: Depth 17 (85-255 ns, 214% of half T-cycle)
+**Source:** `AFER_SYS_RSTp` (registered, dff13)
+**Sink:** `DEPY_STORE2_X7p` (registered, dff9)
+**Source file:** `GateBoyReset.cpp:34`
+
+```
+  [REGISTERED] AFER_SYS_RSTp  (GateBoyReset.cpp:34)
+    [or2] AVOR_SYS_RSTp  (GateBoyState.cpp:14)
+      [not1] ALUR_SYS_RSTn  (GateBoyState.cpp:14)
+        [not1] DULA_SYS_RSTp  (GateBoyState.cpp:14)
+          [not1] CUNU_SYS_RSTn  (GateBoyState.cpp:14)
+            [not1] XORE_SYS_RSTp  (GateBoyState.cpp:14)
+              [not1] XEBE_SYS_RSTn  (GateBoyState.cpp:14)
+                [nand2] XODO_VID_RSTp  (GateBoyState.cpp:14)
+                  [not1] XAPO_VID_RSTn_new  (GateBoyState.cpp:14)
+                    [not1] ATAR_VID_RSTp_new  (GateBoyState.cpp:29)
+                      [not1] ABEZ_VID_RSTn_new  (GateBoyState.cpp:32)
+                        [or_and3] BYHA_LINE_RST_TRIGn_odd  (GateBoyLCD.cpp:121)
+                          [not1] ATEJ_LINE_RST_TRIGp_odd  (GateBoyLCD.cpp:122)
+                            [or2] ABAK_LINE_RSTp  (GateBoy.cpp:1035)
+                              [not1] BYVA_LINE_RSTn  (GateBoy.cpp:1036)
+                                [not1] DYBA_LINE_RSTp  (GateBoySpriteStore.cpp:71)
+                                  [or2] FOKO_STORE2_RSTp  (GateBoySpriteStore.cpp:74)
+                                    [not1] GAMY_STORE2_RSTn  (GateBoySpriteStore.cpp:85)
+                                      [REGISTERED] DEPY_STORE2_X7p  (GateBoySpriteStore.cpp:130)
+```
