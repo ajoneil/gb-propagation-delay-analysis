@@ -77384,7 +77384,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77478,7 +77478,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77572,7 +77572,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77666,7 +77666,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77760,7 +77760,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77854,7 +77854,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -77948,7 +77948,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -78042,7 +78042,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -78136,7 +78136,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4,
+        "fan_out": 1,
         "phase": ""
       },
       {
@@ -78194,42 +78194,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78288,42 +78288,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78382,42 +78382,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78476,42 +78476,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78570,42 +78570,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78664,42 +78664,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78758,42 +78758,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78852,42 +78852,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -78946,42 +78946,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79040,42 +79040,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79134,42 +79134,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79228,42 +79228,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79322,42 +79322,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79416,42 +79416,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79510,42 +79510,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79604,42 +79604,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79698,42 +79698,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79792,42 +79792,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79886,42 +79886,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -79980,42 +79980,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -80074,42 +80074,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -80168,42 +80168,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -80262,42 +80262,42 @@
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
         "display_name": "ALUR_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
         "display_name": "DULA_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
         "fan_out": 1,
         "phase": ""
       },
       {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
         "fan_out": 4,
         "phase": ""
       },
@@ -80392,7 +80392,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyInterrupts.cpp",
         "source_line": 40,
-        "fan_out": 1,
+        "fan_out": 4,
         "phase": ""
       },
       {
@@ -80486,7 +80486,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyInterrupts.cpp",
         "source_line": 40,
-        "fan_out": 1,
+        "fan_out": 4,
         "phase": ""
       },
       {
@@ -80580,7 +80580,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyInterrupts.cpp",
         "source_line": 40,
-        "fan_out": 1,
+        "fan_out": 4,
         "phase": ""
       },
       {
@@ -80674,7 +80674,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyInterrupts.cpp",
         "source_line": 40,
-        "fan_out": 1,
+        "fan_out": 4,
         "phase": ""
       },
       {
@@ -111869,80 +111869,6 @@
     "max_delay_ns": 60,
     "pct_half_tcycle": 50.3,
     "source": "AFER_SYS_RSTp",
-    "sink": "SOTO_DBG_VRAMp",
-    "source_phase": "",
-    "sink_phase": "",
-    "is_reset": true,
-    "category": "VRAM Bus",
-    "nodes": [
-      {
-        "name": "AFER_SYS_RSTp",
-        "display_name": "AFER_SYS_RSTp",
-        "node_type": "registered",
-        "gate_func": "",
-        "source_file": "GateBoyReset.cpp",
-        "source_line": 34,
-        "fan_out": 13,
-        "phase": ""
-      },
-      {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
-        "display_name": "AVOR_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
-        "fan_out": 1,
-        "phase": ""
-      },
-      {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1,
-        "phase": ""
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1,
-        "phase": ""
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
-        "display_name": "CUNU_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4,
-        "phase": ""
-      },
-      {
-        "name": "SOTO_DBG_VRAMp",
-        "display_name": "SOTO_DBG_VRAMp",
-        "node_type": "registered",
-        "gate_func": "",
-        "source_file": "GateBoyReset.cpp",
-        "source_line": 55,
-        "fan_out": 1,
-        "phase": ""
-      }
-    ]
-  },
-  {
-    "depth": 4,
-    "min_delay_ns": 20,
-    "max_delay_ns": 60,
-    "pct_half_tcycle": 50.3,
-    "source": "AFER_SYS_RSTp",
     "sink": "LENE_DMA_TRIG_d4_odd",
     "source_phase": "",
     "sink_phase": "ODD",
@@ -112165,6 +112091,80 @@
     "max_delay_ns": 60,
     "pct_half_tcycle": 50.3,
     "source": "AFER_SYS_RSTp",
+    "sink": "SOTO_DBG_VRAMp",
+    "source_phase": "",
+    "sink_phase": "",
+    "is_reset": true,
+    "category": "VRAM Bus",
+    "nodes": [
+      {
+        "name": "AFER_SYS_RSTp",
+        "display_name": "AFER_SYS_RSTp",
+        "node_type": "registered",
+        "gate_func": "",
+        "source_file": "GateBoyReset.cpp",
+        "source_line": 34,
+        "fan_out": 13,
+        "phase": ""
+      },
+      {
+        "name": "GateBoyInterrupts:AVOR_SYS_RSTp",
+        "display_name": "AVOR_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "or2",
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 37,
+        "fan_out": 1,
+        "phase": ""
+      },
+      {
+        "name": "GateBoyInterrupts:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 38,
+        "fan_out": 6,
+        "phase": ""
+      },
+      {
+        "name": "GateBoyInterrupts:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 39,
+        "fan_out": 1,
+        "phase": ""
+      },
+      {
+        "name": "GateBoyInterrupts:CUNU_SYS_RSTn",
+        "display_name": "CUNU_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyInterrupts.cpp",
+        "source_line": 40,
+        "fan_out": 4,
+        "phase": ""
+      },
+      {
+        "name": "SOTO_DBG_VRAMp",
+        "display_name": "SOTO_DBG_VRAMp",
+        "node_type": "registered",
+        "gate_func": "",
+        "source_file": "GateBoyReset.cpp",
+        "source_line": 55,
+        "fan_out": 1,
+        "phase": ""
+      }
+    ]
+  },
+  {
+    "depth": 4,
+    "min_delay_ns": 20,
+    "max_delay_ns": 60,
+    "pct_half_tcycle": 50.3,
+    "source": "AFER_SYS_RSTp",
     "sink": "GAVE_SCY0p",
     "source_phase": "",
     "sink_phase": "",
@@ -112198,7 +112198,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112272,7 +112272,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112346,7 +112346,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112420,7 +112420,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112494,7 +112494,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112568,7 +112568,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112642,7 +112642,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112716,7 +112716,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112790,7 +112790,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112864,7 +112864,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -112938,7 +112938,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -113012,7 +113012,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -113086,7 +113086,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -113160,7 +113160,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -113234,7 +113234,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -113308,7 +113308,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyVramBus.cpp",
         "source_line": 12,
-        "fan_out": 1,
+        "fan_out": 11,
         "phase": ""
       },
       {
@@ -117494,7 +117494,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {
@@ -117548,7 +117548,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {
@@ -117602,7 +117602,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {
@@ -117656,7 +117656,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {
@@ -117710,7 +117710,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {
@@ -117764,7 +117764,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyJoypad.cpp",
         "source_line": 15,
-        "fan_out": 16,
+        "fan_out": 6,
         "phase": ""
       },
       {

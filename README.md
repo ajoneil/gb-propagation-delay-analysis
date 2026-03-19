@@ -33,13 +33,16 @@ docs/
   gateboy-structure.md        # GateBoy type system & naming conventions
   graph-stats.md              # Graph extraction statistics
 output/
+  critical_paths_report.md    # Overview & key findings (start here)
+  operational_paths.md        # Operational paths by functional area
+  race_pairs_report.md        # Signal race pairs with observable effects
+  reset_paths.md              # Reset-only paths (LCDC toggle / sys reset)
+  depth_distribution.md       # Path depth histogram
+  signal_concordance.md       # GateBoy ↔ Pan Docs signal name mapping
   ppu_graph.json              # Full dependency graph (nodes + edges)
   critical_paths.json         # All ranked critical paths
-  critical_paths_report.md    # Human-readable report with findings
-  critical_paths.dot          # Graphviz DOT of top paths
-  critical_paths.svg          # Rendered graph visualization
   race_pairs.json             # Signal race pair detection results
-  signal_concordance.md       # GateBoy ↔ Pan Docs signal name mapping
+  critical_paths.dot/.svg     # Graphviz visualization of top paths
 ```
 
 ## Interactive Explorer

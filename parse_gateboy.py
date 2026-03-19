@@ -1548,13 +1548,25 @@ def observable_effect(race):
     )
 
 
-def format_path_report(paths, G, races=None, max_paths=30):
-    """Format critical paths into a categorized, operationally-prioritized report."""
+def format_report_sections(paths, G, races=None, max_paths=30):
+    """Format critical paths into separate report sections.
+
+    Returns a dict of {filename: content} for each report section.
+    """
     fanout = compute_fanout(G)
     if races is None:
         races = []
-    lines = []
 
+    # Separate reset vs operational
+    reset = [(d, p) for d, p in paths if is_reset_path(p, G)]
+    operational = [(d, p) for d, p in paths if not is_reset_path(p, G)]
+
+    sections = {}
+
+    # =========================================================================
+    # OVERVIEW & KEY FINDINGS
+    # =========================================================================
+    lines = []
     lines.append("# GateBoy PPU Critical Combinatorial Paths\n")
     lines.append("Static analysis of the GateBoy gate-level simulator identifying deep")
     lines.append("combinatorial paths that may cause propagation delay on real hardware.\n")
@@ -1565,10 +1577,6 @@ def format_path_report(paths, G, races=None, max_paths=30):
     lines.append("- Half T-cycle: ~119.2 ns")
     lines.append("- Estimated gate delay (Sharp SM83 CMOS, ~5um): 5-15 ns per gate")
     lines.append("- Paths exceeding ~8 gates may cause signals to arrive late within a half T-cycle\n")
-
-    # Separate reset vs operational
-    reset = [(d, p) for d, p in paths if is_reset_path(p, G)]
-    operational = [(d, p) for d, p in paths if not is_reset_path(p, G)]
 
     lines.append("## Overview\n")
     lines.append(f"| Category | Count | Max Depth | Max Delay (worst case) |")
@@ -1583,10 +1591,6 @@ def format_path_report(paths, G, races=None, max_paths=30):
     lines.append("> Operational paths fire every dot or scanline during normal rendering and are")
     lines.append("> the ones that cause observable timing discrepancies in emulators.\n")
 
-    # =========================================================================
-    # KEY FINDINGS
-    # =========================================================================
-    lines.append("---")
     lines.append("## Key Findings for Emulator Developers\n")
 
     lines.append("### The Core Problem\n")
@@ -1595,7 +1599,7 @@ def format_path_report(paths, G, races=None, max_paths=30):
     lines.append("finite delay. When two signals feed into the same flip-flop but arrive at")
     lines.append("different times, the hardware may capture a different value than an emulator")
     lines.append("that resolves both signals simultaneously.\n")
-    lines.append("This analysis identifies **547 signal race points** where inputs to a single")
+    lines.append(f"This analysis identifies **{len(races)}** signal race points where inputs to a single")
     lines.append("decision point differ by 3 or more gate depths. The largest differentials")
     lines.append("exceed a full half T-cycle, meaning the late signal may not settle before")
     lines.append("the next clock edge.\n")
@@ -1634,11 +1638,21 @@ def format_path_report(paths, G, races=None, max_paths=30):
     lines.append("  exist, not *when* they fire during a frame. Cross-referencing with specific")
     lines.append("  test ROM failures would validate which races produce observable effects.\n")
 
+    lines.append("## Report Files\n")
+    lines.append("- [Operational Paths](operational_paths.md) — per-dot/per-scanline paths grouped by functional area")
+    lines.append("- [Signal Race Pairs](race_pairs_report.md) — timing races with observable effects")
+    lines.append("- [Reset Paths](reset_paths.md) — paths that only fire on system reset / LCDC toggle")
+    lines.append("- [Depth Distribution](depth_distribution.md) — histogram of path depths")
+
+    sections['critical_paths_report.md'] = "\n".join(lines)
+
     # =========================================================================
     # OPERATIONAL PATHS — grouped by category
     # =========================================================================
-    lines.append("---")
-    lines.append("## Operational Paths (by functional area)\n")
+    lines = []
+    lines.append("# Operational Paths (by functional area)\n")
+    lines.append("Paths that fire every dot or scanline during normal rendering.")
+    lines.append("These are the ones that cause observable timing discrepancies in emulators.\n")
 
     # Categorize operational paths
     categories = {}
@@ -1734,11 +1748,13 @@ def format_path_report(paths, G, races=None, max_paths=30):
             lines.append("")
             shown += 1
 
+    sections['operational_paths.md'] = "\n".join(lines)
+
     # =========================================================================
     # RESET PATHS — summary only
     # =========================================================================
-    lines.append("---")
-    lines.append("## Reset Paths (summary)\n")
+    lines = []
+    lines.append("# Reset Paths\n")
     lines.append("These paths only fire on system reset or LCDC bit 7 toggle. They all share")
     lines.append("the VID_RST inverter chain prefix (8 gates from AFER_SYS_RSTp through XAPO/ATAR/ABEZ).\n")
 
@@ -1767,12 +1783,14 @@ def format_path_report(paths, G, races=None, max_paths=30):
         lines.append(format_path_trace(path, G, fanout))
         lines.append("")
 
+    sections['reset_paths.md'] = "\n".join(lines)
+
     # =========================================================================
     # SIGNAL RACE PAIRS
     # =========================================================================
+    lines = []
     if races:
-        lines.append("---")
-        lines.append("## Signal Race Pairs\n")
+        lines.append("# Signal Race Pairs\n")
         lines.append("A race pair occurs when a registered element (DFF/latch) has two or more inputs")
         lines.append("that arrive at significantly different combinatorial depths. In real hardware,")
         lines.append("the late-arriving signal may not be stable when the DFF samples. A behavioral")
@@ -1939,11 +1957,13 @@ def format_path_report(paths, G, races=None, max_paths=30):
 
             shown += 1
 
+    sections['race_pairs_report.md'] = "\n".join(lines)
+
     # =========================================================================
     # DEPTH DISTRIBUTION
     # =========================================================================
-    lines.append("---")
-    lines.append("## Depth Distribution (all paths)\n")
+    lines = []
+    lines.append("# Depth Distribution (all paths)\n")
 
     depth_counts_op = {}
     for depth, _ in operational:
@@ -1966,7 +1986,9 @@ def format_path_report(paths, G, races=None, max_paths=30):
         lines.append(f"| {d} | {op_count} | {rst_count} | {total} | {max_delay} ns | {pct:.0f}%{flag} |")
     lines.append("")
 
-    return "\n".join(lines)
+    sections['depth_distribution.md'] = "\n".join(lines)
+
+    return sections
 
 
 # ============================================================================
@@ -2226,12 +2248,13 @@ def main():
         json.dump(races, f, indent=2)
     print(f"Race pairs exported to {race_path}")
 
-    # Write human-readable report
-    report = format_path_report(paths, G, races)
-    report_path = out_dir / "critical_paths_report.md"
-    with open(report_path, 'w') as f:
-        f.write(report)
-    print(f"Report written to {report_path}")
+    # Write human-readable report (split into sections)
+    report_sections = format_report_sections(paths, G, races)
+    for filename, content in report_sections.items():
+        report_path = out_dir / filename
+        with open(report_path, 'w') as f:
+            f.write(content)
+        print(f"Report section written to {report_path}")
 
     # Export DOT graph
     export_dot(paths, G, out_dir / "critical_paths.dot")
