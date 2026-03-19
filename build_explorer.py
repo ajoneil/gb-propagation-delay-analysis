@@ -579,9 +579,15 @@ input[type="search"] {{ width: 260px; }}
   font-size: 10px;
   cursor: pointer;
 }}
-.badge-die:hover {{
+.badge-die:hover, .badge-netlist:hover {{
   background: #3d2f4d;
   text-decoration: none;
+}}
+.badge-netlist {{
+  background: #1d2f3d;
+  color: #79c0ff;
+  font-size: 10px;
+  cursor: pointer;
 }}
 .friendly-name {{
   display: block;
@@ -832,8 +838,10 @@ function dieLink(displayName) {{
   const m = displayName.match(/^([A-Z]{{4}})/);
   if (!m) return '';
   const cell = m[1].toLowerCase();
-  const url = `https://iceboy.a-singer.de/dmg_cpu_b_map/?view=c:${{cell}}`;
-  return `<a href="${{url}}" target="_blank" rel="noopener" class="badge badge-die" title="View ${{m[1]}} on die photo">Die</a>`;
+  const dieUrl = `https://iceboy.a-singer.de/dmg_cpu_b_map/?view=c:${{cell}}`;
+  const netUrl = `https://iceboy.a-singer.de/doc/dmg_cpu_b_netlist.html#c_${{cell}}`;
+  return `<a href="${{dieUrl}}" target="_blank" rel="noopener" class="badge badge-die" title="View ${{m[1]}} on die photo">Die</a>`
+       + `<a href="${{netUrl}}" target="_blank" rel="noopener" class="badge badge-netlist" title="View ${{m[1]}} netlist connections">Netlist</a>`;
 }}
 
 function pandocsLink(signalName) {{
