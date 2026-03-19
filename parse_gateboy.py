@@ -1218,19 +1218,12 @@ def find_race_pairs(DAG, G):
         diff = max_d - min_d
 
         if diff >= 3 and max_d >= 4:
-            # Extract phase annotation from signal names
-            def get_phase(node_name):
-                dn = _display(G, node_name)
-                if '_odd' in dn: return 'ODD'
-                if '_evn' in dn: return 'EVN'
-                m = re.search(r'([AxBCDEFGHx]{8})', dn)
-                return m.group(1) if m else ''
-
             races.append({
                 'node': n,
                 'display_name': _display(G, n),
                 'node_type': DAG.nodes[n].get('node_type', ''),
                 'reg_type': DAG.nodes[n].get('reg_type', ''),
+                'phase': get_phase(G, n),
                 'source_file': DAG.nodes[n].get('source_file', ''),
                 'source_line': DAG.nodes[n].get('source_line', 0),
                 'depth_diff': diff,
@@ -1242,7 +1235,7 @@ def find_race_pairs(DAG, G):
                         'depth': d,
                         'gate_func': DAG.nodes[p].get('gate_func', ''),
                         'node_type': DAG.nodes[p].get('node_type', ''),
-                        'phase': get_phase(p),
+                        'phase': get_phase(G, p),
                     }
                     for p, d in pred_depths
                 ],
@@ -1256,6 +1249,19 @@ def find_race_pairs(DAG, G):
 def _display(G, node_name):
     """Get display name for a node, stripping file scope prefix."""
     return G.nodes[node_name].get('display_name', '') or display_name_from_scoped(node_name)
+
+
+def get_phase(G, node_name):
+    """Extract clock phase annotation from a signal name.
+
+    Returns 'ODD', 'EVN', an 8-char clock subcycle pattern (e.g. 'AxCxExGx'),
+    or '' if no phase information is present.
+    """
+    dn = _display(G, node_name)
+    if '_odd' in dn: return 'ODD'
+    if '_evn' in dn: return 'EVN'
+    m = re.search(r'([AxBCDEFGHx]{8})', dn)
+    return m.group(1) if m else ''
 
 
 def compute_fanout(G) -> dict:
@@ -1368,6 +1374,7 @@ def format_path_trace(path, G, fanout, indent=2):
         sl = nd.get('source_line', '')
         dn = _display(G, node_name)
         fo = fanout.get(node_name, 0)
+        phase = get_phase(G, node_name)
 
         if nt in ('registered', 'bus', 'boundary'):
             marker = f"[{nt.upper()}]"
@@ -1376,9 +1383,169 @@ def format_path_trace(path, G, fanout, indent=2):
 
         loc = f"{sf}:{sl}" if sf else ""
         fo_str = f" (fan-out: {fo})" if fo >= 10 else ""
-        lines.append(f"{'  ' * (indent + j)}{marker} {dn}{fo_str}  ({loc})")
+        phase_str = f" @{phase}" if phase else ""
+        lines.append(f"{'  ' * (indent + j)}{marker} {dn}{phase_str}{fo_str}  ({loc})")
     lines.append("```")
     return "\n".join(lines)
+
+
+def observable_effect(race):
+    """Describe the observable emulator symptom for a signal race.
+
+    Returns (effect_summary, detail) for inclusion in the report.
+    """
+    name = race['display_name'].upper()
+    cat = race.get('category', '')
+
+    # Sprite Store X-position latches: reset arrives late, stale X captured
+    if 'STORE' in name and '_X' in name:
+        store_num = ''
+        m = re.search(r'STORE(\d+)', name)
+        if m:
+            store_num = m.group(1)
+        return (
+            f"Sprite store {store_num} X-position off by one dot",
+            f"The line-end reset signal (depth {race['max_depth']}) arrives long after "
+            f"sprite X data from OAM (depth {race['min_depth']}). At scanline boundaries, "
+            f"the store latch may capture the previous sprite's X coordinate instead of "
+            f"clearing. Visible as sprites shifting one dot horizontally at the start "
+            f"of a scanline, most noticeable with moving sprites near the left edge."
+        )
+
+    # Sprite Store index/line latches
+    if 'STORE' in name and ('_I' in name or '_L' in name):
+        return (
+            "Sprite store index/line data captured with stale reset",
+            f"Reset arrives {race['depth_diff']} gates after data. May cause wrong "
+            f"tile or wrong line-within-sprite to render at scanline boundaries."
+        )
+
+    # Tile fetcher state machine
+    if any(x in name for x in ['BFETCH_S0', 'BFETCH_S1', 'BFETCH_S2', 'LAXU', 'MESU', 'NYVA']):
+        return (
+            "Tile fetch state machine runs one extra cycle before reset",
+            f"The fetch counter reset (NYXU_BFETCH_RSTn, depth {race['max_depth']}) "
+            f"arrives after the fetch counter clock (depth {race['min_depth']}). "
+            f"The state machine advances one extra state before resetting to S0. "
+            f"Visible as a corrupted tile at the left edge of the screen or at "
+            f"window/BG boundary transitions — the fetcher reads from the wrong "
+            f"VRAM address for one cycle."
+        )
+
+    # Tile fetch done / fetching flag
+    if any(x in name for x in ['TFETCH_DONE', 'LOVY', 'TFETCHING', 'LONY']):
+        return (
+            "Tile fetch pipeline stays active one dot too long",
+            f"The fetch-done or fetching flag reset (depth {race['max_depth']}) "
+            f"arrives late. The pipeline continues fetching for one extra dot, "
+            f"consuming an additional VRAM cycle. Can shift the mode 3 / mode 0 "
+            f"boundary by one dot, affecting H-blank timing and any mid-scanline "
+            f"register writes that depend on precise mode transition timing."
+        )
+
+    # OAM scan done
+    if any(x in name for x in ['SCAN_DONE', 'BESU', 'CENO']):
+        return (
+            "OAM scan extends one dot beyond expected boundary",
+            f"The scan-done signal (depth {race['max_depth']}) races against "
+            f"line-end (depth {race['min_depth']}). OAM evaluation continues for "
+            f"one extra dot, potentially including one additional sprite in the "
+            f"scanline sprite buffer. Affects the mode 2 → mode 3 transition point, "
+            f"which shifts all subsequent mode timings by one dot. Most visible "
+            f"with exactly 10 sprites on a line (the hardware limit)."
+        )
+
+    # Pixel pipe / CLKPIPE races
+    if any(x in name for x in ['PIPE_A', 'PIPE_B', 'PAL_PIPE', 'MASK_PIPE', 'CLKPIPE']):
+        return (
+            "Pixel data shifted one dot late relative to pipe clock",
+            f"CLKPIPE (the pixel pipe shift clock) arrives through a {race['max_depth']}-gate "
+            f"buffer chain, well after the pipe input data is ready. The pipe effectively "
+            f"shifts one propagation delay after data settles. Sprite and BG pixels may "
+            f"appear one dot to the right of their correct position."
+        )
+
+    # Fine scroll / SCX match
+    if any(x in name for x in ['FINE', 'SCX_FINE', 'PUXA', 'NYZE', 'ROXY']):
+        return (
+            "Fine scroll match applies one dot late",
+            f"The SCX fine scroll match signal settles at depth {race['min_depth']}, "
+            f"but the pixel clock it gates (CLKPIPE) arrives at depth {race['max_depth']}. "
+            f"Fine scroll effectively skips one fewer pixel than expected, shifting "
+            f"the background by one dot. Visible in games that use SCX fine scroll "
+            f"for smooth horizontal scrolling (most platformers)."
+        )
+
+    # Window logic
+    if any(x in name for x in ['WIN_', 'RYFA', 'RENE', 'NUKO', 'ROGE', 'PYCO', 'NOPA', 'SOVY']):
+        return (
+            "Window trigger fires one dot late",
+            f"Window match/fetch signals race with a {race['depth_diff']}-gate differential. "
+            f"The window may activate one dot later than expected, shifting all window "
+            f"content one pixel to the right. Affects games with split-screen effects "
+            f"using the window (status bars, dialogue boxes)."
+        )
+
+    # Pixel counter
+    if any(x in name for x in ['PX', 'XEHO', 'SAVY', 'XODU', 'XYDO', 'TUHU', 'TUKY', 'TAKO', 'SYBE']):
+        return (
+            "Pixel counter increment races with pipe clock",
+            f"The pixel X counter races against CLKPIPE with a {race['depth_diff']}-gate "
+            f"differential. This shifts the X coordinate at which sprite/window "
+            f"comparisons trigger, potentially causing one-dot horizontal offsets."
+        )
+
+    # STAT / LY match
+    if any(x in name for x in ['STAT', 'RUPO', 'ROPO', 'LY_MATCH']):
+        return (
+            "STAT interrupt fires one dot early/late",
+            f"LY/LYC match or STAT mode flag races with a {race['depth_diff']}-gate "
+            f"differential. The STAT interrupt may trigger one dot earlier or later "
+            f"than expected. Affects games that use mid-frame STAT interrupts for "
+            f"raster effects (wobble, palette changes)."
+        )
+
+    # Mode/rendering control
+    if any(x in name for x in ['HBLANK', 'VBLANK', 'VOGA', 'WODU', 'XYMU', 'RENDERING']):
+        return (
+            "Mode transition boundary shifted by one dot",
+            f"Mode flag races with a {race['depth_diff']}-gate differential. "
+            f"The mode 0/2/3 transition occurs one dot off from the expected position, "
+            f"affecting when the CPU can access VRAM/OAM and when H-blank begins."
+        )
+
+    # Sprite fetcher
+    if any(x in name for x in ['SFETCH', 'TAKA', 'SOBU', 'TEXY', 'WUTY']):
+        return (
+            "Sprite fetch timing shifted by one dot",
+            f"Sprite fetch state machine races with a {race['depth_diff']}-gate differential. "
+            f"May cause the sprite fetch to start or complete one dot off, affecting "
+            f"mode 3 duration and sprite X positioning."
+        )
+
+    # DMA
+    if any(x in name for x in ['DMA', 'MATU', 'LARA', 'LOKY']):
+        return (
+            "DMA transfer timing off by one cycle",
+            f"DMA control signal races with a {race['depth_diff']}-gate differential. "
+            f"May affect when DMA releases the OAM bus back to the PPU."
+        )
+
+    # LX counter
+    if any(x in name for x in ['SAXO', 'TYPO', 'VYZO', 'TELU', 'SUDE', 'TAHA', 'TYRY']):
+        return (
+            "Internal line counter off by one dot",
+            f"LX counter races with a {race['depth_diff']}-gate differential. "
+            f"Shifts all LX-derived timing signals (line end, scan triggers) by one dot."
+        )
+
+    # Generic fallback
+    return (
+        f"{cat} timing off by one dot",
+        f"Signal race with {race['depth_diff']}-gate differential at `{race['display_name']}`. "
+        f"The late-arriving signal (depth {race['max_depth']}) may not settle before "
+        f"the DFF samples, causing the captured value to differ from behavioral emulation."
+    )
 
 
 def format_path_report(paths, G, races=None, max_paths=30):
@@ -1552,8 +1719,17 @@ def format_path_report(paths, G, races=None, max_paths=30):
             max_delay = depth * 15
             pct = max_delay / 119.2 * 100
 
+            src_phase = get_phase(G, path[0])
+            sink_phase = get_phase(G, path[-1])
+            phase_note = ""
+            if src_phase or sink_phase:
+                parts = []
+                if src_phase: parts.append(f"src @{src_phase}")
+                if sink_phase: parts.append(f"sink @{sink_phase}")
+                phase_note = f" [{', '.join(parts)}]"
+
             lines.append(f"**Depth {depth}** ({min_delay}-{max_delay} ns, {pct:.0f}% half T-cycle): "
-                         f"`{_display(G, path[0])}` -> `{sink}`\n")
+                         f"`{_display(G, path[0])}` -> `{sink}`{phase_note}\n")
             lines.append(format_path_trace(path, G, fanout))
             lines.append("")
             shown += 1
@@ -1625,10 +1801,10 @@ def format_path_report(paths, G, races=None, max_paths=30):
 
         lines.append(f"Found **{len(op_races)}** operational race points (depth diff >= 3, excluding reset chains).\n")
 
-        # Summary table of top races
+        # Summary table of top races with observable effects
         lines.append("### Top Race Pairs by Depth Differential\n")
-        lines.append("| Decision Point | Type | Depth Diff | Late Signal (depth) | Early Signal (depth) | Source |")
-        lines.append("|----------------|------|-----------|--------------------|--------------------|--------|")
+        lines.append("| Decision Point | Type | Depth Diff | Phase | Late Signal (depth) | Early Signal (depth) | Observable Effect |")
+        lines.append("|----------------|------|-----------|-------|--------------------|--------------------|-------------------|")
 
         seen_nodes = set()
         shown = 0
@@ -1641,17 +1817,70 @@ def format_path_report(paths, G, races=None, max_paths=30):
 
             late = r['inputs'][0]
             early = r['inputs'][-1]
-            phase_info = ""
+            phase_str = ""
             if late['phase'] and early['phase'] and late['phase'] != early['phase']:
-                phase_info = f" **phase mismatch: {late['phase']}/{early['phase']}**"
+                phase_str = f"{late['phase']}/{early['phase']}"
+            elif late['phase']:
+                phase_str = late['phase']
+            elif early['phase']:
+                phase_str = early['phase']
+
+            effect_summary, _ = observable_effect(r)
 
             lines.append(
                 f"| `{r['display_name']}` | {r['reg_type']} | **{r['depth_diff']}** | "
+                f"{phase_str} | "
                 f"`{late['name']}` ({late['depth']}) | "
                 f"`{early['name']}` ({early['depth']}) | "
-                f"{r['source_file']}:{r['source_line']} |"
+                f"{effect_summary} |"
             )
             shown += 1
+        lines.append("")
+
+        # Observable effects guide — grouped by symptom
+        lines.append("### Observable Effects Guide\n")
+        lines.append("Grouped by the visible symptom an emulator would exhibit if it resolves")
+        lines.append("these races instantaneously (as all behavioral emulators do).\n")
+
+        # Group races by effect summary
+        effect_groups = {}
+        seen_for_effects = set()
+        for r in op_races:
+            if r['display_name'] in seen_for_effects:
+                continue
+            seen_for_effects.add(r['display_name'])
+            effect_summary, effect_detail = observable_effect(r)
+            if effect_summary not in effect_groups:
+                effect_groups[effect_summary] = {
+                    'detail': effect_detail,
+                    'races': [],
+                    'max_diff': 0,
+                }
+            effect_groups[effect_summary]['races'].append(r)
+            effect_groups[effect_summary]['max_diff'] = max(
+                effect_groups[effect_summary]['max_diff'], r['depth_diff']
+            )
+
+        # Sort by max depth differential
+        sorted_effects = sorted(effect_groups.items(), key=lambda x: -x[1]['max_diff'])
+
+        for effect_summary, group in sorted_effects:
+            if group['max_diff'] < 5:
+                continue  # skip low-differential races for readability
+            race_count = len(group['races'])
+            lines.append(f"#### {effect_summary}\n")
+            lines.append(f"**Affected decision points:** {race_count} | "
+                         f"**Max depth differential:** {group['max_diff']} gates "
+                         f"({group['max_diff']*5}-{group['max_diff']*15} ns)\n")
+            lines.append(f"{group['detail']}\n")
+
+            # Show the specific DFFs involved
+            if race_count <= 8:
+                dff_list = ', '.join(f"`{r['display_name']}`" for r in group['races'])
+                lines.append(f"Decision points: {dff_list}\n")
+            else:
+                sample = ', '.join(f"`{r['display_name']}`" for r in group['races'][:5])
+                lines.append(f"Decision points (sample): {sample}, ... and {race_count - 5} more\n")
         lines.append("")
 
         # Detailed analysis of top 10 most interesting races
@@ -1666,9 +1895,19 @@ def format_path_report(paths, G, races=None, max_paths=30):
             if shown >= 10:
                 break
 
+            effect_summary, effect_detail = observable_effect(r)
+
             lines.append(f"#### `{r['display_name']}` (diff: {r['depth_diff']} gates, "
                          f"{r['source_file']}:{r['source_line']})\n")
-            lines.append(f"Type: {r['node_type']} ({r['reg_type']})\n")
+            lines.append(f"Type: {r['node_type']} ({r['reg_type']})")
+            # Show phase info for the decision point
+            decision_phase = get_phase(G, r['node'])
+            if decision_phase:
+                lines.append(f" | Active phase: **{decision_phase}**")
+            lines.append("")
+
+            lines.append(f"**Observable effect:** {effect_summary}\n")
+
             lines.append("| Input | Depth | Gate | Phase | Role |")
             lines.append("|-------|-------|------|-------|------|")
 
@@ -1695,6 +1934,8 @@ def format_path_report(paths, G, races=None, max_paths=30):
                              f"making this a likely source of one-dot timing discrepancies.\n")
             else:
                 lines.append(f"This is {pct_ht:.0f}% of a half T-cycle.\n")
+
+            lines.append(f"> {effect_detail}\n")
 
             shown += 1
 
@@ -1740,11 +1981,15 @@ def export_graph_json(G, filepath: Path):
     }
 
     for name, attrs in G.nodes(data=True):
-        data["nodes"].append({
+        phase = get_phase(G, name)
+        node_data = {
             "name": name,
             "display_name": attrs.get('display_name', display_name_from_scoped(name)),
             **{k: v for k, v in attrs.items() if v and k != 'display_name'},
-        })
+        }
+        if phase:
+            node_data["phase"] = phase
+        data["nodes"].append(node_data)
 
     for src, dst, attrs in G.edges(data=True):
         data["edges"].append({
@@ -1766,6 +2011,8 @@ def export_paths_json(paths, G, filepath: Path):
     fanout = compute_fanout(G)
     data = []
     for depth, path in paths:
+        src_phase = get_phase(G, path[0])
+        sink_phase = get_phase(G, path[-1])
         path_data = {
             "depth": depth,
             "min_delay_ns": depth * 5,
@@ -1773,6 +2020,8 @@ def export_paths_json(paths, G, filepath: Path):
             "pct_half_tcycle": round(depth * 15 / 119.2 * 100, 1),
             "source": _display(G, path[0]),
             "sink": _display(G, path[-1]),
+            "source_phase": src_phase,
+            "sink_phase": sink_phase,
             "is_reset": is_reset_path(path, G),
             "category": categorize_path(path, G),
             "nodes": [],
@@ -1787,6 +2036,7 @@ def export_paths_json(paths, G, filepath: Path):
                 "source_file": nd.get('source_file', ''),
                 "source_line": nd.get('source_line', 0),
                 "fan_out": fanout.get(node_name, 0),
+                "phase": get_phase(G, node_name),
             })
         data.append(path_data)
 

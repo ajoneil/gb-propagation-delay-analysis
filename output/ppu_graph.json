@@ -655,7 +655,7 @@
       "node_type": "combinatorial",
       "source_file": "GateBoyCpuBus.cpp",
       "source_line": 201,
-      "gate_func": "nor2"
+      "gate_func": "not1"
     },
     {
       "name": "GateBoyCpuBus:SYKE_ADDR_HIp_new",
@@ -1404,7 +1404,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 694,
       "gate_func": "not1",
-      "comment": "p27.SYLO"
+      "comment": "p27.SYLO",
+      "phase": "ODD"
     },
     {
       "name": "RYDY_WIN_HITp@old",
@@ -1423,7 +1424,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 695,
       "gate_func": "not1",
-      "comment": "p24.TOMU"
+      "comment": "p24.TOMU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:EXT_vcc",
@@ -1462,7 +1464,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 709,
       "gate_func": "not1",
-      "comment": "p01.ADAR"
+      "comment": "p01.ADAR",
+      "phase": "ABCxxxxH"
     },
     {
       "name": "GateBoy:ATYP_ABCDxxxx",
@@ -1471,7 +1474,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 976,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoy:AFAS_xxxxEFGx",
@@ -1480,7 +1484,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 711,
       "gate_func": "nor2",
-      "comment": "p01.AFAS"
+      "comment": "p01.AFAS",
+      "phase": "xxxxEFGx"
     },
     {
       "name": "GateBoy:AREV_CPU_WRn",
@@ -1527,7 +1532,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 720,
       "gate_func": "not1",
-      "comment": "p01.AJAX"
+      "comment": "p01.AJAX",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoy:AROV_xxCDEFxx",
@@ -1536,7 +1542,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 721,
       "gate_func": "not1",
-      "comment": "p01.AROV"
+      "comment": "p01.AROV",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoy:AGUT_xxCDEFGH",
@@ -1545,7 +1552,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 722,
       "gate_func": "or_and3",
-      "comment": "p01.AGUT"
+      "comment": "p01.AGUT",
+      "phase": "xxCDEFGH"
     },
     {
       "name": "GateBoy:AWOD_ABxxxxxx",
@@ -1554,7 +1562,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 723,
       "gate_func": "nor2",
-      "comment": "p01.AWOD"
+      "comment": "p01.AWOD",
+      "phase": "ABxxxxxx"
     },
     {
       "name": "ABUZ_EXT_RAM_CS_CLK",
@@ -1573,7 +1582,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 739,
       "gate_func": "not1",
-      "comment": "p01.ATAL"
+      "comment": "p01.ATAL",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoy:AZOF_AxCxExGx",
@@ -1582,7 +1592,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 740,
       "gate_func": "not1",
-      "comment": "p01.AZOF"
+      "comment": "p01.AZOF",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoy:ZAXY_xBxDxFxH",
@@ -1591,7 +1602,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 741,
       "gate_func": "not1",
-      "comment": "p01.ZAXY"
+      "comment": "p01.ZAXY",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoy:ZEME_AxCxExGx",
@@ -1600,7 +1612,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 742,
       "gate_func": "not1",
-      "comment": "p01.ZEME"
+      "comment": "p01.ZEME",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoy:ALET_xBxDxFxH",
@@ -1609,7 +1622,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 743,
       "gate_func": "not1",
-      "comment": "p01.ALET"
+      "comment": "p01.ALET",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoy:LAPE_AxCxExGx",
@@ -1618,7 +1632,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 744,
       "gate_func": "not1",
-      "comment": "p01.LAPE"
+      "comment": "p01.LAPE",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoy:TAVA_xBxDxFxH",
@@ -1627,7 +1642,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 745,
       "gate_func": "not1",
-      "comment": "p27.TAVA"
+      "comment": "p27.TAVA",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoy:PARU_VBLANKp_odd_new",
@@ -1636,7 +1652,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 750,
       "gate_func": "not1",
-      "comment": "p21.PARU"
+      "comment": "p21.PARU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:REPU_VBLANKp_odd_new",
@@ -1645,7 +1662,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 751,
       "gate_func": "or2",
-      "comment": "p27.REPU"
+      "comment": "p27.REPU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:TADY_LINE_RSTn_odd_new",
@@ -1654,7 +1672,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 753,
       "gate_func": "nor2",
-      "comment": "p21.TADY"
+      "comment": "p21.TADY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:ANOM_LINE_RSTn_odd_new",
@@ -1663,7 +1682,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 754,
       "gate_func": "nor2",
-      "comment": "p28.ANOM"
+      "comment": "p28.ANOM",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BALU_LINE_RSTp_odd_new",
@@ -1672,7 +1692,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 755,
       "gate_func": "not1",
-      "comment": "p29.BALU"
+      "comment": "p29.BALU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BAGY_LINE_RSTn_odd_new",
@@ -1681,7 +1702,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 756,
       "gate_func": "not1",
-      "comment": "p29.BAGY"
+      "comment": "p29.BAGY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XAHY_LINE_RSTn_odd_new",
@@ -1690,7 +1712,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 757,
       "gate_func": "not1",
-      "comment": "p27.XAHY"
+      "comment": "p27.XAHY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XUPY_ABxxEFxx",
@@ -1699,7 +1722,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 763,
       "gate_func": "not1",
-      "comment": "p29.XUPY"
+      "comment": "p29.XUPY",
+      "phase": "ABxxEFxx"
     },
     {
       "name": "BYBA_SCAN_DONEp_odd",
@@ -1709,7 +1733,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 764,
       "state_path": "sprite_scanner.BYBA_SCAN_DONEp_odd",
-      "comment": "p29.BYBA"
+      "comment": "p29.BYBA",
+      "phase": "ODD"
     },
     {
       "name": "FETO_SCAN_DONEp@old",
@@ -1729,7 +1754,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 765,
       "state_path": "sprite_scanner.DOBA_SCAN_DONEp_evn",
-      "comment": "p29.DOBA"
+      "comment": "p29.DOBA",
+      "phase": "EVN"
     },
     {
       "name": "BYBA_SCAN_DONEp_odd@old",
@@ -1739,7 +1765,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 765,
       "state_path": "reg_old.BYBA_SCAN_DONEp_odd",
-      "comment": "Clock boundary read of BYBA_SCAN_DONEp_odd"
+      "comment": "Clock boundary read of BYBA_SCAN_DONEp_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BEBU_SCAN_DONE_tn_odd_new",
@@ -1748,7 +1775,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 767,
       "gate_func": "or3",
-      "comment": "p29.BEBU"
+      "comment": "p29.BEBU",
+      "phase": "ODD"
     },
     {
       "name": "AVAP_SCAN_DONE_tp_odd",
@@ -1758,7 +1786,8 @@
       "source_line": 768,
       "gate_func": "not1",
       "state_path": "sprite_scanner.AVAP_SCAN_DONE_tp_odd",
-      "comment": "p29.AVAP"
+      "comment": "p29.AVAP",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:ASEN_SCAN_DONE_tp_odd_new",
@@ -1767,7 +1796,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 770,
       "gate_func": "or2",
-      "comment": "p28.ASEN"
+      "comment": "p28.ASEN",
+      "phase": "ODD"
     },
     {
       "name": "BESU_SCAN_DONEn_odd",
@@ -1777,7 +1807,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 771,
       "state_path": "sprite_scanner.BESU_SCAN_DONEn_odd",
-      "comment": "p28.BESU"
+      "comment": "p28.BESU",
+      "phase": "ODD"
     },
     {
       "name": "CENO_SCAN_DONEn_odd",
@@ -1787,7 +1818,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 772,
       "state_path": "sprite_scanner.CENO_SCAN_DONEn_odd",
-      "comment": "p29.CENO"
+      "comment": "p29.CENO",
+      "phase": "ODD"
     },
     {
       "name": "BESU_SCAN_DONEn_odd@old",
@@ -1797,7 +1829,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 772,
       "state_path": "reg_old.BESU_SCAN_DONEn_odd",
-      "comment": "Clock boundary read of BESU_SCAN_DONEn_odd"
+      "comment": "Clock boundary read of BESU_SCAN_DONEn_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BOGE_DMA_RUNNINGn_odd",
@@ -1806,7 +1839,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 774,
       "gate_func": "not1",
-      "comment": "p28.BOGE"
+      "comment": "p28.BOGE",
+      "phase": "ODD"
     },
     {
       "name": "ACYL_SCANNINGp_odd",
@@ -1816,7 +1850,8 @@
       "source_line": 775,
       "gate_func": "and2",
       "state_path": "ACYL_SCANNINGp_odd",
-      "comment": "p28.ACYL"
+      "comment": "p28.ACYL",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:CYKE_ABxxEFxx",
@@ -1825,7 +1860,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 779,
       "gate_func": "not1",
-      "comment": "p30.CYKE"
+      "comment": "p30.CYKE",
+      "phase": "ABxxEFxx"
     },
     {
       "name": "GateBoy:WUDA_xxCDxxGH",
@@ -1834,7 +1870,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 780,
       "gate_func": "not1",
-      "comment": "p30.WUDA"
+      "comment": "p30.WUDA",
+      "phase": "xxCDxxGH"
     },
     {
       "name": "GateBoy:YFOT_OAM_A2p_old",
@@ -1958,7 +1995,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 788,
       "state_path": "sprite_index.XADU_SPRITE_IDX0p_odd",
-      "comment": "p30.XADU"
+      "comment": "p30.XADU",
+      "phase": "ODD"
     },
     {
       "name": "XEDY_SPRITE_IDX1p_odd",
@@ -1968,7 +2006,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 789,
       "state_path": "sprite_index.XEDY_SPRITE_IDX1p_odd",
-      "comment": "p30.XEDY"
+      "comment": "p30.XEDY",
+      "phase": "ODD"
     },
     {
       "name": "ZUZE_SPRITE_IDX2p_odd",
@@ -1978,7 +2017,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 790,
       "state_path": "sprite_index.ZUZE_SPRITE_IDX2p_odd",
-      "comment": "p30.ZUZE"
+      "comment": "p30.ZUZE",
+      "phase": "ODD"
     },
     {
       "name": "XOBE_SPRITE_IDX3p_odd",
@@ -1988,7 +2028,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 791,
       "state_path": "sprite_index.XOBE_SPRITE_IDX3p_odd",
-      "comment": "p30.XOBE"
+      "comment": "p30.XOBE",
+      "phase": "ODD"
     },
     {
       "name": "YDUF_SPRITE_IDX4p_odd",
@@ -1998,7 +2039,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 792,
       "state_path": "sprite_index.YDUF_SPRITE_IDX4p_odd",
-      "comment": "p30.YDUF"
+      "comment": "p30.YDUF",
+      "phase": "ODD"
     },
     {
       "name": "XECU_SPRITE_IDX5p_odd",
@@ -2008,7 +2050,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 793,
       "state_path": "sprite_index.XECU_SPRITE_IDX5p_odd",
-      "comment": "p30.XECU"
+      "comment": "p30.XECU",
+      "phase": "ODD"
     },
     {
       "name": "FETO_SCAN_DONEp",
@@ -2027,7 +2070,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 802,
       "gate_func": "or2",
-      "comment": "p28.GAVA"
+      "comment": "p28.GAVA",
+      "phase": "ODD"
     },
     {
       "name": "YFEL_SCAN0_odd",
@@ -2037,7 +2081,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 804,
       "state_path": "scan_counter.YFEL_SCAN0_odd",
-      "comment": "p28.YFEL"
+      "comment": "p28.YFEL",
+      "phase": "ODD"
     },
     {
       "name": "WEWY_SCAN1_odd",
@@ -2047,7 +2092,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 805,
       "state_path": "scan_counter.WEWY_SCAN1_odd",
-      "comment": "p28.WEWY"
+      "comment": "p28.WEWY",
+      "phase": "ODD"
     },
     {
       "name": "GOSO_SCAN2_odd",
@@ -2057,7 +2103,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 806,
       "state_path": "scan_counter.GOSO_SCAN2_odd",
-      "comment": "p28.GOSO"
+      "comment": "p28.GOSO",
+      "phase": "ODD"
     },
     {
       "name": "ELYN_SCAN3_odd",
@@ -2067,7 +2114,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 807,
       "state_path": "scan_counter.ELYN_SCAN3_odd",
-      "comment": "p28.ELYN"
+      "comment": "p28.ELYN",
+      "phase": "ODD"
     },
     {
       "name": "FAHA_SCAN4_odd",
@@ -2077,7 +2125,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 808,
       "state_path": "scan_counter.FAHA_SCAN4_odd",
-      "comment": "p28.FAHA"
+      "comment": "p28.FAHA",
+      "phase": "ODD"
     },
     {
       "name": "FONY_SCAN5_odd",
@@ -2087,7 +2136,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 809,
       "state_path": "scan_counter.FONY_SCAN5_odd",
-      "comment": "p28.FONY"
+      "comment": "p28.FONY",
+      "phase": "ODD"
     },
     {
       "name": "VOGA_HBLANKp_evn",
@@ -2097,7 +2147,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 825,
       "state_path": "VOGA_HBLANKp_evn",
-      "comment": "p21.VOGA"
+      "comment": "p21.VOGA",
+      "phase": "EVN"
     },
     {
       "name": "WODU_HBLANK_GATEp_odd@old",
@@ -2107,7 +2158,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 825,
       "state_path": "reg_old.WODU_HBLANK_GATEp_odd",
-      "comment": "Clock boundary read of WODU_HBLANK_GATEp_odd"
+      "comment": "Clock boundary read of WODU_HBLANK_GATEp_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:WEGO_HBLANKp_evn_new",
@@ -2116,7 +2168,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 826,
       "gate_func": "or2",
-      "comment": "p21.WEGO"
+      "comment": "p21.WEGO",
+      "phase": "EVN"
     },
     {
       "name": "XYMU_RENDERING_LATCHn",
@@ -2162,7 +2215,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 837,
       "gate_func": "not1",
-      "comment": "p27.TUKU"
+      "comment": "p27.TUKU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SOWO_SFETCH_RUNNINGn_evn_old",
@@ -2171,7 +2225,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 838,
       "gate_func": "not1",
-      "comment": "p27.SOWO"
+      "comment": "p27.SOWO",
+      "phase": "EVN"
     },
     {
       "name": "TAKA_SFETCH_RUNNINGp_evn@old",
@@ -2181,7 +2236,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 838,
       "state_path": "reg_old.TAKA_SFETCH_RUNNINGp_evn",
-      "comment": "Clock boundary read of TAKA_SFETCH_RUNNINGp_evn"
+      "comment": "Clock boundary read of TAKA_SFETCH_RUNNINGp_evn",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TEKY_SFETCH_REQp_odd_old",
@@ -2190,7 +2246,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 839,
       "gate_func": "and4",
-      "comment": "p27.TEKY"
+      "comment": "p27.TEKY",
+      "phase": "ODD"
     },
     {
       "name": "FEPO_STORE_MATCHp_odd@old",
@@ -2200,7 +2257,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 839,
       "state_path": "reg_old.FEPO_STORE_MATCHp_odd",
-      "comment": "Clock boundary read of FEPO_STORE_MATCHp_odd"
+      "comment": "Clock boundary read of FEPO_STORE_MATCHp_odd",
+      "phase": "ODD"
     },
     {
       "name": "LYRY_BFETCH_DONEp_odd@old",
@@ -2210,7 +2268,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 839,
       "state_path": "reg_old.LYRY_BFETCH_DONEp_odd",
-      "comment": "Clock boundary read of LYRY_BFETCH_DONEp_odd"
+      "comment": "Clock boundary read of LYRY_BFETCH_DONEp_odd",
+      "phase": "ODD"
     },
     {
       "name": "SOBU_SFETCH_REQp_evn  ",
@@ -2220,7 +2279,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 841,
       "state_path": "sfetch_control.SOBU_SFETCH_REQp_evn  ",
-      "comment": "p27.SOBU"
+      "comment": "p27.SOBU",
+      "phase": "EVN"
     },
     {
       "name": "SUDA_SFETCH_REQp_odd  ",
@@ -2230,7 +2290,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 842,
       "state_path": "sfetch_control.SUDA_SFETCH_REQp_odd  ",
-      "comment": "p27.SUDA"
+      "comment": "p27.SUDA",
+      "phase": "ODD"
     },
     {
       "name": "SOBU_SFETCH_REQp_evn@old",
@@ -2240,7 +2301,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 842,
       "state_path": "reg_old.SOBU_SFETCH_REQp_evn",
-      "comment": "Clock boundary read of SOBU_SFETCH_REQp_evn"
+      "comment": "Clock boundary read of SOBU_SFETCH_REQp_evn",
+      "phase": "EVN"
     },
     {
       "name": "TYFO_SFETCH_S0p_D1_odd",
@@ -2250,7 +2312,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 843,
       "state_path": "sfetch_control.TYFO_SFETCH_S0p_D1_odd",
-      "comment": "p29.TYFO"
+      "comment": "p29.TYFO",
+      "phase": "ODD"
     },
     {
       "name": "TOXE_SFETCH_S0p_evn@old",
@@ -2260,7 +2323,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 843,
       "state_path": "reg_old.TOXE_SFETCH_S0p_evn",
-      "comment": "Clock boundary read of TOXE_SFETCH_S0p_evn"
+      "comment": "Clock boundary read of TOXE_SFETCH_S0p_evn",
+      "phase": "EVN"
     },
     {
       "name": "TOBU_SFETCH_S1p_D2_evn",
@@ -2270,7 +2334,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 844,
       "state_path": "sfetch_control.TOBU_SFETCH_S1p_D2_evn",
-      "comment": "p29.TOBU"
+      "comment": "p29.TOBU",
+      "phase": "EVN"
     },
     {
       "name": "TULY_SFETCH_S1p_evn@old",
@@ -2280,7 +2345,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 844,
       "state_path": "reg_old.TULY_SFETCH_S1p_evn",
-      "comment": "Clock boundary read of TULY_SFETCH_S1p_evn"
+      "comment": "Clock boundary read of TULY_SFETCH_S1p_evn",
+      "phase": "EVN"
     },
     {
       "name": "VONU_SFETCH_S1p_D4_evn",
@@ -2290,7 +2356,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 845,
       "state_path": "sfetch_control.VONU_SFETCH_S1p_D4_evn",
-      "comment": "p29.VONU"
+      "comment": "p29.VONU",
+      "phase": "EVN"
     },
     {
       "name": "TOBU_SFETCH_S1p_D2_evn@old",
@@ -2300,7 +2367,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 845,
       "state_path": "reg_old.TOBU_SFETCH_S1p_D2_evn",
-      "comment": "Clock boundary read of TOBU_SFETCH_S1p_D2_evn"
+      "comment": "Clock boundary read of TOBU_SFETCH_S1p_D2_evn",
+      "phase": "EVN"
     },
     {
       "name": "SEBA_SFETCH_S1p_D5_odd",
@@ -2310,7 +2378,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 846,
       "state_path": "sfetch_control.SEBA_SFETCH_S1p_D5_odd",
-      "comment": "p29.SEBA"
+      "comment": "p29.SEBA",
+      "phase": "ODD"
     },
     {
       "name": "VONU_SFETCH_S1p_D4_evn@old",
@@ -2320,7 +2389,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 846,
       "state_path": "reg_old.VONU_SFETCH_S1p_D4_evn",
-      "comment": "Clock boundary read of VONU_SFETCH_S1p_D4_evn"
+      "comment": "Clock boundary read of VONU_SFETCH_S1p_D4_evn",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:RYCE_SFETCH_TRIGp_evn_new",
@@ -2329,7 +2399,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 869,
       "gate_func": "and2",
-      "comment": "p27.RYCE"
+      "comment": "p27.RYCE",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:SECA_SFETCH_STARTn_evn_new",
@@ -2338,7 +2409,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 849,
       "gate_func": "nor3",
-      "comment": "p27.SECA"
+      "comment": "p27.SECA",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TAME_SFETCH_CLK_GATE",
@@ -2356,7 +2428,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 854,
       "gate_func": "nand2",
-      "comment": "p29.TOMA"
+      "comment": "p29.TOMA",
+      "phase": "EVN"
     },
     {
       "name": "TOXE_SFETCH_S0p_evn",
@@ -2366,7 +2439,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 855,
       "state_path": "sfetch_counter_evn.TOXE_SFETCH_S0p_evn",
-      "comment": "p29.TOXE"
+      "comment": "p29.TOXE",
+      "phase": "EVN"
     },
     {
       "name": "TULY_SFETCH_S1p_evn",
@@ -2376,7 +2450,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 856,
       "state_path": "sfetch_counter_evn.TULY_SFETCH_S1p_evn",
-      "comment": "p29.TULY"
+      "comment": "p29.TULY",
+      "phase": "EVN"
     },
     {
       "name": "TESE_SFETCH_S2p_evn",
@@ -2386,7 +2461,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 857,
       "state_path": "sfetch_counter_evn.TESE_SFETCH_S2p_evn",
-      "comment": "p29.TESE"
+      "comment": "p29.TESE",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:SAKY_SFETCHn_evn",
@@ -2395,7 +2471,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 860,
       "gate_func": "nor2",
-      "comment": "p29.SAKY"
+      "comment": "p29.SAKY",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TYSO_SFETCHINGn_evn",
@@ -2404,7 +2481,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 861,
       "gate_func": "or2",
-      "comment": "p29.TYSO"
+      "comment": "p29.TYSO",
+      "phase": "EVN"
     },
     {
       "name": "TEXY_SFETCHINGp_evn",
@@ -2414,7 +2492,8 @@
       "source_line": 862,
       "gate_func": "not1",
       "state_path": "sfetch_control.TEXY_SFETCHINGp_evn",
-      "comment": "p29.TEXY"
+      "comment": "p29.TEXY",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TYNO",
@@ -2442,7 +2521,8 @@
       "source_line": 866,
       "gate_func": "not1",
       "state_path": "sfetch_control.WUTY_SFETCH_DONE_TRIGp_odd",
-      "comment": "p29.WUTY"
+      "comment": "p29.WUTY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SECA_SFETCH_STARTn_evn",
@@ -2451,7 +2531,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 870,
       "gate_func": "nor3",
-      "comment": "p27.SECA"
+      "comment": "p27.SECA",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:MEHE_AxCxExGx",
@@ -2460,7 +2541,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 899,
       "gate_func": "not1",
-      "comment": "p27.MEHE"
+      "comment": "p27.MEHE",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoy:MYVO_AxCxExGx",
@@ -2469,7 +2551,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 900,
       "gate_func": "not1",
-      "comment": "p27.MYVO"
+      "comment": "p27.MYVO",
+      "phase": "AxCxExGx"
     },
     {
       "name": "NUNU_WIN_MATCHp_odd",
@@ -2479,7 +2562,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 902,
       "state_path": "win_ctrl.NUNU_WIN_MATCHp_odd",
-      "comment": "p27.NUNU"
+      "comment": "p27.NUNU",
+      "phase": "ODD"
     },
     {
       "name": "PYCO_WIN_MATCHp_evn@old",
@@ -2489,7 +2573,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 902,
       "state_path": "reg_old.PYCO_WIN_MATCHp_evn",
-      "comment": "Clock boundary read of PYCO_WIN_MATCHp_evn"
+      "comment": "Clock boundary read of PYCO_WIN_MATCHp_evn",
+      "phase": "EVN"
     },
     {
       "name": "NOPA_WIN_MODE_Bp_evn",
@@ -2499,7 +2584,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 903,
       "state_path": "win_ctrl.NOPA_WIN_MODE_Bp_evn",
-      "comment": "p27.NOPA"
+      "comment": "p27.NOPA",
+      "phase": "EVN"
     },
     {
       "name": "PYNU_WIN_MODE_LATCHp@old",
@@ -2537,7 +2623,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 909,
       "gate_func": "not1",
-      "comment": "p27.NYFO"
+      "comment": "p27.NYFO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:MOSU_WIN_MODE_tp_odd",
@@ -2546,7 +2633,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 910,
       "gate_func": "not1",
-      "comment": "p27.MOSU"
+      "comment": "p27.MOSU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:NAFY_WIN_MODE_tn_odd",
@@ -2555,7 +2643,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 911,
       "gate_func": "nor2",
-      "comment": "p24.NAFY"
+      "comment": "p24.NAFY",
+      "phase": "ODD"
     },
     {
       "name": "PYGO_FETCH_DONEp_evn",
@@ -2565,7 +2654,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 913,
       "state_path": "tfetch_control.PYGO_FETCH_DONEp_evn",
-      "comment": "p24.PYGO"
+      "comment": "p24.PYGO",
+      "phase": "EVN"
     },
     {
       "name": "PORY_FETCH_DONEp_odd@old",
@@ -2575,7 +2665,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 913,
       "state_path": "reg_old.PORY_FETCH_DONEp_odd",
-      "comment": "Clock boundary read of PORY_FETCH_DONEp_odd"
+      "comment": "Clock boundary read of PORY_FETCH_DONEp_odd",
+      "phase": "ODD"
     },
     {
       "name": "PORY_FETCH_DONEp_odd",
@@ -2585,7 +2676,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 914,
       "state_path": "tfetch_control.PORY_FETCH_DONEp_odd",
-      "comment": "p24.PORY"
+      "comment": "p24.PORY",
+      "phase": "ODD"
     },
     {
       "name": "NYKA_FETCH_DONEp_evn@old",
@@ -2595,7 +2687,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 914,
       "state_path": "reg_old.NYKA_FETCH_DONEp_evn",
-      "comment": "Clock boundary read of NYKA_FETCH_DONEp_evn"
+      "comment": "Clock boundary read of NYKA_FETCH_DONEp_evn",
+      "phase": "EVN"
     },
     {
       "name": "NYKA_FETCH_DONEp_evn",
@@ -2605,7 +2698,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 915,
       "state_path": "tfetch_control.NYKA_FETCH_DONEp_evn",
-      "comment": "p24.NYKA"
+      "comment": "p24.NYKA",
+      "phase": "EVN"
     },
     {
       "name": "RYDY_WIN_HITp",
@@ -2625,7 +2719,8 @@
       "source_line": 921,
       "gate_func": "nor2",
       "state_path": "win_ctrl.PUKU_WIN_HITn_odd",
-      "comment": "p27.PUKU"
+      "comment": "p27.PUKU",
+      "phase": "ODD"
     },
     {
       "name": "POKY_PRELOAD_LATCHp_evn",
@@ -2635,7 +2730,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 937,
       "state_path": "tfetch_control.POKY_PRELOAD_LATCHp_evn",
-      "comment": "p24.POKY"
+      "comment": "p24.POKY",
+      "phase": "EVN"
     },
     {
       "name": "SOVY_WIN_HITp",
@@ -2654,7 +2750,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 942,
       "gate_func": "not1",
-      "comment": "p27.SYLO"
+      "comment": "p27.SYLO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:TOMU_WIN_HITp_odd_new",
@@ -2663,7 +2760,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 943,
       "gate_func": "not1",
-      "comment": "p24.TOMU"
+      "comment": "p24.TOMU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SOCY_WIN_HITn_odd_new",
@@ -2672,7 +2770,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 944,
       "gate_func": "not1",
-      "comment": "p24.SOCY"
+      "comment": "p24.SOCY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:VYBO_CLKPIPE_evn_new",
@@ -2681,7 +2780,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 948,
       "gate_func": "nor3",
-      "comment": "p24.VYBO"
+      "comment": "p24.VYBO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TYFA_CLKPIPE_evn_new",
@@ -2690,7 +2790,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 949,
       "gate_func": "and3",
-      "comment": "p24.TYFA"
+      "comment": "p24.TYFA",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:SEGU_CLKPIPE_odd_new",
@@ -2699,7 +2800,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 950,
       "gate_func": "not1",
-      "comment": "p24.SEGU"
+      "comment": "p24.SEGU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:ROCO_CLKPIPE_evn_new",
@@ -2708,7 +2810,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 951,
       "gate_func": "not1",
-      "comment": "p27.ROCO"
+      "comment": "p27.ROCO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:ROXO_CLKPIPE_evn_new",
@@ -2717,7 +2820,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 952,
       "gate_func": "not1",
-      "comment": "p24.ROXO"
+      "comment": "p24.ROXO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:ROMO_PRELOAD_DONEn_evn_new",
@@ -2726,7 +2830,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 955,
       "gate_func": "not1",
-      "comment": "p27.ROMO"
+      "comment": "p27.ROMO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:SUVU_PRELOAD_DONE_TRIGn_xxx_new",
@@ -2763,7 +2868,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 964,
       "state_path": "sfetch_control.TAKA_SFETCH_RUNNINGp_evn",
-      "comment": "p27.TAKA"
+      "comment": "p27.TAKA",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:ABOL_CLKREQn",
@@ -2781,7 +2887,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 977,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoy:BYRY_ABCDxxxx",
@@ -2790,7 +2897,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 978,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoy:BUDE_xxxxEFGH",
@@ -2799,7 +2907,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 979,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoy:UVYT_ABCDxxxx",
@@ -2808,7 +2917,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 980,
       "gate_func": "not1",
-      "comment": "p01.UVYT"
+      "comment": "p01.UVYT",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoy:MOPA_xxxxEFGH",
@@ -2817,7 +2927,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 981,
       "gate_func": "not1",
-      "comment": "p04.MOPA"
+      "comment": "p04.MOPA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoy:CUFE_OAM_CLKp",
@@ -2835,7 +2946,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 985,
       "gate_func": "nor2",
-      "comment": "p29.WOJO"
+      "comment": "p29.WOJO",
+      "phase": "AxxxExxx"
     },
     {
       "name": "GateBoy:XYSO_xBCDxFGH",
@@ -2844,7 +2956,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 986,
       "gate_func": "not1",
-      "comment": "p29.XYSO"
+      "comment": "p29.XYSO",
+      "phase": "xBCDxFGH"
     },
     {
       "name": "GateBoy:AVER_AxxxExxx",
@@ -2853,7 +2966,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 987,
       "gate_func": "nand2",
-      "comment": "p25.AVER"
+      "comment": "p25.AVER",
+      "phase": "AxxxExxx"
     },
     {
       "name": "GateBoy:TYTU_SFETCH_S0n",
@@ -2988,7 +3102,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1070,
       "gate_func": "not1",
-      "comment": "p29.CEHA"
+      "comment": "p29.CEHA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XOCE_xBCxxFGx",
@@ -2997,7 +3112,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1019,
       "gate_func": "not1",
-      "comment": "p29.XOCE"
+      "comment": "p29.XOCE",
+      "phase": "xBCxxFGx"
     },
     {
       "name": "GateBoy:CARE_COUNT_CLKn_evn",
@@ -3006,7 +3122,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1020,
       "gate_func": "and3",
-      "comment": "p29.CARE"
+      "comment": "p29.CARE",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:DYTY_COUNT_CLKp_evn",
@@ -3015,7 +3132,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1021,
       "gate_func": "not1",
-      "comment": "p29.DYTY"
+      "comment": "p29.DYTY",
+      "phase": "EVN"
     },
     {
       "name": "DEZY_INC_COUNTn_odd",
@@ -3025,7 +3143,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1022,
       "state_path": "sprite_scanner.DEZY_INC_COUNTn_odd",
-      "comment": "p29.DEZY"
+      "comment": "p29.DEZY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BAKY_SPRITES_FULL_new",
@@ -3062,7 +3181,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1029,
       "state_path": "sprite_counter.BESE_SPRITE_COUNT0_odd",
-      "comment": "p29.BESE"
+      "comment": "p29.BESE",
+      "phase": "ODD"
     },
     {
       "name": "CUXY_SPRITE_COUNT1_odd",
@@ -3072,7 +3192,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1030,
       "state_path": "sprite_counter.CUXY_SPRITE_COUNT1_odd",
-      "comment": "p29.CUXY"
+      "comment": "p29.CUXY",
+      "phase": "ODD"
     },
     {
       "name": "BEGO_SPRITE_COUNT2_odd",
@@ -3082,7 +3203,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1031,
       "state_path": "sprite_counter.BEGO_SPRITE_COUNT2_odd",
-      "comment": "p29.BEGO"
+      "comment": "p29.BEGO",
+      "phase": "ODD"
     },
     {
       "name": "DYBE_SPRITE_COUNT3_odd",
@@ -3092,7 +3214,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1032,
       "state_path": "sprite_counter.DYBE_SPRITE_COUNT3_odd",
-      "comment": "p29.DYBE"
+      "comment": "p29.DYBE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:AMYG_VID_RSTp_new",
@@ -3328,7 +3451,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1064,
       "gate_func": "xnor2",
-      "comment": "p27.SUHA"
+      "comment": "p27.SUHA",
+      "phase": "ODD"
     },
     {
       "name": "DATY_SCX0p@old",
@@ -3348,7 +3472,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1064,
       "state_path": "reg_old.RYKU_FINE_CNT0_odd",
-      "comment": "Clock boundary read of RYKU_FINE_CNT0_odd"
+      "comment": "Clock boundary read of RYKU_FINE_CNT0_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SYBY_SCX_FINE_MATCHp_old_odd",
@@ -3357,7 +3482,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1065,
       "gate_func": "xnor2",
-      "comment": "p27.SYBY"
+      "comment": "p27.SYBY",
+      "phase": "ODD"
     },
     {
       "name": "DUZU_SCX1p@old",
@@ -3377,7 +3503,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1065,
       "state_path": "reg_old.ROGA_FINE_CNT1_odd",
-      "comment": "Clock boundary read of ROGA_FINE_CNT1_odd"
+      "comment": "Clock boundary read of ROGA_FINE_CNT1_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SOZU_SCX_FINE_MATCHp_old_odd",
@@ -3386,7 +3513,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1066,
       "gate_func": "xnor2",
-      "comment": "p27.SOZU"
+      "comment": "p27.SOZU",
+      "phase": "ODD"
     },
     {
       "name": "CYXU_SCX2p@old",
@@ -3406,7 +3534,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1066,
       "state_path": "reg_old.RUBU_FINE_CNT2_odd",
-      "comment": "Clock boundary read of RUBU_FINE_CNT2_odd"
+      "comment": "Clock boundary read of RUBU_FINE_CNT2_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:RONE_SCX_FINE_MATCHn_old_odd",
@@ -3415,7 +3544,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1067,
       "gate_func": "nand4",
-      "comment": "p27.RONE"
+      "comment": "p27.RONE",
+      "phase": "ODD"
     },
     {
       "name": "ROXY_FINE_SCROLL_DONEn@old",
@@ -3434,7 +3564,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1068,
       "gate_func": "not1",
-      "comment": "p27.POHU"
+      "comment": "p27.POHU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:BYJO_SCANNINGn_odd",
@@ -3443,7 +3574,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1071,
       "gate_func": "not1",
-      "comment": "p29.BYJO"
+      "comment": "p29.BYJO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:AZEM_RENDERINGp_odd",
@@ -3452,7 +3584,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1072,
       "gate_func": "and2",
-      "comment": "p29.AZEM"
+      "comment": "p29.AZEM",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:AROR_MATCH_ENp_odd",
@@ -3461,7 +3594,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1073,
       "gate_func": "and2",
-      "comment": "p29.AROR"
+      "comment": "p29.AROR",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:MOXE_AxCxExGx",
@@ -3470,7 +3604,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1075,
       "gate_func": "not1",
-      "comment": "p27.MOXE"
+      "comment": "p27.MOXE",
+      "phase": "AxCxExGx"
     },
     {
       "name": "PUXA_SCX_FINE_MATCH_evn",
@@ -3480,7 +3615,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1077,
       "state_path": "fine_scroll.PUXA_SCX_FINE_MATCH_evn",
-      "comment": "p27.PUXA"
+      "comment": "p27.PUXA",
+      "phase": "EVN"
     },
     {
       "name": "NYZE_SCX_FINE_MATCH_odd",
@@ -3490,7 +3626,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1078,
       "state_path": "fine_scroll.NYZE_SCX_FINE_MATCH_odd",
-      "comment": "p27.NYZE"
+      "comment": "p27.NYZE",
+      "phase": "ODD"
     },
     {
       "name": "PUXA_SCX_FINE_MATCH_evn@old",
@@ -3500,7 +3637,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1078,
       "state_path": "reg_old.PUXA_SCX_FINE_MATCH_evn",
-      "comment": "Clock boundary read of PUXA_SCX_FINE_MATCH_evn"
+      "comment": "Clock boundary read of PUXA_SCX_FINE_MATCH_evn",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:POVA_FINE_MATCH_TRIGp_evn",
@@ -3509,7 +3647,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1080,
       "gate_func": "and2",
-      "comment": "p27.POVA"
+      "comment": "p27.POVA",
+      "phase": "EVN"
     },
     {
       "name": "ROXY_FINE_SCROLL_DONEn",
@@ -3528,7 +3667,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1143,
       "gate_func": "or2",
-      "comment": "p24.SACU"
+      "comment": "p24.SACU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:RYBO_old",
@@ -3547,7 +3687,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1088,
       "state_path": "reg_old.XEHO_PX0p_odd",
-      "comment": "Clock boundary read of XEHO_PX0p_odd"
+      "comment": "Clock boundary read of XEHO_PX0p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SAVY_PX1p_odd@old",
@@ -3557,7 +3698,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1088,
       "state_path": "reg_old.SAVY_PX1p_odd",
-      "comment": "Clock boundary read of SAVY_PX1p_odd"
+      "comment": "Clock boundary read of SAVY_PX1p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XUKE_old",
@@ -3585,7 +3727,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1090,
       "state_path": "reg_old.XODU_PX2p_odd",
-      "comment": "Clock boundary read of XODU_PX2p_odd"
+      "comment": "Clock boundary read of XODU_PX2p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XEGY_old",
@@ -3613,7 +3756,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1092,
       "state_path": "reg_old.XYDO_PX3p_odd",
-      "comment": "Clock boundary read of XYDO_PX3p_odd"
+      "comment": "Clock boundary read of XYDO_PX3p_odd",
+      "phase": "ODD"
     },
     {
       "name": "XEHO_PX0p_odd",
@@ -3623,7 +3767,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1094,
       "state_path": "pix_count.XEHO_PX0p_odd",
-      "comment": "p21.XEHO"
+      "comment": "p21.XEHO",
+      "phase": "ODD"
     },
     {
       "name": "SAVY_PX1p_odd",
@@ -3633,7 +3778,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1095,
       "state_path": "pix_count.SAVY_PX1p_odd",
-      "comment": "p21.SAVY"
+      "comment": "p21.SAVY",
+      "phase": "ODD"
     },
     {
       "name": "XODU_PX2p_odd",
@@ -3643,7 +3789,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1096,
       "state_path": "pix_count.XODU_PX2p_odd",
-      "comment": "p21.XODU"
+      "comment": "p21.XODU",
+      "phase": "ODD"
     },
     {
       "name": "XYDO_PX3p_odd",
@@ -3653,7 +3800,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1097,
       "state_path": "pix_count.XYDO_PX3p_odd",
-      "comment": "p21.XYDO"
+      "comment": "p21.XYDO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:TOCA_new",
@@ -3681,7 +3829,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1100,
       "state_path": "reg_old.TUHU_PX4p_odd",
-      "comment": "Clock boundary read of TUHU_PX4p_odd"
+      "comment": "Clock boundary read of TUHU_PX4p_odd",
+      "phase": "ODD"
     },
     {
       "name": "TUKY_PX5p_odd@old",
@@ -3691,7 +3840,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1100,
       "state_path": "reg_old.TUKY_PX5p_odd",
-      "comment": "Clock boundary read of TUKY_PX5p_odd"
+      "comment": "Clock boundary read of TUKY_PX5p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:TYBA_old",
@@ -3719,7 +3869,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1102,
       "state_path": "reg_old.TAKO_PX6p_odd",
-      "comment": "Clock boundary read of TAKO_PX6p_odd"
+      "comment": "Clock boundary read of TAKO_PX6p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:TYGE_old",
@@ -3747,7 +3898,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1104,
       "state_path": "reg_old.SYBE_PX7p_odd",
-      "comment": "Clock boundary read of SYBE_PX7p_odd"
+      "comment": "Clock boundary read of SYBE_PX7p_odd",
+      "phase": "ODD"
     },
     {
       "name": "TUHU_PX4p_odd",
@@ -3757,7 +3909,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1106,
       "state_path": "pix_count.TUHU_PX4p_odd",
-      "comment": "p21.TUHU"
+      "comment": "p21.TUHU",
+      "phase": "ODD"
     },
     {
       "name": "TUKY_PX5p_odd",
@@ -3767,7 +3920,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1107,
       "state_path": "pix_count.TUKY_PX5p_odd",
-      "comment": "p21.TUKY"
+      "comment": "p21.TUKY",
+      "phase": "ODD"
     },
     {
       "name": "TAKO_PX6p_odd",
@@ -3777,7 +3931,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1108,
       "state_path": "pix_count.TAKO_PX6p_odd",
-      "comment": "p21.TAKO"
+      "comment": "p21.TAKO",
+      "phase": "ODD"
     },
     {
       "name": "SYBE_PX7p_odd",
@@ -3787,7 +3942,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1109,
       "state_path": "pix_count.SYBE_PX7p_odd",
-      "comment": "p21.SYBE"
+      "comment": "p21.SYBE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XENA_STORE_MATCHn_odd",
@@ -3796,7 +3952,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1121,
       "gate_func": "not1",
-      "comment": "p21.XENA"
+      "comment": "p21.XENA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XUGU_PX167n_odd",
@@ -3805,7 +3962,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1122,
       "gate_func": "nand5",
-      "comment": "p21.XUGU"
+      "comment": "p21.XUGU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:XANO_PX167p_odd",
@@ -3814,7 +3972,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1128,
       "gate_func": "not1",
-      "comment": "p21.XANO"
+      "comment": "p21.XANO",
+      "phase": "ODD"
     },
     {
       "name": "WODU_HBLANK_GATEp_odd",
@@ -3824,7 +3983,8 @@
       "source_line": 1129,
       "gate_func": "and2",
       "state_path": "WODU_HBLANK_GATEp_odd",
-      "comment": "p21.WODU"
+      "comment": "p21.WODU",
+      "phase": "ODD"
     },
     {
       "name": "PYCO_WIN_MATCHp_evn",
@@ -3834,7 +3994,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1132,
       "state_path": "win_ctrl.PYCO_WIN_MATCHp_evn",
-      "comment": "p27.PYCO"
+      "comment": "p27.PYCO",
+      "phase": "EVN"
     },
     {
       "name": "NUKO_WX_MATCHp_odd@old",
@@ -3844,7 +4005,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1132,
       "state_path": "reg_old.NUKO_WX_MATCHp_odd",
-      "comment": "Clock boundary read of NUKO_WX_MATCHp_odd"
+      "comment": "Clock boundary read of NUKO_WX_MATCHp_odd",
+      "phase": "ODD"
     },
     {
       "name": "PAHO_X8_SYNC",
@@ -3884,7 +4046,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1164,
       "state_path": "reg_old.LAXU_BFETCH_S0p_odd",
-      "comment": "Clock boundary read of LAXU_BFETCH_S0p_odd"
+      "comment": "Clock boundary read of LAXU_BFETCH_S0p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:SEKO_WIN_FETCH_TRIGp_old",
@@ -3950,7 +4113,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1169,
       "gate_func": "not1",
-      "comment": "p27.ROMO"
+      "comment": "p27.ROMO",
+      "phase": "EVN"
     },
     {
       "name": "POKY_PRELOAD_LATCHp_evn@old",
@@ -3960,7 +4124,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1169,
       "state_path": "reg_old.POKY_PRELOAD_LATCHp_evn",
-      "comment": "Clock boundary read of POKY_PRELOAD_LATCHp_evn"
+      "comment": "Clock boundary read of POKY_PRELOAD_LATCHp_evn",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:SUVU_PRELOAD_DONE_TRIGn_old",
@@ -4006,7 +4171,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1174,
       "gate_func": "nor2",
-      "comment": "p27.SEKO"
+      "comment": "p27.SEKO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoy:TUXY_WIN_FIRST_TILEne_xxx_new",
@@ -4070,7 +4236,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1188,
       "state_path": "tfetch_counter.LAXU_BFETCH_S0p_odd",
-      "comment": "p27.LAXU"
+      "comment": "p27.LAXU",
+      "phase": "ODD"
     },
     {
       "name": "MESU_BFETCH_S1p_odd",
@@ -4080,7 +4247,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1189,
       "state_path": "tfetch_counter.MESU_BFETCH_S1p_odd",
-      "comment": "p27.MESU"
+      "comment": "p27.MESU",
+      "phase": "ODD"
     },
     {
       "name": "NYVA_BFETCH_S2p_odd",
@@ -4090,7 +4258,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1190,
       "state_path": "tfetch_counter.NYVA_BFETCH_S2p_odd",
-      "comment": "p27.NYVA"
+      "comment": "p27.NYVA",
+      "phase": "ODD"
     },
     {
       "name": "LOVY_TFETCH_DONEp",
@@ -4110,7 +4279,8 @@
       "source_line": 1196,
       "gate_func": "not1",
       "state_path": "tfetch_control.LYRY_BFETCH_DONEp_odd",
-      "comment": "p27.LYRY"
+      "comment": "p27.LYRY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoy:LURY_BG_FETCH_DONEn",
@@ -4148,7 +4318,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1217,
       "state_path": "fine_count_odd.RYKU_FINE_CNT0_odd",
-      "comment": "p27.RYKU"
+      "comment": "p27.RYKU",
+      "phase": "ODD"
     },
     {
       "name": "ROGA_FINE_CNT1_odd",
@@ -4158,7 +4329,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1218,
       "state_path": "fine_count_odd.ROGA_FINE_CNT1_odd",
-      "comment": "p27.ROGA"
+      "comment": "p27.ROGA",
+      "phase": "ODD"
     },
     {
       "name": "RUBU_FINE_CNT2_odd",
@@ -4168,7 +4340,8 @@
       "source_file": "GateBoy.cpp",
       "source_line": 1219,
       "state_path": "fine_count_odd.RUBU_FINE_CNT2_odd",
-      "comment": "p27.RUBU"
+      "comment": "p27.RUBU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:TALU_xxCDEFxx",
@@ -4177,7 +4350,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 92,
       "gate_func": "not1",
-      "comment": "p21.TALU"
+      "comment": "p21.TALU",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyLCD:AVOR_SYS_RSTp",
@@ -4268,7 +4442,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 26,
       "state_path": "reg_old.MUWY_LY0p_odd",
-      "comment": "Clock boundary read of MUWY_LY0p_odd"
+      "comment": "Clock boundary read of MUWY_LY0p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SYRY_LYC0p@old",
@@ -4297,7 +4472,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 27,
       "state_path": "reg_old.MYRO_LY1p_odd",
-      "comment": "Clock boundary read of MYRO_LY1p_odd"
+      "comment": "Clock boundary read of MYRO_LY1p_odd",
+      "phase": "ODD"
     },
     {
       "name": "VUCE_LYC1p@old",
@@ -4326,7 +4502,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 28,
       "state_path": "reg_old.LEXA_LY2p_odd",
-      "comment": "Clock boundary read of LEXA_LY2p_odd"
+      "comment": "Clock boundary read of LEXA_LY2p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SEDY_LYC2p@old",
@@ -4355,7 +4532,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 29,
       "state_path": "reg_old.LYDO_LY3p_odd",
-      "comment": "Clock boundary read of LYDO_LY3p_odd"
+      "comment": "Clock boundary read of LYDO_LY3p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SALO_LYC3p@old",
@@ -4384,7 +4562,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 30,
       "state_path": "reg_old.LOVU_LY4p_odd",
-      "comment": "Clock boundary read of LOVU_LY4p_odd"
+      "comment": "Clock boundary read of LOVU_LY4p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SOTA_LYC4p@old",
@@ -4413,7 +4592,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 31,
       "state_path": "reg_old.LEMA_LY5p_odd",
-      "comment": "Clock boundary read of LEMA_LY5p_odd"
+      "comment": "Clock boundary read of LEMA_LY5p_odd",
+      "phase": "ODD"
     },
     {
       "name": "VAFA_LYC5p@old",
@@ -4442,7 +4622,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 32,
       "state_path": "reg_old.MATO_LY6p_odd",
-      "comment": "Clock boundary read of MATO_LY6p_odd"
+      "comment": "Clock boundary read of MATO_LY6p_odd",
+      "phase": "ODD"
     },
     {
       "name": "VEVO_LYC6p@old",
@@ -4471,7 +4652,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 33,
       "state_path": "reg_old.LAFO_LY7p_odd",
-      "comment": "Clock boundary read of LAFO_LY7p_odd"
+      "comment": "Clock boundary read of LAFO_LY7p_odd",
+      "phase": "ODD"
     },
     {
       "name": "RAHA_LYC7p@old",
@@ -4923,7 +5105,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 93,
       "gate_func": "not1",
-      "comment": "p21.SONO"
+      "comment": "p21.SONO",
+      "phase": "ABxxxxGH"
     },
     {
       "name": "GateBoyLCD:XYVO_y144p_old",
@@ -4950,7 +5133,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 103,
       "gate_func": "not1",
-      "comment": "p29.XUPY"
+      "comment": "p29.XUPY",
+      "phase": "ABxxEFxx"
     },
     {
       "name": "GateBoyLCD:AWOH_xxCDxxGH",
@@ -4959,7 +5143,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 104,
       "gate_func": "not1",
-      "comment": "p28.AWOH"
+      "comment": "p28.AWOH",
+      "phase": "xxCDxxGH"
     },
     {
       "name": "ANEL_LINE_ENDp_odd",
@@ -4969,7 +5154,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 105,
       "state_path": "lcd.ANEL_LINE_ENDp_odd",
-      "comment": "p28.ANEL"
+      "comment": "p28.ANEL",
+      "phase": "ODD"
     },
     {
       "name": "CATU_LINE_ENDp_odd@old",
@@ -4979,7 +5165,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 105,
       "state_path": "reg_old.CATU_LINE_ENDp_odd",
-      "comment": "Clock boundary read of CATU_LINE_ENDp_odd"
+      "comment": "Clock boundary read of CATU_LINE_ENDp_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:PURE_LINE_ENDn_old",
@@ -4998,7 +5185,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 107,
       "state_path": "reg_old.RUTU_LINE_ENDp_odd",
-      "comment": "Clock boundary read of RUTU_LINE_ENDp_odd"
+      "comment": "Clock boundary read of RUTU_LINE_ENDp_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:ALES_FRAME_ENDn_old",
@@ -5035,7 +5223,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 111,
       "state_path": "lcd.CATU_LINE_ENDp_odd",
-      "comment": "p29.CATU"
+      "comment": "p29.CATU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:SANU_x113p_odd_old",
@@ -5044,7 +5233,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 114,
       "gate_func": "and4",
-      "comment": "p21.SANU"
+      "comment": "p21.SANU",
+      "phase": "ODD"
     },
     {
       "name": "TYRY_LX6p_odd@old",
@@ -5054,7 +5244,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 114,
       "state_path": "reg_old.TYRY_LX6p_odd",
-      "comment": "Clock boundary read of TYRY_LX6p_odd"
+      "comment": "Clock boundary read of TYRY_LX6p_odd",
+      "phase": "ODD"
     },
     {
       "name": "TAHA_LX5p_odd@old",
@@ -5064,7 +5255,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 114,
       "state_path": "reg_old.TAHA_LX5p_odd",
-      "comment": "Clock boundary read of TAHA_LX5p_odd"
+      "comment": "Clock boundary read of TAHA_LX5p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SUDE_LX4p_odd@old",
@@ -5074,7 +5266,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 114,
       "state_path": "reg_old.SUDE_LX4p_odd",
-      "comment": "Clock boundary read of SUDE_LX4p_odd"
+      "comment": "Clock boundary read of SUDE_LX4p_odd",
+      "phase": "ODD"
     },
     {
       "name": "SAXO_LX0p_odd@old",
@@ -5084,7 +5277,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 114,
       "state_path": "reg_old.SAXO_LX0p_odd",
-      "comment": "Clock boundary read of SAXO_LX0p_odd"
+      "comment": "Clock boundary read of SAXO_LX0p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:ABAF_LINE_ENDn_odd",
@@ -5093,7 +5287,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 120,
       "gate_func": "not1",
-      "comment": "p28.ABAF"
+      "comment": "p28.ABAF",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:BYHA_LINE_RST_TRIGn_odd",
@@ -5102,7 +5297,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 121,
       "gate_func": "or_and3",
-      "comment": "p28.BYHA"
+      "comment": "p28.BYHA",
+      "phase": "ODD"
     },
     {
       "name": "ATEJ_LINE_RST_TRIGp_odd",
@@ -5112,7 +5308,8 @@
       "source_line": 122,
       "gate_func": "not1",
       "state_path": "ATEJ_LINE_RST_TRIGp_odd",
-      "comment": "p28.ATEJ"
+      "comment": "p28.ATEJ",
+      "phase": "ODD"
     },
     {
       "name": "RUTU_LINE_ENDp_odd ",
@@ -5122,7 +5319,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 124,
       "state_path": "lcd.RUTU_LINE_ENDp_odd ",
-      "comment": "p21.RUTU"
+      "comment": "p21.RUTU",
+      "phase": "ODD"
     },
     {
       "name": "NYPE_LINE_ENDp_odd ",
@@ -5132,7 +5330,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 125,
       "state_path": "lcd.NYPE_LINE_ENDp_odd ",
-      "comment": "p21.NYPE"
+      "comment": "p21.NYPE",
+      "phase": "ODD"
     },
     {
       "name": "POPU_VBLANKp_odd   ",
@@ -5142,7 +5341,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 126,
       "state_path": "lcd.POPU_VBLANKp_odd   ",
-      "comment": "p21.POPU"
+      "comment": "p21.POPU",
+      "phase": "ODD"
     },
     {
       "name": "MYTA_FRAME_ENDp_odd",
@@ -5152,7 +5352,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 127,
       "state_path": "lcd.MYTA_FRAME_ENDp_odd",
-      "comment": "p21.MYTA"
+      "comment": "p21.MYTA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:TOCU_LX0n_old",
@@ -5180,7 +5381,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 132,
       "state_path": "reg_old.TYPO_LX1p_odd",
-      "comment": "Clock boundary read of TYPO_LX1p_odd"
+      "comment": "Clock boundary read of TYPO_LX1p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:VUTY_LX2n_old",
@@ -5199,7 +5401,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 133,
       "state_path": "reg_old.VYZO_LX2p_odd",
-      "comment": "Clock boundary read of VYZO_LX2p_odd"
+      "comment": "Clock boundary read of VYZO_LX2p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:VATE_LX3n_old",
@@ -5218,7 +5421,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 134,
       "state_path": "reg_old.TELU_LX3p_odd",
-      "comment": "Clock boundary read of TELU_LX3p_odd"
+      "comment": "Clock boundary read of TELU_LX3p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:TUDA_LX4n_old",
@@ -5319,7 +5523,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 151,
       "state_path": "reg_lx.SAXO_LX0p_odd",
-      "comment": "p21.SAXO"
+      "comment": "p21.SAXO",
+      "phase": "ODD"
     },
     {
       "name": "TYPO_LX1p_odd",
@@ -5329,7 +5534,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 152,
       "state_path": "reg_lx.TYPO_LX1p_odd",
-      "comment": "p21.TYPO"
+      "comment": "p21.TYPO",
+      "phase": "ODD"
     },
     {
       "name": "VYZO_LX2p_odd",
@@ -5339,7 +5545,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 153,
       "state_path": "reg_lx.VYZO_LX2p_odd",
-      "comment": "p21.VYZO"
+      "comment": "p21.VYZO",
+      "phase": "ODD"
     },
     {
       "name": "TELU_LX3p_odd",
@@ -5349,7 +5556,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 154,
       "state_path": "reg_lx.TELU_LX3p_odd",
-      "comment": "p21.TELU"
+      "comment": "p21.TELU",
+      "phase": "ODD"
     },
     {
       "name": "SUDE_LX4p_odd",
@@ -5359,7 +5567,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 155,
       "state_path": "reg_lx.SUDE_LX4p_odd",
-      "comment": "p21.SUDE"
+      "comment": "p21.SUDE",
+      "phase": "ODD"
     },
     {
       "name": "TAHA_LX5p_odd",
@@ -5369,7 +5578,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 156,
       "state_path": "reg_lx.TAHA_LX5p_odd",
-      "comment": "p21.TAHA"
+      "comment": "p21.TAHA",
+      "phase": "ODD"
     },
     {
       "name": "TYRY_LX6p_odd",
@@ -5379,7 +5589,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 157,
       "state_path": "reg_lx.TYRY_LX6p_odd",
-      "comment": "p21.TYRY"
+      "comment": "p21.TYRY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:LAMA_Y_RSTn_new",
@@ -5398,7 +5609,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 162,
       "state_path": "reg_ly.MUWY_LY0p_odd",
-      "comment": "p21.MUWY"
+      "comment": "p21.MUWY",
+      "phase": "ODD"
     },
     {
       "name": "MYRO_LY1p_odd",
@@ -5408,7 +5620,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 163,
       "state_path": "reg_ly.MYRO_LY1p_odd",
-      "comment": "p21.MYRO"
+      "comment": "p21.MYRO",
+      "phase": "ODD"
     },
     {
       "name": "LEXA_LY2p_odd",
@@ -5418,7 +5631,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 164,
       "state_path": "reg_ly.LEXA_LY2p_odd",
-      "comment": "p21.LEXA"
+      "comment": "p21.LEXA",
+      "phase": "ODD"
     },
     {
       "name": "LYDO_LY3p_odd",
@@ -5428,7 +5642,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 165,
       "state_path": "reg_ly.LYDO_LY3p_odd",
-      "comment": "p21.LYDO"
+      "comment": "p21.LYDO",
+      "phase": "ODD"
     },
     {
       "name": "LOVU_LY4p_odd",
@@ -5438,7 +5653,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 166,
       "state_path": "reg_ly.LOVU_LY4p_odd",
-      "comment": "p21.LOVU"
+      "comment": "p21.LOVU",
+      "phase": "ODD"
     },
     {
       "name": "LEMA_LY5p_odd",
@@ -5448,7 +5664,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 167,
       "state_path": "reg_ly.LEMA_LY5p_odd",
-      "comment": "p21.LEMA"
+      "comment": "p21.LEMA",
+      "phase": "ODD"
     },
     {
       "name": "MATO_LY6p_odd",
@@ -5458,7 +5675,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 168,
       "state_path": "reg_ly.MATO_LY6p_odd",
-      "comment": "p21.MATO"
+      "comment": "p21.MATO",
+      "phase": "ODD"
     },
     {
       "name": "LAFO_LY7p_odd",
@@ -5468,7 +5686,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 169,
       "state_path": "reg_ly.LAFO_LY7p_odd",
-      "comment": "p21.LAFO"
+      "comment": "p21.LAFO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:WAFU_FF44_RDp_new",
@@ -5889,7 +6108,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 275,
       "gate_func": "and2",
-      "comment": "p21.XAJO"
+      "comment": "p21.XAJO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyLCD:WEGO_HBLANKp_evn_new",
@@ -5898,7 +6118,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 276,
       "gate_func": "or2",
-      "comment": "p21.WEGO"
+      "comment": "p21.WEGO",
+      "phase": "EVN"
     },
     {
       "name": "WUSA_LCD_CLOCK_GATE",
@@ -5926,7 +6147,8 @@
       "source_file": "GateBoyLCD.cpp",
       "source_line": 279,
       "gate_func": "and2",
-      "comment": "p27.POVA"
+      "comment": "p27.POVA",
+      "phase": "EVN"
     },
     {
       "name": "GateBoyLCD:SEMU_LCD_CLOCK",
@@ -5998,7 +6220,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 23,
       "gate_func": "not1",
-      "comment": "p01.ATAL"
+      "comment": "p01.ATAL",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyPixPipe:AZOF_AxCxExGx",
@@ -6007,7 +6230,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 24,
       "gate_func": "not1",
-      "comment": "p01.AZOF"
+      "comment": "p01.AZOF",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyPixPipe:ZAXY_xBxDxFxH",
@@ -6016,7 +6240,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 25,
       "gate_func": "not1",
-      "comment": "p01.ZAXY"
+      "comment": "p01.ZAXY",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyPixPipe:ZEME_AxCxExGx",
@@ -6025,7 +6250,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 26,
       "gate_func": "not1",
-      "comment": "p01.ZEME"
+      "comment": "p01.ZEME",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyPixPipe:ALET_xBxDxFxH",
@@ -6034,7 +6260,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 27,
       "gate_func": "not1",
-      "comment": "p01.ALET"
+      "comment": "p01.ALET",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyPixPipe:TALU_xxCDEFxx",
@@ -6043,7 +6270,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 28,
       "gate_func": "not1",
-      "comment": "p21.TALU"
+      "comment": "p21.TALU",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyPixPipe:ROZE_FINE_COUNT_7n_odd_old",
@@ -6052,7 +6280,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 30,
       "gate_func": "nand3",
-      "comment": "p27.ROZE"
+      "comment": "p27.ROZE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PANY_WIN_FETCHn_old",
@@ -6304,7 +6533,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 61,
       "gate_func": "xnor2",
-      "comment": "p27.NAZE"
+      "comment": "p27.NAZE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PEBO_WY_MATCH1p_odd_new",
@@ -6313,7 +6543,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 62,
       "gate_func": "xnor2",
-      "comment": "p27.PEBO"
+      "comment": "p27.PEBO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:POMO_WY_MATCH2p_odd_new",
@@ -6322,7 +6553,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 63,
       "gate_func": "xnor2",
-      "comment": "p27.POMO"
+      "comment": "p27.POMO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NEVU_WY_MATCH3p_odd_new",
@@ -6331,7 +6563,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 64,
       "gate_func": "xnor2",
-      "comment": "p27.NEVU"
+      "comment": "p27.NEVU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NOJO_WY_MATCH4p_odd_new",
@@ -6340,7 +6573,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 65,
       "gate_func": "xnor2",
-      "comment": "p27.NOJO"
+      "comment": "p27.NOJO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PAGA_WY_MATCH5p_odd_new",
@@ -6349,7 +6583,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 66,
       "gate_func": "xnor2",
-      "comment": "p27.PAGA"
+      "comment": "p27.PAGA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PEZO_WY_MATCH6p_odd_new",
@@ -6358,7 +6593,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 67,
       "gate_func": "xnor2",
-      "comment": "p27.PEZO"
+      "comment": "p27.PEZO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NUPA_WY_MATCH7p_odd_new",
@@ -6367,7 +6603,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 68,
       "gate_func": "xnor2",
-      "comment": "p27.NUPA"
+      "comment": "p27.NUPA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:MYLO_WX_MATCH0p_odd_new",
@@ -6376,7 +6613,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 70,
       "gate_func": "xnor2",
-      "comment": "p27.MYLO"
+      "comment": "p27.MYLO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PUWU_WX_MATCH1p_odd_new",
@@ -6385,7 +6623,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 71,
       "gate_func": "xnor2",
-      "comment": "p27.PUWU"
+      "comment": "p27.PUWU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PUHO_WX_MATCH2p_odd_new",
@@ -6394,7 +6633,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 72,
       "gate_func": "xnor2",
-      "comment": "p27.PUHO"
+      "comment": "p27.PUHO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NYTU_WX_MATCH3p_odd_new",
@@ -6403,7 +6643,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 73,
       "gate_func": "xnor2",
-      "comment": "p27.NYTU"
+      "comment": "p27.NYTU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NEZO_WX_MATCH4p_odd_new",
@@ -6412,7 +6653,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 74,
       "gate_func": "xnor2",
-      "comment": "p27.NEZO"
+      "comment": "p27.NEZO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NORY_WX_MATCH5p_odd_new",
@@ -6421,7 +6663,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 75,
       "gate_func": "xnor2",
-      "comment": "p27.NORY"
+      "comment": "p27.NORY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NONO_WX_MATCH6p_odd_new",
@@ -6430,7 +6673,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 76,
       "gate_func": "xnor2",
-      "comment": "p27.NONO"
+      "comment": "p27.NONO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PASE_WX_MATCH7p_odd_new",
@@ -6439,7 +6683,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 77,
       "gate_func": "xnor2",
-      "comment": "p27.PASE"
+      "comment": "p27.PASE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PALO_WY_MATCHn_odd_new",
@@ -6448,7 +6693,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 79,
       "gate_func": "nand5",
-      "comment": "p27.PALO"
+      "comment": "p27.PALO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NELE_WY_MATCHp_odd_new",
@@ -6457,7 +6703,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 80,
       "gate_func": "not1",
-      "comment": "p27.NELE"
+      "comment": "p27.NELE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PAFU_WY_MATCHn_odd_new",
@@ -6466,7 +6713,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 81,
       "gate_func": "nand5",
-      "comment": "p27.PAFU"
+      "comment": "p27.PAFU",
+      "phase": "ODD"
     },
     {
       "name": "SARY_WY_MATCHp_odd",
@@ -6476,7 +6724,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 83,
       "state_path": "win_ctrl.SARY_WY_MATCHp_odd",
-      "comment": "p27.SARY"
+      "comment": "p27.SARY",
+      "phase": "ODD"
     },
     {
       "name": "ROGE_WY_MATCHp_odd@old",
@@ -6486,7 +6735,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 83,
       "state_path": "reg_old.ROGE_WY_MATCHp_odd",
-      "comment": "Clock boundary read of ROGE_WY_MATCHp_odd"
+      "comment": "Clock boundary read of ROGE_WY_MATCHp_odd",
+      "phase": "ODD"
     },
     {
       "name": "ROGE_WY_MATCHp_odd",
@@ -6496,7 +6746,8 @@
       "source_line": 84,
       "gate_func": "not1",
       "state_path": "win_ctrl.ROGE_WY_MATCHp_odd",
-      "comment": "p27.ROGE"
+      "comment": "p27.ROGE",
+      "phase": "ODD"
     },
     {
       "name": "REJO_WY_MATCH_LATCHp_odd",
@@ -6506,7 +6757,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 85,
       "state_path": "win_ctrl.REJO_WY_MATCH_LATCHp_odd",
-      "comment": "p27.REJO"
+      "comment": "p27.REJO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:PUKY_WX_MATCHn_odd_new",
@@ -6515,7 +6767,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 87,
       "gate_func": "nand5",
-      "comment": "p27.PUKY"
+      "comment": "p27.PUKY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NUFA_WX_MATCHp_odd_new",
@@ -6524,7 +6777,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 88,
       "gate_func": "not1",
-      "comment": "p27.NUFA"
+      "comment": "p27.NUFA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:NOGY_WX_MATCHn_odd_new",
@@ -6533,7 +6787,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 89,
       "gate_func": "nand5",
-      "comment": "p27.NOGY"
+      "comment": "p27.NOGY",
+      "phase": "ODD"
     },
     {
       "name": "NUKO_WX_MATCHp_odd",
@@ -6543,7 +6798,8 @@
       "source_line": 90,
       "gate_func": "not1",
       "state_path": "win_ctrl.NUKO_WX_MATCHp_odd",
-      "comment": "p27.NUKO"
+      "comment": "p27.NUKO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:AJAS_CPU_RDn_new",
@@ -7738,7 +7994,8 @@
       "source_file": "GateBoyPixPipe.cpp",
       "source_line": 239,
       "gate_func": "not1",
-      "comment": "p29.XEFY"
+      "comment": "p29.XEFY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyPixPipe:MEFU_SPRITE_MASK0n_new",
@@ -13666,7 +13923,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 349,
       "gate_func": "not1",
-      "comment": "p21.ACAM"
+      "comment": "p21.ACAM",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:AZUB_PX1n_odd",
@@ -13675,7 +13933,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 350,
       "gate_func": "not1",
-      "comment": "p21.AZUB"
+      "comment": "p21.AZUB",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:AMEL_PX2n_odd",
@@ -13684,7 +13943,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 351,
       "gate_func": "not1",
-      "comment": "p21.AMEL"
+      "comment": "p21.AMEL",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:AHAL_PX3n_odd",
@@ -13693,7 +13953,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 352,
       "gate_func": "not1",
-      "comment": "p21.AHAL"
+      "comment": "p21.AHAL",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:APUX_PX4n_odd",
@@ -13702,7 +13963,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 353,
       "gate_func": "not1",
-      "comment": "p21.APUX"
+      "comment": "p21.APUX",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:ABEF_PX5n_odd",
@@ -13711,7 +13973,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 354,
       "gate_func": "not1",
-      "comment": "p21.ABEF"
+      "comment": "p21.ABEF",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:ADAZ_PX6n_odd",
@@ -13720,7 +13983,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 355,
       "gate_func": "not1",
-      "comment": "p21.ADAZ"
+      "comment": "p21.ADAZ",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:ASAH_PX7n_odd",
@@ -13729,7 +13993,8 @@
       "source_file": "GateBoySpriteStore.cpp",
       "source_line": 356,
       "gate_func": "not1",
-      "comment": "p21.ASAH"
+      "comment": "p21.ASAH",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:ZOGY_STORE0_MATCH0n",
@@ -14747,7 +15012,8 @@
       "source_line": 482,
       "gate_func": "or2",
       "state_path": "FEPO_STORE_MATCHp_odd",
-      "comment": "p29.FEPO"
+      "comment": "p29.FEPO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoySpriteStore:WEFU_STORE0_MATCH",
@@ -16454,7 +16720,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 37,
       "gate_func": "not1",
-      "comment": "p01.ARYS"
+      "comment": "p01.ARYS",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "AVET_AxCxExGx",
@@ -16464,7 +16731,8 @@
       "source_line": 40,
       "gate_func": "nand2",
       "state_path": "sys_clk.AVET_AxCxExGx",
-      "comment": "p01.AVET"
+      "comment": "p01.AVET",
+      "phase": "AxCxExGx"
     },
     {
       "name": "ANOS_xBxDxFxH",
@@ -16474,7 +16742,8 @@
       "source_line": 41,
       "gate_func": "nand2",
       "state_path": "sys_clk.ANOS_xBxDxFxH",
-      "comment": "p01.ANOS"
+      "comment": "p01.ANOS",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyClocks:ATAL_xBxDxFxH",
@@ -16483,7 +16752,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 104,
       "gate_func": "not1",
-      "comment": "p01.ATAL"
+      "comment": "p01.ATAL",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyClocks:ATAN_AxCxExGx",
@@ -16492,7 +16762,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 44,
       "gate_func": "not1",
-      "comment": "p01.ATAN"
+      "comment": "p01.ATAN",
+      "phase": "AxCxExGx"
     },
     {
       "name": "AFUR_ABCDxxxx",
@@ -16502,7 +16773,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 46,
       "state_path": "sys_clk.AFUR_ABCDxxxx",
-      "comment": "p01.AFUR"
+      "comment": "p01.AFUR",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "ADYK_xxxDEFGx@old",
@@ -16512,7 +16784,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 46,
       "state_path": "reg_old.ADYK_xxxDEFGx",
-      "comment": "Clock boundary read of ADYK_xxxDEFGx"
+      "comment": "Clock boundary read of ADYK_xxxDEFGx",
+      "phase": "xxxDEFGx"
     },
     {
       "name": "ALEF_xBCDExxx",
@@ -16522,7 +16795,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 47,
       "state_path": "sys_clk.ALEF_xBCDExxx",
-      "comment": "p01.ALEF"
+      "comment": "p01.ALEF",
+      "phase": "xBCDExxx"
     },
     {
       "name": "AFUR_ABCDxxxx@old",
@@ -16532,7 +16806,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 47,
       "state_path": "reg_old.AFUR_ABCDxxxx",
-      "comment": "Clock boundary read of AFUR_ABCDxxxx"
+      "comment": "Clock boundary read of AFUR_ABCDxxxx",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "APUK_xxCDEFxx",
@@ -16542,7 +16817,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 48,
       "state_path": "sys_clk.APUK_xxCDEFxx",
-      "comment": "p01.APUK"
+      "comment": "p01.APUK",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "ALEF_xBCDExxx@old",
@@ -16552,7 +16828,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 48,
       "state_path": "reg_old.ALEF_xBCDExxx",
-      "comment": "Clock boundary read of ALEF_xBCDExxx"
+      "comment": "Clock boundary read of ALEF_xBCDExxx",
+      "phase": "xBCDExxx"
     },
     {
       "name": "ADYK_xxxDEFGx",
@@ -16562,7 +16839,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 49,
       "state_path": "sys_clk.ADYK_xxxDEFGx",
-      "comment": "p01.ADYK"
+      "comment": "p01.ADYK",
+      "phase": "xxxDEFGx"
     },
     {
       "name": "APUK_xxCDEFxx@old",
@@ -16572,7 +16850,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 49,
       "state_path": "reg_old.APUK_xxCDEFxx",
-      "comment": "Clock boundary read of APUK_xxCDEFxx"
+      "comment": "Clock boundary read of APUK_xxCDEFxx",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyClocks:ABOL_CLKREQn",
@@ -16599,7 +16878,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 54,
       "gate_func": "not1",
-      "comment": "p01.AROV"
+      "comment": "p01.AROV",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyClocks:AFEP_AxxxxFGH",
@@ -16608,7 +16888,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 55,
       "gate_func": "not1",
-      "comment": "p01.AFEP"
+      "comment": "p01.AFEP",
+      "phase": "AxxxxFGH"
     },
     {
       "name": "GateBoyClocks:ATYP_ABCDxxxx",
@@ -16617,7 +16898,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 56,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyClocks:BAPY_xxxxxxGH",
@@ -16626,7 +16908,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 58,
       "gate_func": "nor3",
-      "comment": "p01.BAPY"
+      "comment": "p01.BAPY",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyClocks:BELU_xxxxEFGH",
@@ -16635,7 +16918,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 59,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyClocks:BUGO_xBCDExxx",
@@ -16644,7 +16928,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 61,
       "gate_func": "not1",
-      "comment": "p01.BUGO"
+      "comment": "p01.BUGO",
+      "phase": "xBCDExxx"
     },
     {
       "name": "GateBoyClocks:BATE_AxxxxxGH",
@@ -16653,7 +16938,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 62,
       "gate_func": "nor3",
-      "comment": "p01.BATE"
+      "comment": "p01.BATE",
+      "phase": "AxxxxxGH"
     },
     {
       "name": "GateBoyClocks:BASU_xBCDEFxx",
@@ -16662,7 +16948,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 63,
       "gate_func": "not1",
-      "comment": "p01.BASU"
+      "comment": "p01.BASU",
+      "phase": "xBCDEFxx"
     },
     {
       "name": "GateBoyClocks:BUKE_AxxxxxGH",
@@ -16671,7 +16958,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 64,
       "gate_func": "not1",
-      "comment": "p01.BUKE"
+      "comment": "p01.BUKE",
+      "phase": "AxxxxxGH"
     },
     {
       "name": "GateBoyClocks:BERU_ABCDEFxx",
@@ -16680,7 +16968,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 65,
       "gate_func": "not1",
-      "comment": "p01.BERU"
+      "comment": "p01.BERU",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyClocks:BUFA_xxxxxxGH",
@@ -16689,7 +16978,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 66,
       "gate_func": "not1",
-      "comment": "p01.BUFA"
+      "comment": "p01.BUFA",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyClocks:BOLO_ABCDEFxx",
@@ -16698,7 +16988,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 67,
       "gate_func": "not1",
-      "comment": "p01.BOLO"
+      "comment": "p01.BOLO",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyClocks:BYRY_ABCDxxxx",
@@ -16707,7 +16998,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 68,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyClocks:BUDE_xxxxEFGH",
@@ -16716,7 +17008,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 69,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyClocks:BEKO_ABCDxxxx",
@@ -16725,7 +17018,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 70,
       "gate_func": "not1",
-      "comment": "p01.BEKO"
+      "comment": "p01.BEKO",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyClocks:BEJA_xxxxEFGH",
@@ -16734,7 +17028,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 72,
       "gate_func": "nand4",
-      "comment": "p01.BEJA"
+      "comment": "p01.BEJA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyClocks:BANE_ABCDxxxx",
@@ -16743,7 +17038,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 73,
       "gate_func": "not1",
-      "comment": "p01.BANE"
+      "comment": "p01.BANE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyClocks:BELO_xxxxEFGH",
@@ -16752,7 +17048,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 74,
       "gate_func": "not1",
-      "comment": "p01.BELO"
+      "comment": "p01.BELO",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyClocks:BAZE_ABCDxxxx",
@@ -16761,7 +17058,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 75,
       "gate_func": "not1",
-      "comment": "p01.BAZE"
+      "comment": "p01.BAZE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyClocks:BUTO_xBCDEFGH",
@@ -16770,7 +17068,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 76,
       "gate_func": "nand3",
-      "comment": "p01.BUTO"
+      "comment": "p01.BUTO",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyClocks:BELE_Axxxxxxx",
@@ -16779,7 +17078,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 77,
       "gate_func": "not1",
-      "comment": "p01.BELE"
+      "comment": "p01.BELE",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:BYJU_Axxxxxxx",
@@ -16788,7 +17088,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 78,
       "gate_func": "or2",
-      "comment": "p01.BYJU"
+      "comment": "p01.BYJU",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:BALY_xBCDEFGH",
@@ -16797,7 +17098,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 79,
       "gate_func": "not1",
-      "comment": "p01.BALY"
+      "comment": "p01.BALY",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyClocks:BUVU_Axxxxxxx",
@@ -16806,7 +17108,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 81,
       "gate_func": "and2",
-      "comment": "p01.BUVU"
+      "comment": "p01.BUVU",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:BYXO_xBCDEFGH",
@@ -16815,7 +17118,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 82,
       "gate_func": "not1",
-      "comment": "p01.BYXO"
+      "comment": "p01.BYXO",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyClocks:BEDO_Axxxxxxx",
@@ -16824,7 +17128,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 83,
       "gate_func": "not1",
-      "comment": "p01.BEDO"
+      "comment": "p01.BEDO",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:BOWA_xBCDEFGH",
@@ -16833,7 +17138,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 84,
       "gate_func": "not1",
-      "comment": "p01.BOWA"
+      "comment": "p01.BOWA",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyClocks:BOGA_Axxxxxxx",
@@ -16842,7 +17148,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 85,
       "gate_func": "not1",
-      "comment": "p01.BOGA"
+      "comment": "p01.BOGA",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:BOMA_xBCDEFGH",
@@ -16851,7 +17158,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 86,
       "gate_func": "not1",
-      "comment": "p01.BOMA"
+      "comment": "p01.BOMA",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "SIG_CPU_BOWA_Axxxxxxx",
@@ -16859,7 +17167,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 88,
-      "state_path": "sys_clk.SIG_CPU_BOWA_Axxxxxxx"
+      "state_path": "sys_clk.SIG_CPU_BOWA_Axxxxxxx",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "SIG_CPU_BEDO_xBCDEFGH",
@@ -16867,7 +17176,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 89,
-      "state_path": "sys_clk.SIG_CPU_BEDO_xBCDEFGH"
+      "state_path": "sys_clk.SIG_CPU_BEDO_xBCDEFGH",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "SIG_CPU_BEKO_ABCDxxxx",
@@ -16875,7 +17185,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 90,
-      "state_path": "sys_clk.SIG_CPU_BEKO_ABCDxxxx"
+      "state_path": "sys_clk.SIG_CPU_BEKO_ABCDxxxx",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "SIG_CPU_BUDE_xxxxEFGH",
@@ -16883,7 +17194,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 91,
-      "state_path": "sys_clk.SIG_CPU_BUDE_xxxxEFGH"
+      "state_path": "sys_clk.SIG_CPU_BUDE_xxxxEFGH",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "SIG_CPU_BOLO_ABCDEFxx",
@@ -16891,7 +17203,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 92,
-      "state_path": "sys_clk.SIG_CPU_BOLO_ABCDEFxx"
+      "state_path": "sys_clk.SIG_CPU_BOLO_ABCDEFxx",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "SIG_CPU_BUKE_AxxxxxGH",
@@ -16899,7 +17212,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 93,
-      "state_path": "sys_clk.SIG_CPU_BUKE_AxxxxxGH"
+      "state_path": "sys_clk.SIG_CPU_BUKE_AxxxxxGH",
+      "phase": "AxxxxxGH"
     },
     {
       "name": "SIG_CPU_BOMA_xBCDEFGH",
@@ -16907,7 +17221,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 94,
-      "state_path": "sys_clk.SIG_CPU_BOMA_xBCDEFGH"
+      "state_path": "sys_clk.SIG_CPU_BOMA_xBCDEFGH",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "SIG_CPU_BOGA_Axxxxxxx",
@@ -16915,7 +17230,8 @@
       "node_type": "boundary",
       "source_file": "GateBoyClocks.cpp",
       "source_line": 95,
-      "state_path": "sys_clk.SIG_CPU_BOGA_Axxxxxxx"
+      "state_path": "sys_clk.SIG_CPU_BOGA_Axxxxxxx",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyClocks:AZOF_AxCxExGx",
@@ -16924,7 +17240,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 105,
       "gate_func": "not1",
-      "comment": "p01.AZOF"
+      "comment": "p01.AZOF",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyClocks:ZAXY_xBxDxFxH",
@@ -16933,7 +17250,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 106,
       "gate_func": "not1",
-      "comment": "p01.ZAXY"
+      "comment": "p01.ZAXY",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyClocks:ZEME_AxCxExGx",
@@ -16942,7 +17260,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 107,
       "gate_func": "not1",
-      "comment": "p01.ZEME"
+      "comment": "p01.ZEME",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyClocks:XYVA_xBxDxFxH",
@@ -16951,7 +17270,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 108,
       "gate_func": "not1",
-      "comment": "p29.XYVA"
+      "comment": "p29.XYVA",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyClocks:XOTA_AxCxExGx",
@@ -16960,7 +17280,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 109,
       "gate_func": "not1",
-      "comment": "p29.XOTA"
+      "comment": "p29.XOTA",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyClocks:XYFY_xBxDxFxH",
@@ -16969,7 +17290,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 110,
       "gate_func": "not1",
-      "comment": "p29.XYFY"
+      "comment": "p29.XYFY",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "WOSU_AxxDExxH",
@@ -16979,7 +17301,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 111,
       "state_path": "sys_clk.WOSU_AxxDExxH",
-      "comment": "p29.WOSU"
+      "comment": "p29.WOSU",
+      "phase": "AxxDExxH"
     },
     {
       "name": "WUVU_ABxxEFxx@old",
@@ -16989,7 +17312,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 111,
       "state_path": "reg_old.WUVU_ABxxEFxx",
-      "comment": "Clock boundary read of WUVU_ABxxEFxx"
+      "comment": "Clock boundary read of WUVU_ABxxEFxx",
+      "phase": "ABxxEFxx"
     },
     {
       "name": "WUVU_ABxxEFxx",
@@ -16999,7 +17323,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 112,
       "state_path": "sys_clk.WUVU_ABxxEFxx",
-      "comment": "p29.WUVU"
+      "comment": "p29.WUVU",
+      "phase": "ABxxEFxx"
     },
     {
       "name": "VENA_xxCDEFxx",
@@ -17009,7 +17334,8 @@
       "source_file": "GateBoyClocks.cpp",
       "source_line": 113,
       "state_path": "sys_clk.VENA_xxCDEFxx",
-      "comment": "p21.VENA"
+      "comment": "p21.VENA",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyDMA:AVOR_SYS_RSTp",
@@ -17063,7 +17389,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 17,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyDMA:BELU_xxxxEFGH",
@@ -17072,7 +17399,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 18,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyDMA:BYRY_ABCDxxxx",
@@ -17081,7 +17409,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 19,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyDMA:BUDE_xxxxEFGH",
@@ -17090,7 +17419,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 20,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyDMA:UVYT_ABCDxxxx",
@@ -17099,7 +17429,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 21,
       "gate_func": "not1",
-      "comment": "p01.UVYT"
+      "comment": "p01.UVYT",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyDMA:MOPA_xxxxEFGH",
@@ -17108,7 +17439,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 22,
       "gate_func": "not1",
-      "comment": "p04.MOPA"
+      "comment": "p04.MOPA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyDMA:DYKY_CPU_WRn_new",
@@ -17290,7 +17622,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 42,
       "state_path": "dma_ctrl.LENE_DMA_TRIG_d4_odd",
-      "comment": "p04.LENE"
+      "comment": "p04.LENE",
+      "phase": "ODD"
     },
     {
       "name": "LUVY_DMA_TRIG_d0_odd@old",
@@ -17300,7 +17633,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 42,
       "state_path": "reg_old.LUVY_DMA_TRIG_d0_odd",
-      "comment": "Clock boundary read of LUVY_DMA_TRIG_d0_odd"
+      "comment": "Clock boundary read of LUVY_DMA_TRIG_d0_odd",
+      "phase": "ODD"
     },
     {
       "name": "LUVY_DMA_TRIG_d0_odd",
@@ -17310,7 +17644,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 43,
       "state_path": "dma_ctrl.LUVY_DMA_TRIG_d0_odd",
-      "comment": "p04.LUVY"
+      "comment": "p04.LUVY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -17319,7 +17654,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 45,
       "gate_func": "nand2",
-      "comment": "p04.LOKO"
+      "comment": "p04.LOKO",
+      "phase": "ODD"
     },
     {
       "name": "LYXE_DMA_LATCHp",
@@ -17338,7 +17674,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 48,
       "gate_func": "not1",
-      "comment": "p04.LAPA"
+      "comment": "p04.LAPA",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyDMA:NAVO_DMA_DONEn_old",
@@ -17357,7 +17694,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.NAKY_DMA_A00p_odd",
-      "comment": "Clock boundary read of NAKY_DMA_A00p_odd"
+      "comment": "Clock boundary read of NAKY_DMA_A00p_odd",
+      "phase": "ODD"
     },
     {
       "name": "PYRO_DMA_A01p_odd@old",
@@ -17367,7 +17705,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.PYRO_DMA_A01p_odd",
-      "comment": "Clock boundary read of PYRO_DMA_A01p_odd"
+      "comment": "Clock boundary read of PYRO_DMA_A01p_odd",
+      "phase": "ODD"
     },
     {
       "name": "NEFY_DMA_A02p_odd@old",
@@ -17377,7 +17716,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.NEFY_DMA_A02p_odd",
-      "comment": "Clock boundary read of NEFY_DMA_A02p_odd"
+      "comment": "Clock boundary read of NEFY_DMA_A02p_odd",
+      "phase": "ODD"
     },
     {
       "name": "MUTY_DMA_A03p_odd@old",
@@ -17387,7 +17727,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.MUTY_DMA_A03p_odd",
-      "comment": "Clock boundary read of MUTY_DMA_A03p_odd"
+      "comment": "Clock boundary read of MUTY_DMA_A03p_odd",
+      "phase": "ODD"
     },
     {
       "name": "NYKO_DMA_A04p_odd@old",
@@ -17397,7 +17738,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.NYKO_DMA_A04p_odd",
-      "comment": "Clock boundary read of NYKO_DMA_A04p_odd"
+      "comment": "Clock boundary read of NYKO_DMA_A04p_odd",
+      "phase": "ODD"
     },
     {
       "name": "MUGU_DMA_A07p_odd@old",
@@ -17407,7 +17749,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 50,
       "state_path": "reg_old.MUGU_DMA_A07p_odd",
-      "comment": "Clock boundary read of MUGU_DMA_A07p_odd"
+      "comment": "Clock boundary read of MUGU_DMA_A07p_odd",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyDMA:NOLO_DMA_DONEp_old",
@@ -17426,7 +17769,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 59,
       "state_path": "dma_ctrl.MYTE_DMA_DONE_odd",
-      "comment": "p04.MYTE"
+      "comment": "p04.MYTE",
+      "phase": "ODD"
     },
     {
       "name": "MATU_DMA_RUNNINGp_odd",
@@ -17436,7 +17780,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 61,
       "state_path": "MATU_DMA_RUNNINGp_odd",
-      "comment": "p04.MATU"
+      "comment": "p04.MATU",
+      "phase": "ODD"
     },
     {
       "name": "LOKY_DMA_LATCHp_odd@old",
@@ -17446,7 +17791,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 61,
       "state_path": "reg_old.LOKY_DMA_LATCHp_odd",
-      "comment": "Clock boundary read of LOKY_DMA_LATCHp_odd"
+      "comment": "Clock boundary read of LOKY_DMA_LATCHp_odd",
+      "phase": "ODD"
     },
     {
       "name": "LARA_DMA_LATCHn_odd",
@@ -17456,7 +17802,8 @@
       "source_line": 65,
       "gate_func": "nand3",
       "state_path": "dma_ctrl.LARA_DMA_LATCHn_odd",
-      "comment": "p04.LARA"
+      "comment": "p04.LARA",
+      "phase": "ODD"
     },
     {
       "name": "LOKY_DMA_LATCHp_odd",
@@ -17466,7 +17813,8 @@
       "source_line": 64,
       "gate_func": "nand2",
       "state_path": "dma_ctrl.LOKY_DMA_LATCHp_odd",
-      "comment": "p04.LOKY"
+      "comment": "p04.LOKY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyDMA:META_DMA_CLKp_odd_new",
@@ -17475,7 +17823,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 67,
       "gate_func": "and2",
-      "comment": "p04.META"
+      "comment": "p04.META",
+      "phase": "ODD"
     },
     {
       "name": "NAKY_DMA_A00p_odd",
@@ -17485,7 +17834,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 68,
       "state_path": "dma_lo.NAKY_DMA_A00p_odd",
-      "comment": "p04.NAKY"
+      "comment": "p04.NAKY",
+      "phase": "ODD"
     },
     {
       "name": "PYRO_DMA_A01p_odd",
@@ -17495,7 +17845,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 69,
       "state_path": "dma_lo.PYRO_DMA_A01p_odd",
-      "comment": "p04.PYRO"
+      "comment": "p04.PYRO",
+      "phase": "ODD"
     },
     {
       "name": "NEFY_DMA_A02p_odd",
@@ -17505,7 +17856,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 70,
       "state_path": "dma_lo.NEFY_DMA_A02p_odd",
-      "comment": "p04.NEFY"
+      "comment": "p04.NEFY",
+      "phase": "ODD"
     },
     {
       "name": "MUTY_DMA_A03p_odd",
@@ -17515,7 +17867,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 71,
       "state_path": "dma_lo.MUTY_DMA_A03p_odd",
-      "comment": "p04.MUTY"
+      "comment": "p04.MUTY",
+      "phase": "ODD"
     },
     {
       "name": "NYKO_DMA_A04p_odd",
@@ -17525,7 +17878,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 72,
       "state_path": "dma_lo.NYKO_DMA_A04p_odd",
-      "comment": "p04.NYKO"
+      "comment": "p04.NYKO",
+      "phase": "ODD"
     },
     {
       "name": "PYLO_DMA_A05p_odd",
@@ -17535,7 +17889,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 73,
       "state_path": "dma_lo.PYLO_DMA_A05p_odd",
-      "comment": "p04.PYLO"
+      "comment": "p04.PYLO",
+      "phase": "ODD"
     },
     {
       "name": "NUTO_DMA_A06p_odd",
@@ -17545,7 +17900,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 74,
       "state_path": "dma_lo.NUTO_DMA_A06p_odd",
-      "comment": "p04.NUTO"
+      "comment": "p04.NUTO",
+      "phase": "ODD"
     },
     {
       "name": "MUGU_DMA_A07p_odd",
@@ -17555,7 +17911,8 @@
       "source_file": "GateBoyDMA.cpp",
       "source_line": 75,
       "state_path": "dma_lo.MUGU_DMA_A07p_odd",
-      "comment": "p04.MUGU"
+      "comment": "p04.MUGU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyDMA:AJAS_CPU_RDn_new",
@@ -17915,7 +18272,8 @@
       "source_file": "GateBoyInterrupts.cpp",
       "source_line": 53,
       "gate_func": "not1",
-      "comment": "p21.PARU"
+      "comment": "p21.PARU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyInterrupts:SADU_STAT_MODE0n_new",
@@ -20044,7 +20402,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 265,
       "gate_func": "not1",
-      "comment": "p27.ROMO"
+      "comment": "p27.ROMO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoyVramBus:SUVU_PRELOAD_DONE_TRIGn_xxx_new",
@@ -20071,7 +20430,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 268,
       "gate_func": "nor2",
-      "comment": "p27.SEKO"
+      "comment": "p27.SEKO",
+      "phase": "EVN"
     },
     {
       "name": "GateBoyVramBus:SYLO_WIN_HITn_odd_new",
@@ -20080,7 +20440,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 269,
       "gate_func": "not1",
-      "comment": "p27.SYLO"
+      "comment": "p27.SYLO",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyVramBus:TUXY_WIN_FIRST_TILEne_xxx_new",
@@ -20125,7 +20486,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 275,
       "gate_func": "not1",
-      "comment": "p27.XAHY"
+      "comment": "p27.XAHY",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyVramBus:XOFO_WIN_RSTp_new",
@@ -20229,7 +20591,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 299,
       "gate_func": "not1",
-      "comment": "p21.PARU"
+      "comment": "p21.PARU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyVramBus:REPU_VBLANKp_odd_new",
@@ -20238,7 +20601,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 300,
       "gate_func": "or2",
-      "comment": "p27.REPU"
+      "comment": "p27.REPU",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyVramBus:SYNY_VBLANKn_odd_new",
@@ -20247,7 +20611,8 @@
       "source_file": "GateBoyVramBus.cpp",
       "source_line": 301,
       "gate_func": "not1",
-      "comment": "p27.SYNY"
+      "comment": "p27.SYNY",
+      "phase": "ODD"
     },
     {
       "name": "VYNO_WIN_TILE_Y0",
@@ -22958,7 +23323,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 120,
       "gate_func": "not1",
-      "comment": "p28.BOGE"
+      "comment": "p28.BOGE",
+      "phase": "ODD"
     },
     {
       "name": "GateBoyOamBus:AJON_RENDERINGp",
@@ -23066,7 +23432,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 144,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyOamBus:BELU_xxxxEFGH",
@@ -23075,7 +23442,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 145,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyOamBus:BYRY_ABCDxxxx",
@@ -23084,7 +23452,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 146,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyOamBus:BUDE_xxxxEFGH",
@@ -23093,7 +23462,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 147,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyOamBus:UVYT_ABCDxxxx",
@@ -23102,7 +23472,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 148,
       "gate_func": "not1",
-      "comment": "p01.UVYT"
+      "comment": "p01.UVYT",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyOamBus:MOPA_xxxxEFGH",
@@ -23111,7 +23482,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 149,
       "gate_func": "not1",
-      "comment": "p04.MOPA"
+      "comment": "p04.MOPA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyOamBus:XYNY_ABCDxxxx",
@@ -23120,7 +23492,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 150,
       "gate_func": "not1",
-      "comment": "p28.XYNY"
+      "comment": "p28.XYNY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyOamBus:DYKY_CPU_WRn_new",
@@ -23924,7 +24297,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 296,
       "gate_func": "nor2",
-      "comment": "p29.WOJO"
+      "comment": "p29.WOJO",
+      "phase": "AxxxExxx"
     },
     {
       "name": "GateBoyOamBus:XYSO_xBCDxFGH",
@@ -23933,7 +24307,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 297,
       "gate_func": "not1",
-      "comment": "p29.XYSO"
+      "comment": "p29.XYSO",
+      "phase": "xBCDxFGH"
     },
     {
       "name": "GateBoyOamBus:AVER_AxxxExxx_new",
@@ -23942,7 +24317,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 298,
       "gate_func": "nand2",
-      "comment": "p25.AVER"
+      "comment": "p25.AVER",
+      "phase": "AxxxExxx"
     },
     {
       "name": "GateBoyOamBus:CUFE_OAM_CLKp_new",
@@ -24058,7 +24434,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 314,
       "gate_func": "not1",
-      "comment": "p01.ATAL"
+      "comment": "p01.ATAL",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyOamBus:AZOF_AxCxExGx",
@@ -24067,7 +24444,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 315,
       "gate_func": "not1",
-      "comment": "p01.AZOF"
+      "comment": "p01.AZOF",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyOamBus:ZAXY_xBxDxFxH",
@@ -24076,7 +24454,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 316,
       "gate_func": "not1",
-      "comment": "p01.ZAXY"
+      "comment": "p01.ZAXY",
+      "phase": "xBxDxFxH"
     },
     {
       "name": "GateBoyOamBus:ZEME_AxCxExGx",
@@ -24085,7 +24464,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 317,
       "gate_func": "not1",
-      "comment": "p01.ZEME"
+      "comment": "p01.ZEME",
+      "phase": "AxCxExGx"
     },
     {
       "name": "GateBoyOamBus:DECY_LATCH_EXTn_old",
@@ -24211,7 +24591,8 @@
       "source_file": "GateBoyOamBus.cpp",
       "source_line": 335,
       "gate_func": "not1",
-      "comment": "p29.XOCE"
+      "comment": "p29.XOCE",
+      "phase": "xBCxxFGx"
     },
     {
       "name": "GateBoyOamBus:AJEP_SCAN_OAM_LATCHn_new",
@@ -24857,7 +25238,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 95,
       "gate_func": "not1",
-      "comment": "p01.AROV"
+      "comment": "p01.AROV",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyTimer:AFEP_AxxxxFGH",
@@ -24866,7 +25248,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 96,
       "gate_func": "not1",
-      "comment": "p01.AFEP"
+      "comment": "p01.AFEP",
+      "phase": "AxxxxFGH"
     },
     {
       "name": "GateBoyTimer:ATYP_ABCDxxxx",
@@ -24875,7 +25258,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 97,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyTimer:BELU_xxxxEFGH",
@@ -24884,7 +25268,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 100,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyTimer:BYRY_ABCDxxxx",
@@ -24893,7 +25278,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 105,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyTimer:BUDE_xxxxEFGH",
@@ -24902,7 +25288,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 106,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyTimer:BAPY_xxxxxxGH",
@@ -24911,7 +25298,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 99,
       "gate_func": "nor3",
-      "comment": "p01.BAPY"
+      "comment": "p01.BAPY",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyTimer:BERU_ABCDEFxx",
@@ -24920,7 +25308,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 102,
       "gate_func": "not1",
-      "comment": "p01.BERU"
+      "comment": "p01.BERU",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyTimer:BUFA_xxxxxxGH",
@@ -24929,7 +25318,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 103,
       "gate_func": "not1",
-      "comment": "p01.BUFA"
+      "comment": "p01.BUFA",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyTimer:BOLO_ABCDEFxx",
@@ -24938,7 +25328,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 104,
       "gate_func": "not1",
-      "comment": "p01.BOLO"
+      "comment": "p01.BOLO",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyTimer:BEKO_ABCDxxxx",
@@ -24947,7 +25338,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 107,
       "gate_func": "not1",
-      "comment": "p01.BEKO"
+      "comment": "p01.BEKO",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyTimer:BEJA_xxxxEFGH",
@@ -24956,7 +25348,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 108,
       "gate_func": "nand4",
-      "comment": "p01.BEJA"
+      "comment": "p01.BEJA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyTimer:BANE_ABCDxxxx",
@@ -24965,7 +25358,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 109,
       "gate_func": "not1",
-      "comment": "p01.BANE"
+      "comment": "p01.BANE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyTimer:BELO_xxxxEFGH",
@@ -24974,7 +25368,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 110,
       "gate_func": "not1",
-      "comment": "p01.BELO"
+      "comment": "p01.BELO",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyTimer:BAZE_ABCDxxxx",
@@ -24983,7 +25378,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 111,
       "gate_func": "not1",
-      "comment": "p01.BAZE"
+      "comment": "p01.BAZE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyTimer:BUTO_xBCDEFGH",
@@ -24992,7 +25388,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 112,
       "gate_func": "nand3",
-      "comment": "p01.BUTO"
+      "comment": "p01.BUTO",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyTimer:BELE_Axxxxxxx",
@@ -25001,7 +25398,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 113,
       "gate_func": "not1",
-      "comment": "p01.BELE"
+      "comment": "p01.BELE",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyTimer:BYJU_Axxxxxxx",
@@ -25010,7 +25408,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 114,
       "gate_func": "or2",
-      "comment": "p01.BYJU"
+      "comment": "p01.BYJU",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyTimer:BALY_xBCDEFGH",
@@ -25019,7 +25418,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 115,
       "gate_func": "not1",
-      "comment": "p01.BALY"
+      "comment": "p01.BALY",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyTimer:BOGA_Axxxxxxx",
@@ -25028,7 +25428,8 @@
       "source_file": "GateBoyTimer.cpp",
       "source_line": 116,
       "gate_func": "not1",
-      "comment": "p01.BOGA"
+      "comment": "p01.BOGA",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyTimer:TAPE_FF04_WRp_new",
@@ -26111,7 +26512,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 12,
       "gate_func": "not1",
-      "comment": "p01.AROV"
+      "comment": "p01.AROV",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyReset:AFEP_AxxxxFGH",
@@ -26120,7 +26522,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 13,
       "gate_func": "not1",
-      "comment": "p01.AFEP"
+      "comment": "p01.AFEP",
+      "phase": "AxxxxFGH"
     },
     {
       "name": "GateBoyReset:ATYP_ABCDxxxx",
@@ -26129,7 +26532,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 14,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyReset:BELU_xxxxEFGH",
@@ -26138,7 +26542,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 16,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyReset:BYRY_ABCDxxxx",
@@ -26147,7 +26552,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 17,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyReset:BUDE_xxxxEFGH",
@@ -26156,7 +26562,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 18,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyReset:BAPY_xxxxxxGH",
@@ -26165,7 +26572,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 19,
       "gate_func": "nor3",
-      "comment": "p01.BAPY"
+      "comment": "p01.BAPY",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyReset:BERU_ABCDEFxx",
@@ -26174,7 +26582,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 20,
       "gate_func": "not1",
-      "comment": "p01.BERU"
+      "comment": "p01.BERU",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyReset:BUFA_xxxxxxGH",
@@ -26183,7 +26592,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 21,
       "gate_func": "not1",
-      "comment": "p01.BUFA"
+      "comment": "p01.BUFA",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyReset:BOLO_ABCDEFxx",
@@ -26192,7 +26602,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 22,
       "gate_func": "not1",
-      "comment": "p01.BOLO"
+      "comment": "p01.BOLO",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyReset:BEKO_ABCDxxxx",
@@ -26201,7 +26612,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 23,
       "gate_func": "not1",
-      "comment": "p01.BEKO"
+      "comment": "p01.BEKO",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyReset:BEJA_xxxxEFGH",
@@ -26210,7 +26622,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 24,
       "gate_func": "nand4",
-      "comment": "p01.BEJA"
+      "comment": "p01.BEJA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyReset:BANE_ABCDxxxx",
@@ -26219,7 +26632,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 25,
       "gate_func": "not1",
-      "comment": "p01.BANE"
+      "comment": "p01.BANE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyReset:BELO_xxxxEFGH",
@@ -26228,7 +26642,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 26,
       "gate_func": "not1",
-      "comment": "p01.BELO"
+      "comment": "p01.BELO",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyReset:BAZE_ABCDxxxx",
@@ -26237,7 +26652,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 27,
       "gate_func": "not1",
-      "comment": "p01.BAZE"
+      "comment": "p01.BAZE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyReset:BUTO_xBCDEFGH",
@@ -26246,7 +26662,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 28,
       "gate_func": "nand3",
-      "comment": "p01.BUTO"
+      "comment": "p01.BUTO",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyReset:BELE_Axxxxxxx_new",
@@ -26255,7 +26672,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 29,
       "gate_func": "not1",
-      "comment": "p01.BELE"
+      "comment": "p01.BELE",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyReset:BYJU_Axxxxxxx_new",
@@ -26264,7 +26682,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 30,
       "gate_func": "or2",
-      "comment": "p01.BYJU"
+      "comment": "p01.BYJU",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyReset:BALY_xBCDEFGH_new",
@@ -26273,7 +26692,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 31,
       "gate_func": "not1",
-      "comment": "p01.BALY"
+      "comment": "p01.BALY",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyReset:BOGA_Axxxxxxx_new",
@@ -26282,7 +26702,8 @@
       "source_file": "GateBoyReset.cpp",
       "source_line": 32,
       "gate_func": "not1",
-      "comment": "p01.BOGA"
+      "comment": "p01.BOGA",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "AFER_SYS_RSTp",
@@ -26600,7 +27021,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 148,
       "gate_func": "not1",
-      "comment": "p01.AFEP"
+      "comment": "p01.AFEP",
+      "phase": "AxxxxFGH"
     },
     {
       "name": "GateBoyJoypad:ATYP_ABCDxxxx",
@@ -26609,7 +27031,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 149,
       "gate_func": "not1",
-      "comment": "p01.ATYP"
+      "comment": "p01.ATYP",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyJoypad:ABOL_CLKREQn",
@@ -26627,7 +27050,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 151,
       "gate_func": "not1",
-      "comment": "p01.AROV"
+      "comment": "p01.AROV",
+      "phase": "xxCDEFxx"
     },
     {
       "name": "GateBoyJoypad:BAPY_xxxxxxGH",
@@ -26636,7 +27060,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 153,
       "gate_func": "nor3",
-      "comment": "p01.BAPY"
+      "comment": "p01.BAPY",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyJoypad:BELU_xxxxEFGH",
@@ -26645,7 +27070,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 154,
       "gate_func": "nor2",
-      "comment": "p01.BELU"
+      "comment": "p01.BELU",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyJoypad:BYRY_ABCDxxxx",
@@ -26654,7 +27080,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 155,
       "gate_func": "not1",
-      "comment": "p01.BYRY"
+      "comment": "p01.BYRY",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyJoypad:BERU_ABCDEFxx",
@@ -26663,7 +27090,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 156,
       "gate_func": "not1",
-      "comment": "p01.BERU"
+      "comment": "p01.BERU",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyJoypad:BUFA_xxxxxxGH",
@@ -26672,7 +27100,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 157,
       "gate_func": "not1",
-      "comment": "p01.BUFA"
+      "comment": "p01.BUFA",
+      "phase": "xxxxxxGH"
     },
     {
       "name": "GateBoyJoypad:BOLO_ABCDEFxx",
@@ -26681,7 +27110,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 158,
       "gate_func": "not1",
-      "comment": "p01.BOLO"
+      "comment": "p01.BOLO",
+      "phase": "ABCDEFxx"
     },
     {
       "name": "GateBoyJoypad:BUDE_xxxxEFGH",
@@ -26690,7 +27120,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 159,
       "gate_func": "not1",
-      "comment": "p01.BUDE"
+      "comment": "p01.BUDE",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyJoypad:BEKO_ABCDxxxx",
@@ -26699,7 +27130,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 160,
       "gate_func": "not1",
-      "comment": "p01.BEKO"
+      "comment": "p01.BEKO",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyJoypad:BEJA_xxxxEFGH",
@@ -26708,7 +27140,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 161,
       "gate_func": "nand4",
-      "comment": "p01.BEJA"
+      "comment": "p01.BEJA",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyJoypad:BANE_ABCDxxxx",
@@ -26717,7 +27150,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 162,
       "gate_func": "not1",
-      "comment": "p01.BANE"
+      "comment": "p01.BANE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyJoypad:BELO_xxxxEFGH",
@@ -26726,7 +27160,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 163,
       "gate_func": "not1",
-      "comment": "p01.BELO"
+      "comment": "p01.BELO",
+      "phase": "xxxxEFGH"
     },
     {
       "name": "GateBoyJoypad:BAZE_ABCDxxxx",
@@ -26735,7 +27170,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 164,
       "gate_func": "not1",
-      "comment": "p01.BAZE"
+      "comment": "p01.BAZE",
+      "phase": "ABCDxxxx"
     },
     {
       "name": "GateBoyJoypad:BUTO_xBCDEFGH",
@@ -26744,7 +27180,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 165,
       "gate_func": "nand3",
-      "comment": "p01.BUTO"
+      "comment": "p01.BUTO",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyJoypad:BELE_Axxxxxxx",
@@ -26753,7 +27190,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 166,
       "gate_func": "not1",
-      "comment": "p01.BELE"
+      "comment": "p01.BELE",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyJoypad:BYJU_Axxxxxxx",
@@ -26762,7 +27200,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 167,
       "gate_func": "or2",
-      "comment": "p01.BYJU"
+      "comment": "p01.BYJU",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "GateBoyJoypad:BALY_xBCDEFGH",
@@ -26771,7 +27210,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 168,
       "gate_func": "not1",
-      "comment": "p01.BALY"
+      "comment": "p01.BALY",
+      "phase": "xBCDEFGH"
     },
     {
       "name": "GateBoyJoypad:BOGA_Axxxxxxx",
@@ -26780,7 +27220,8 @@
       "source_file": "GateBoyJoypad.cpp",
       "source_line": 169,
       "gate_func": "not1",
-      "comment": "p01.BOGA"
+      "comment": "p01.BOGA",
+      "phase": "Axxxxxxx"
     },
     {
       "name": "AWOB_WAKE_CPU",
@@ -27392,7 +27833,8 @@
       "display_name": "CLK_xxxxEFGx",
       "node_type": "combinatorial",
       "source_file": "GateBoySerial.cpp",
-      "source_line": 138
+      "source_line": 138,
+      "phase": "xxxxEFGx"
     },
     {
       "name": "GateBoySerial:uwam_old",
@@ -33600,56 +34042,6 @@
     {
       "src": "GateBoyLCD:ALUR_SYS_RSTn",
       "dst": "GateBoyLCD:DULA_SYS_RSTp",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:CARO_SER_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:CABY_XFER_RESET",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:COHY_SER_DATA0_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DUMO_SER_DATA1_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DYBO_SER_DATA2_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DAJU_SER_DATA3_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DYLY_SER_DATA4_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EHUJ_SER_DATA5_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EFAK_SER_DATA6_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EGUV_SER_DATA7_RSTn",
       "edge_type": "data"
     },
     {
@@ -55280,6 +55672,56 @@
     {
       "src": "GateBoyJoypad:ALUR_SYS_RSTn",
       "dst": "APUG_JP_GLITCH3",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:CARO_SER_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:CABY_XFER_RESET",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:COHY_SER_DATA0_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DUMO_SER_DATA1_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DYBO_SER_DATA2_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DAJU_SER_DATA3_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DYLY_SER_DATA4_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EHUJ_SER_DATA5_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EFAK_SER_DATA6_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyJoypad:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EGUV_SER_DATA7_RSTn",
       "edge_type": "data"
     },
     {

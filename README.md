@@ -36,6 +36,7 @@ output/
   critical_paths.dot          # Graphviz DOT of top paths
   critical_paths.svg          # Rendered graph visualization
   race_pairs.json             # Signal race pair detection results
+  signal_concordance.md       # GateBoy ↔ Pan Docs signal name mapping
 ```
 
 ## Usage
