@@ -1179,66 +1179,312 @@ def _display(G, node_name):
     return G.nodes[node_name].get('display_name', '') or display_name_from_scoped(node_name)
 
 
-def format_path_report(paths, G, max_paths=30):
-    """Format critical paths into a human-readable report."""
+def compute_fanout(G) -> dict:
+    """Compute fan-out (number of successor edges) for each node."""
+    return {n: G.out_degree(n) for n in G.nodes()}
+
+
+def is_reset_path(path, G):
+    """Classify whether a path is reset-dominated (only fires on reset/LCDC toggle)
+    vs operational (fires every dot/scanline during normal rendering)."""
+    RESET_SOURCES = {'AFER_SYS_RSTp', 'ASOL_POR_DONEn'}
+    RESET_CHAIN = {'AVOR_SYS_RSTp', 'ALUR_SYS_RSTn', 'DULA_SYS_RSTp', 'CUNU_SYS_RSTn',
+                   'XORE_SYS_RSTp', 'XEBE_SYS_RSTn', 'XODO_VID_RSTp',
+                   'XAPO_VID_RSTn_new', 'LYHA_VID_RSTp_new', 'LYFE_VID_RSTn_new',
+                   'TOFU_VID_RSTp_new', 'ROSY_VID_RSTp_new', 'ATAR_VID_RSTp_new',
+                   'ABEZ_VID_RSTn_new', 'PYRY_VID_RSTp_new'}
+
+    src_display = _display(G, path[0])
+
+    # Source is a reset register
+    if src_display in RESET_SOURCES:
+        return True
+
+    # Check if first several nodes are in the reset chain
+    reset_count = 0
+    for node_name in path[:12]:
+        dn = _display(G, node_name)
+        if dn in RESET_CHAIN or dn in RESET_SOURCES:
+            reset_count += 1
+    return reset_count >= 4
+
+
+def categorize_path(path, G):
+    """Assign a PPU functional category to a path based on its sink and intermediate nodes."""
+    sink = _display(G, path[-1]).upper()
+    src = _display(G, path[0]).upper()
+    all_names = [_display(G, n).upper() for n in path]
+    all_text = ' '.join(all_names)
+
+    # Categorize primarily by sink, with fallback to path content
+    if any(x in sink for x in ['PIPE_A', 'PIPE_B', 'PAL_PIPE', 'MASK_PIPE', 'REMY_LD', 'RAVO_LD']):
+        return 'Pixel Pipeline'
+    if any(x in sink for x in ['CLKPIPE', 'FINE', 'SCX_FINE', 'PUXA', 'NYZE', 'ROXY']):
+        return 'Scroll/Fine Timing'
+    if any(x in sink for x in ['WIN_', 'RYFA', 'RENE', 'NUKO', 'ROGE', 'PYCO', 'NUNU', 'SARY', 'REJO', 'PYNU', 'NOPA', 'SOVY']):
+        return 'Window Logic'
+    if any(x in sink for x in ['STORE', 'SPRITE_MATCH', 'FEPO', 'SPRITE_RESET', 'SPRITE_IDX']):
+        return 'Sprite Store/Match'
+    if any(x in sink for x in ['SCAN', 'FETO', 'BESU', 'CENO', 'YFEL', 'WEWY', 'GOSO']):
+        return 'Sprite Scanner'
+    if any(x in sink for x in ['SPR_PIX', 'FLIPPED', 'SFETCH', 'TAKA', 'SOBU', 'TEXY', 'WUTY']):
+        return 'Sprite Fetcher'
+    if any(x in sink for x in ['BFETCH', 'TFETCH', 'LAXU', 'MESU', 'NYVA', 'LONY', 'LOVY', 'NYKA', 'PORY', 'PYGO', 'LYRY', 'POKY', 'LYZU']):
+        return 'Tile Fetcher'
+    if any(x in sink for x in ['TILE_TEMP', 'LEGU', 'LESO', 'LABU', 'LACE', 'LUJO', 'LEGU']):
+        return 'Tile Fetcher'
+    if any(x in sink for x in ['BUS_VRAM', 'VD0', 'VD1', 'VD2', 'VD3', 'VD4', 'VD5', 'VD6', 'VD7', 'VRAM_A']):
+        return 'VRAM Bus'
+    if any(x in sink for x in ['BUS_OAM', 'OAM_', 'SIG_OAM']):
+        return 'OAM Bus'
+    if any(x in sink for x in ['STAT', 'RUPO', 'ROPO', 'LY_MATCH']):
+        return 'STAT/LY Match'
+    if any(x in sink for x in ['HBLANK', 'VBLANK', 'VOGA', 'WODU', 'ACYL', 'XYMU', 'RENDERING']):
+        return 'Mode/Rendering Control'
+    if any(x in sink for x in ['ATEJ', 'LINE_RST', 'LINE_END', 'CATU']):
+        return 'Line Timing'
+    if any(x in sink for x in ['PX0', 'PX1', 'PX2', 'PX3', 'PX4', 'PX5', 'PX6', 'PX7', 'XEHO', 'SAVY', 'XODU', 'XYDO', 'TUHU', 'TUKY', 'TAKO', 'SYBE', 'PAHO', 'POME']):
+        return 'Pixel Counter'
+    if any(x in sink for x in ['LX', 'SAXO', 'TYPO', 'VYZO', 'TELU', 'SUDE', 'TAHA', 'TYRY']):
+        return 'LX Counter'
+    if any(x in sink for x in ['DMA', 'MATU']):
+        return 'DMA'
+    if any(x in sink for x in ['FF0F', 'INT', 'LOPE', 'LALU', 'NYBO', 'UBUL', 'ULAK']):
+        return 'Interrupts'
+    if any(x in sink for x in ['LYC', 'SYRY', 'VUCE', 'SEDY', 'SALO', 'SOTA', 'VAFA', 'VEVO', 'RAHA']):
+        return 'LYC Register'
+    if any(x in sink for x in ['LY', 'MUWY', 'MYRO', 'LEXA', 'LYDO', 'LOVU', 'LEMA', 'MATO', 'LAFO']):
+        return 'LY Counter'
+    if any(x in sink for x in ['LCDC', 'BGP', 'OBP', 'SCY', 'SCX', 'WY', 'WX']):
+        return 'PPU Registers'
+    if any(x in sink for x in ['SIG_CPU', 'BOWA', 'BEDO', 'BOMA', 'BOGA']):
+        return 'Clock Distribution'
+    if any(x in sink for x in ['DIV', 'TIMA', 'TIMER']):
+        return 'Timer'
+    if any(x in sink for x in ['JOYPAD', 'JP_', 'BATU', 'ACEF', 'AGEM', 'APUG', 'AWOB']):
+        return 'Joypad'
+    if any(x in sink for x in ['SERIAL', 'SB_', 'SC_']):
+        return 'Serial'
+
+    # Fallback: check path content
+    if 'CLKPIPE' in all_text or 'PIX' in all_text:
+        return 'Pixel Pipeline'
+    if 'VRAM' in all_text:
+        return 'VRAM Bus'
+    if 'OAM' in all_text:
+        return 'OAM Bus'
+
+    return 'Other'
+
+
+def format_path_trace(path, G, fanout, indent=2):
+    """Format a single path as a readable trace."""
     lines = []
+    lines.append("```")
+    for j, node_name in enumerate(path):
+        nd = G.nodes.get(node_name, {})
+        nt = nd.get('node_type', '?')
+        gf = nd.get('gate_func', '')
+        sf = nd.get('source_file', '')
+        sl = nd.get('source_line', '')
+        dn = _display(G, node_name)
+        fo = fanout.get(node_name, 0)
+
+        if nt in ('registered', 'bus', 'boundary'):
+            marker = f"[{nt.upper()}]"
+        else:
+            marker = f"[{gf}]" if gf else "[comb]"
+
+        loc = f"{sf}:{sl}" if sf else ""
+        fo_str = f" (fan-out: {fo})" if fo >= 10 else ""
+        lines.append(f"{'  ' * (indent + j)}{marker} {dn}{fo_str}  ({loc})")
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def format_path_report(paths, G, max_paths=30):
+    """Format critical paths into a categorized, operationally-prioritized report."""
+    fanout = compute_fanout(G)
+    lines = []
+
     lines.append("# GateBoy PPU Critical Combinatorial Paths\n")
-    lines.append("Ranked by combinatorial gate depth between registered elements.\n")
-    lines.append(f"Showing top {min(len(paths), max_paths)} of {len(paths)} paths with depth >= 1.\n")
+    lines.append("Static analysis of the GateBoy gate-level simulator identifying deep")
+    lines.append("combinatorial paths that may cause propagation delay on real hardware.\n")
+
     lines.append("## Timing Reference\n")
     lines.append("- Game Boy master clock: 4.194304 MHz")
-    lines.append("- T-cycle period: ~238.4 ns")
+    lines.append("- T-cycle period: ~238.4 ns (one dot)")
     lines.append("- Half T-cycle: ~119.2 ns")
-    lines.append("- Estimated gate delay (Sharp CMOS): 5-15 ns per gate")
-    lines.append("- Paths exceeding ~8-24 gates may cause signals to arrive late\n")
+    lines.append("- Estimated gate delay (Sharp SM83 CMOS, ~5um): 5-15 ns per gate")
+    lines.append("- Paths exceeding ~8 gates may cause signals to arrive late within a half T-cycle\n")
 
-    # Count paths by depth for summary
-    depth_counts = {}
-    for depth, _ in paths:
-        depth_counts[depth] = depth_counts.get(depth, 0) + 1
+    # Separate reset vs operational
+    reset = [(d, p) for d, p in paths if is_reset_path(p, G)]
+    operational = [(d, p) for d, p in paths if not is_reset_path(p, G)]
 
-    lines.append("## Depth Distribution\n")
-    lines.append("| Depth | Count | Est. Delay (min) | Est. Delay (max) | % of Half T-cycle |")
-    lines.append("|-------|-------|-------------------|-------------------|--------------------|")
-    for d in sorted(depth_counts.keys(), reverse=True):
-        min_delay = d * 5
+    lines.append("## Overview\n")
+    lines.append(f"| Category | Count | Max Depth | Max Delay (worst case) |")
+    lines.append(f"|----------|-------|-----------|----------------------|")
+    lines.append(f"| **Operational** (per-dot/per-scanline) | {len(operational)} | {operational[0][0] if operational else 0} | {operational[0][0]*15 if operational else 0} ns |")
+    lines.append(f"| Reset-only (LCDC toggle / system reset) | {len(reset)} | {reset[0][0] if reset else 0} | {reset[0][0]*15 if reset else 0} ns |")
+    lines.append(f"| **Total** | {len(paths)} | {paths[0][0] if paths else 0} | {paths[0][0]*15 if paths else 0} ns |")
+    lines.append("")
+    lines.append("> **Reset vs Operational:** Reset paths only fire when LCDC bit 7 is toggled or")
+    lines.append("> on system reset. They pass through the VID_RST inverter chain (8 gates). While")
+    lines.append("> they are the deepest paths overall, they don't affect per-dot rendering timing.")
+    lines.append("> Operational paths fire every dot or scanline during normal rendering and are")
+    lines.append("> the ones that cause observable timing discrepancies in emulators.\n")
+
+    # =========================================================================
+    # OPERATIONAL PATHS — grouped by category
+    # =========================================================================
+    lines.append("---")
+    lines.append("## Operational Paths (by functional area)\n")
+
+    # Categorize operational paths
+    categories = {}
+    for depth, path in operational:
+        cat = categorize_path(path, G)
+        if cat not in categories:
+            categories[cat] = []
+        categories[cat].append((depth, path))
+
+    # Sort categories by max depth
+    cat_order = sorted(categories.keys(), key=lambda c: -categories[c][0][0])
+
+    # Summary table
+    lines.append("| Functional Area | Paths | Max Depth | Max Delay | Key Sinks |")
+    lines.append("|-----------------|-------|-----------|-----------|-----------|")
+    for cat in cat_order:
+        cat_paths = categories[cat]
+        max_d = cat_paths[0][0]
+        # Unique sinks for this category (top 3)
+        sinks = []
+        seen = set()
+        for _, p in cat_paths:
+            s = _display(G, p[-1])
+            if s not in seen:
+                sinks.append(s)
+                seen.add(s)
+            if len(sinks) >= 3:
+                break
+        sinks_str = ', '.join(f'`{s}`' for s in sinks)
+        lines.append(f"| {cat} | {len(cat_paths)} | {max_d} | {max_d*15} ns | {sinks_str} |")
+    lines.append("")
+
+    # Top fan-out nodes (operational bottlenecks)
+    lines.append("### Key Bottleneck Nodes (highest fan-out)\n")
+    lines.append("These nodes drive the most downstream signals. Propagation delay")
+    lines.append("at these nodes has the widest impact on timing.\n")
+    lines.append("| Node | Fan-out | Type | Source |")
+    lines.append("|------|---------|------|--------|")
+    # Show all high fan-out nodes in the graph (not just operational path members)
+    fo_ranked = sorted(
+        [(n, fanout[n]) for n in G.nodes() if fanout.get(n, 0) >= 10],
+        key=lambda x: -x[1]
+    )
+    for node_name, fo in fo_ranked[:20]:
+        nd = G.nodes.get(node_name, {})
+        dn = _display(G, node_name)
+        sf = nd.get('source_file', '')
+        sl = nd.get('source_line', '')
+        nt = nd.get('node_type', '')
+        gf = nd.get('gate_func', '')
+        type_str = gf if gf else nt
+        lines.append(f"| `{dn}` | {fo} | {type_str} | {sf}:{sl} |")
+    lines.append("")
+
+    # Detailed paths per category
+    for cat in cat_order:
+        cat_paths = categories[cat]
+        max_d = cat_paths[0][0]
+        lines.append(f"### {cat} (max depth {max_d}, {len(cat_paths)} paths)\n")
+
+        # Show the deepest unique path per sink
+        seen_sinks = set()
+        shown = 0
+        for depth, path in cat_paths:
+            sink = _display(G, path[-1])
+            if sink in seen_sinks:
+                continue
+            seen_sinks.add(sink)
+            if shown >= 5:  # max 5 unique paths per category
+                remaining = len(cat_paths) - shown
+                if remaining > 0:
+                    lines.append(f"*...and {remaining} more paths in this category.*\n")
+                break
+
+            src_node = G.nodes.get(path[0], {})
+            dst_node = G.nodes.get(path[-1], {})
+            min_delay = depth * 5
+            max_delay = depth * 15
+            pct = max_delay / 119.2 * 100
+
+            lines.append(f"**Depth {depth}** ({min_delay}-{max_delay} ns, {pct:.0f}% half T-cycle): "
+                         f"`{_display(G, path[0])}` -> `{sink}`\n")
+            lines.append(format_path_trace(path, G, fanout))
+            lines.append("")
+            shown += 1
+
+    # =========================================================================
+    # RESET PATHS — summary only
+    # =========================================================================
+    lines.append("---")
+    lines.append("## Reset Paths (summary)\n")
+    lines.append("These paths only fire on system reset or LCDC bit 7 toggle. They all share")
+    lines.append("the VID_RST inverter chain prefix (8 gates from AFER_SYS_RSTp through XAPO/ATAR/ABEZ).\n")
+
+    # Categorize reset paths
+    reset_cats = {}
+    for depth, path in reset:
+        cat = categorize_path(path, G)
+        if cat not in reset_cats:
+            reset_cats[cat] = []
+        reset_cats[cat].append((depth, path))
+
+    reset_cat_order = sorted(reset_cats.keys(), key=lambda c: -reset_cats[c][0][0])
+
+    lines.append("| Area | Paths | Max Depth | Deepest Sink |")
+    lines.append("|------|-------|-----------|-------------|")
+    for cat in reset_cat_order:
+        rp = reset_cats[cat]
+        lines.append(f"| {cat} | {len(rp)} | {rp[0][0]} | `{_display(G, rp[0][1][-1])}` |")
+    lines.append("")
+
+    # Show just the single deepest reset path as an example
+    if reset:
+        depth, path = reset[0]
+        lines.append(f"**Deepest reset path** (depth {depth}): "
+                     f"`{_display(G, path[0])}` -> `{_display(G, path[-1])}`\n")
+        lines.append(format_path_trace(path, G, fanout))
+        lines.append("")
+
+    # =========================================================================
+    # DEPTH DISTRIBUTION
+    # =========================================================================
+    lines.append("---")
+    lines.append("## Depth Distribution (all paths)\n")
+
+    depth_counts_op = {}
+    for depth, _ in operational:
+        depth_counts_op[depth] = depth_counts_op.get(depth, 0) + 1
+    depth_counts_rst = {}
+    for depth, _ in reset:
+        depth_counts_rst[depth] = depth_counts_rst.get(depth, 0) + 1
+
+    all_depths = sorted(set(list(depth_counts_op.keys()) + list(depth_counts_rst.keys())), reverse=True)
+
+    lines.append("| Depth | Operational | Reset | Total | Est. Delay (max) | % Half T-cycle |")
+    lines.append("|-------|------------|-------|-------|------------------|----------------|")
+    for d in all_depths:
+        op_count = depth_counts_op.get(d, 0)
+        rst_count = depth_counts_rst.get(d, 0)
+        total = op_count + rst_count
         max_delay = d * 15
         pct = max_delay / 119.2 * 100
-        flag = " **CRITICAL**" if pct > 50 else ""
-        lines.append(f"| {d} | {depth_counts[d]} | {min_delay} ns | {max_delay} ns | {pct:.0f}%{flag} |")
-
-    lines.append(f"\n## Top {min(len(paths), max_paths)} Deepest Paths\n")
-
-    for i, (depth, path) in enumerate(paths[:max_paths]):
-        min_delay = depth * 5
-        max_delay = depth * 15
-        pct = max_delay / 119.2 * 100
-
-        src_node = G.nodes.get(path[0], {})
-        dst_node = G.nodes.get(path[-1], {})
-
-        lines.append(f"### Path {i+1}: Depth {depth} ({min_delay}-{max_delay} ns, {pct:.0f}% of half T-cycle)")
-        lines.append(f"**Source:** `{_display(G, path[0])}` ({src_node.get('node_type', '?')}, {src_node.get('reg_type', '')})")
-        lines.append(f"**Sink:** `{_display(G, path[-1])}` ({dst_node.get('node_type', '?')}, {dst_node.get('reg_type', '')})")
-        lines.append(f"**Source file:** `{src_node.get('source_file', '?')}:{src_node.get('source_line', '?')}`")
-        lines.append("")
-        lines.append("```")
-        for j, node_name in enumerate(path):
-            nd = G.nodes.get(node_name, {})
-            nt = nd.get('node_type', '?')
-            gf = nd.get('gate_func', '')
-            sf = nd.get('source_file', '')
-            sl = nd.get('source_line', '')
-            dn = _display(G, node_name)
-
-            if nt in ('registered', 'bus', 'boundary'):
-                marker = f"[{nt.upper()}]"
-            else:
-                marker = f"[{gf}]" if gf else "[comb]"
-
-            loc = f"{sf}:{sl}" if sf else ""
-            lines.append(f"  {'  ' * j}{marker} {dn}  ({loc})")
-        lines.append("```\n")
+        flag = " **!**" if pct > 50 else ""
+        lines.append(f"| {d} | {op_count} | {rst_count} | {total} | {max_delay} ns | {pct:.0f}%{flag} |")
+    lines.append("")
 
     return "\n".join(lines)
 
@@ -1277,7 +1523,8 @@ def export_graph_json(G, filepath: Path):
 
 
 def export_paths_json(paths, G, filepath: Path):
-    """Export critical paths to JSON."""
+    """Export critical paths to JSON with classification metadata."""
+    fanout = compute_fanout(G)
     data = []
     for depth, path in paths:
         path_data = {
@@ -1285,8 +1532,10 @@ def export_paths_json(paths, G, filepath: Path):
             "min_delay_ns": depth * 5,
             "max_delay_ns": depth * 15,
             "pct_half_tcycle": round(depth * 15 / 119.2 * 100, 1),
-            "source": path[0],
-            "sink": path[-1],
+            "source": _display(G, path[0]),
+            "sink": _display(G, path[-1]),
+            "is_reset": is_reset_path(path, G),
+            "category": categorize_path(path, G),
             "nodes": [],
         }
         for node_name in path:
@@ -1298,6 +1547,7 @@ def export_paths_json(paths, G, filepath: Path):
                 "gate_func": nd.get('gate_func', ''),
                 "source_file": nd.get('source_file', ''),
                 "source_line": nd.get('source_line', 0),
+                "fan_out": fanout.get(node_name, 0),
             })
         data.append(path_data)
 
@@ -1306,6 +1556,96 @@ def export_paths_json(paths, G, filepath: Path):
         json.dump(data, f, indent=2)
 
     print(f"Critical paths exported to {filepath}")
+
+
+def export_dot(paths, G, filepath: Path, max_paths=20):
+    """Export top critical paths as a DOT graph for Graphviz visualization."""
+    fanout = compute_fanout(G)
+
+    # Collect unique nodes and edges from top operational paths
+    operational = [(d, p) for d, p in paths if not is_reset_path(p, G)]
+
+    # Take the deepest unique-sink path per category
+    seen_sinks = set()
+    selected = []
+    for depth, path in operational:
+        sink = _display(G, path[-1])
+        if sink not in seen_sinks:
+            seen_sinks.add(sink)
+            selected.append((depth, path))
+        if len(selected) >= max_paths:
+            break
+
+    dot_nodes = {}  # node_name -> attributes
+    dot_edges = set()
+
+    for depth, path in selected:
+        for i, node_name in enumerate(path):
+            nd = G.nodes.get(node_name, {})
+            dn = _display(G, node_name)
+            nt = nd.get('node_type', '')
+            gf = nd.get('gate_func', '')
+            fo = fanout.get(node_name, 0)
+
+            if nt in ('registered', 'bus', 'boundary'):
+                shape = 'box'
+                color = '#4A90D9' if nt == 'registered' else ('#D4A44A' if nt == 'bus' else '#888888')
+                style = 'filled'
+            else:
+                shape = 'ellipse'
+                color = '#FF6B6B' if fo >= 20 else ('#FFB366' if fo >= 10 else '#DDDDDD')
+                style = 'filled'
+
+            label = dn
+            if fo >= 10:
+                label += f'\\n(fan-out: {fo})'
+
+            dot_nodes[node_name] = {
+                'label': label,
+                'shape': shape,
+                'fillcolor': color,
+                'style': style,
+            }
+
+            if i > 0:
+                dot_edges.add((path[i-1], node_name))
+
+    lines = ['digraph ppu_critical_paths {']
+    lines.append('  rankdir=TB;')
+    lines.append('  node [fontname="Courier", fontsize=10];')
+    lines.append('  edge [color="#666666"];')
+    lines.append('')
+    lines.append('  // Legend')
+    lines.append('  subgraph cluster_legend {')
+    lines.append('    label="Legend";')
+    lines.append('    style=dashed;')
+    lines.append('    leg_reg [label="Registered\\n(DFF/Latch)" shape=box fillcolor="#4A90D9" style=filled];')
+    lines.append('    leg_bus [label="Bus" shape=box fillcolor="#D4A44A" style=filled];')
+    lines.append('    leg_comb [label="Combinatorial" shape=ellipse fillcolor="#DDDDDD" style=filled];')
+    lines.append('    leg_hot [label="High fan-out\\n(>=10)" shape=ellipse fillcolor="#FFB366" style=filled];')
+    lines.append('    leg_crit [label="Critical fan-out\\n(>=20)" shape=ellipse fillcolor="#FF6B6B" style=filled];')
+    lines.append('  }')
+    lines.append('')
+
+    for node_name, attrs in dot_nodes.items():
+        safe_id = node_name.replace(':', '_').replace('.', '_').replace('@', '_at_')
+        attr_str = ', '.join(f'{k}="{v}"' for k, v in attrs.items())
+        lines.append(f'  "{safe_id}" [{attr_str}];')
+
+    lines.append('')
+    for src, dst in dot_edges:
+        safe_src = src.replace(':', '_').replace('.', '_').replace('@', '_at_')
+        safe_dst = dst.replace(':', '_').replace('.', '_').replace('@', '_at_')
+        lines.append(f'  "{safe_src}" -> "{safe_dst}";')
+
+    lines.append('}')
+
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    with open(filepath, 'w') as f:
+        f.write('\n'.join(lines))
+
+    print(f"DOT graph exported to {filepath}")
+    print(f"  Render with: dot -Tsvg {filepath} -o {filepath.with_suffix('.svg')}")
 
 
 # ============================================================================
@@ -1390,6 +1730,9 @@ def main():
     with open(report_path, 'w') as f:
         f.write(report)
     print(f"Report written to {report_path}")
+
+    # Export DOT graph
+    export_dot(paths, G, out_dir / "critical_paths.dot")
 
     # Write stats
     stats_path = Path("docs/graph-stats.md")

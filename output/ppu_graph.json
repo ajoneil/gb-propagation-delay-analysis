@@ -33603,56 +33603,6 @@
       "edge_type": "data"
     },
     {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:CARO_SER_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:CABY_XFER_RESET",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:COHY_SER_DATA0_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DUMO_SER_DATA1_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DYBO_SER_DATA2_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DAJU_SER_DATA3_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:DYLY_SER_DATA4_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EHUJ_SER_DATA5_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EFAK_SER_DATA6_RSTn",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyLCD:ALUR_SYS_RSTn",
-      "dst": "GateBoySerial:EGUV_SER_DATA7_RSTn",
-      "edge_type": "data"
-    },
-    {
       "src": "GateBoyLCD:DULA_SYS_RSTp",
       "dst": "GateBoyLCD:CUNU_SYS_RSTn",
       "edge_type": "data"
@@ -33660,6 +33610,21 @@
     {
       "src": "GateBoyLCD:CUNU_SYS_RSTn",
       "dst": "GateBoyLCD:XORE_SYS_RSTp",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "GateBoyPixPipe:XORE_SYS_RSTp",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "GateBoyRegisters:XORE_SYS_RSTp",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyLCD:CUNU_SYS_RSTn",
+      "dst": "SOTO_DBG_VRAMp",
       "edge_type": "data"
     },
     {
@@ -48614,16 +48579,6 @@
     },
     {
       "src": "GateBoyVramBus:CUNU_SYS_RSTn",
-      "dst": "GateBoyPixPipe:XORE_SYS_RSTp",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyVramBus:CUNU_SYS_RSTn",
-      "dst": "GateBoyRegisters:XORE_SYS_RSTp",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyVramBus:CUNU_SYS_RSTn",
       "dst": "GAVE_SCY0p",
       "edge_type": "data"
     },
@@ -48700,11 +48655,6 @@
     {
       "src": "GateBoyVramBus:CUNU_SYS_RSTn",
       "dst": "BAKE_SCX7p",
-      "edge_type": "data"
-    },
-    {
-      "src": "GateBoyVramBus:CUNU_SYS_RSTn",
-      "dst": "SOTO_DBG_VRAMp",
       "edge_type": "data"
     },
     {
@@ -54215,6 +54165,56 @@
     {
       "src": "GateBoyTimer:ALUR_SYS_RSTn",
       "dst": "GateBoyTimer:MULO_SYS_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:CARO_SER_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:CABY_XFER_RESET",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:COHY_SER_DATA0_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DUMO_SER_DATA1_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DYBO_SER_DATA2_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DAJU_SER_DATA3_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:DYLY_SER_DATA4_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EHUJ_SER_DATA5_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EFAK_SER_DATA6_RSTn",
+      "edge_type": "data"
+    },
+    {
+      "src": "GateBoyTimer:ALUR_SYS_RSTn",
+      "dst": "GateBoySerial:EGUV_SER_DATA7_RSTn",
       "edge_type": "data"
     },
     {
