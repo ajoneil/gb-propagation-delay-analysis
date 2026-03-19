@@ -573,6 +573,16 @@ input[type="search"] {{ width: 260px; }}
 .text-warn {{ color: var(--warn); }}
 .text-accent {{ color: var(--accent); }}
 .text-green {{ color: var(--accent2); }}
+.badge-die {{
+  background: #2d1f3d;
+  color: #d2a8ff;
+  font-size: 10px;
+  cursor: pointer;
+}}
+.badge-die:hover {{
+  background: #3d2f4d;
+  text-decoration: none;
+}}
 .friendly-name {{
   display: block;
   font-size: 11px;
@@ -815,6 +825,15 @@ function srcLink(file, line) {{
   if (!file) return '';
   const url = `${{config.gateboy_base}}/${{file}}#L${{line}}`;
   return `<a href="${{url}}" target="_blank" rel="noopener" class="muted">${{escHtml(file)}}:${{line}}</a>`;
+}}
+
+function dieLink(displayName) {{
+  if (!displayName) return '';
+  const m = displayName.match(/^([A-Z]{{4}})/);
+  if (!m) return '';
+  const cell = m[1].toLowerCase();
+  const url = `https://iceboy.a-singer.de/dmg_cpu_b_map/?view=c:${{cell}}`;
+  return `<a href="${{url}}" target="_blank" rel="noopener" class="badge badge-die" title="View ${{m[1]}} on die photo">Die</a>`;
 }}
 
 function pandocsLink(signalName) {{
@@ -1148,6 +1167,7 @@ function renderRaceDetail(r) {{
     </div>
     <div class="detail-section" style="display:flex;gap:12px;align-items:center">
       ${{srcLink(r.source_file, r.source_line)}}
+      ${{dieLink(r.display_name)}}
       ${{pandocsLink(r.display_name)}}
     </div>
   </div>`;
@@ -1264,7 +1284,7 @@ function renderChain(nodes) {{
       <div class="chain-node">
         <span class="chain-type ${{typeClass}}">${{escHtml(label)}}</span>
         <span class="chain-name">${{signalLink(nd.display_name, true)}}</span>
-        ${{phase}} ${{fo}}
+        ${{dieLink(nd.display_name)}} ${{phase}} ${{fo}}
         <span class="chain-loc">${{nd.source_file ? srcLink(nd.source_file, nd.source_line) : ''}}</span>
       </div>`;
   }}).join('');
@@ -1413,6 +1433,7 @@ function runSearch(query) {{
         ${{n.gate_func ? `<span class="badge badge-phase">${{escHtml(n.gate_func)}}</span>` : ''}}
         ${{n.phase ? phaseBadge(n.phase) : ''}}
         ${{n.source_file ? srcLink(n.source_file, n.source_line) : ''}}
+        ${{dieLink(n.display_name)}}
         ${{pandocsLink(n.display_name)}}
       </div>
       <div class="related">
@@ -1491,6 +1512,7 @@ function renderGraphNode(displayName) {{
         ${{node.reg_type ? `<div class="node-prop"><span class="label">Reg: </span><span class="value">${{escHtml(node.reg_type)}}</span></div>` : ''}}
         ${{node.phase ? `<div class="node-prop"><span class="label">Phase: </span><span class="value">${{phaseBadge(node.phase)}}</span></div>` : ''}}
         ${{node.source_file ? `<div class="node-prop"><span class="label">Source: </span><span class="value">${{srcLink(node.source_file, node.source_line)}}</span></div>` : ''}}
+        <div class="node-prop">${{dieLink(dn)}} ${{pandocsLink(dn)}}</div>
         <div class="node-prop"><span class="label">Fan-in: </span><span class="value">${{preds.length}}</span></div>
         <div class="node-prop"><span class="label">Fan-out: </span><span class="value">${{succs.length}}</span></div>
       </div>
