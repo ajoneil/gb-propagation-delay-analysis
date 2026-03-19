@@ -1174,6 +1174,85 @@ def find_critical_paths(DAG, G_original):
     return unique_paths
 
 
+def find_race_pairs(DAG, G):
+    """Find signal race pairs: registered nodes where inputs arrive at significantly
+    different combinatorial depths.
+
+    A race pair indicates that a DFF/latch samples two signals that settle at
+    different times after a clock edge. In a behavioral emulator these resolve
+    instantly, but on real hardware the late-arriving signal may not be stable
+    when the DFF samples — causing the hardware behavior to differ by one dot.
+
+    Returns list of race dicts sorted by depth differential.
+    """
+    import networkx as nx
+
+    topo_order = list(nx.topological_sort(DAG))
+
+    # Compute depth to each node (same as find_critical_paths)
+    dist = {}
+    for n in topo_order:
+        if is_path_terminator(DAG, n):
+            dist[n] = 0
+        else:
+            best = -1
+            for pred in DAG.predecessors(n):
+                if pred in dist and dist[pred] > best:
+                    best = dist[pred]
+            dist[n] = best + 1 if best >= 0 else 0
+
+    races = []
+    for n in topo_order:
+        if not is_path_terminator(DAG, n):
+            continue
+
+        preds = list(DAG.predecessors(n))
+        if len(preds) < 2:
+            continue
+
+        pred_depths = [(p, dist.get(p, 0)) for p in preds]
+        pred_depths.sort(key=lambda x: -x[1])
+
+        max_d = pred_depths[0][1]
+        min_d = pred_depths[-1][1]
+        diff = max_d - min_d
+
+        if diff >= 3 and max_d >= 4:
+            # Extract phase annotation from signal names
+            def get_phase(node_name):
+                dn = _display(G, node_name)
+                if '_odd' in dn: return 'ODD'
+                if '_evn' in dn: return 'EVN'
+                m = re.search(r'([AxBCDEFGHx]{8})', dn)
+                return m.group(1) if m else ''
+
+            races.append({
+                'node': n,
+                'display_name': _display(G, n),
+                'node_type': DAG.nodes[n].get('node_type', ''),
+                'reg_type': DAG.nodes[n].get('reg_type', ''),
+                'source_file': DAG.nodes[n].get('source_file', ''),
+                'source_line': DAG.nodes[n].get('source_line', 0),
+                'depth_diff': diff,
+                'max_depth': max_d,
+                'min_depth': min_d,
+                'inputs': [
+                    {
+                        'name': _display(G, p),
+                        'depth': d,
+                        'gate_func': DAG.nodes[p].get('gate_func', ''),
+                        'node_type': DAG.nodes[p].get('node_type', ''),
+                        'phase': get_phase(p),
+                    }
+                    for p, d in pred_depths
+                ],
+                'category': categorize_path([n], G),  # rough category from sink
+            })
+
+    races.sort(key=lambda x: (-x['depth_diff'], -x['max_depth']))
+    return races
+
+
 def _display(G, node_name):
     """Get display name for a node, stripping file scope prefix."""
     return G.nodes[node_name].get('display_name', '') or display_name_from_scoped(node_name)
@@ -1302,9 +1381,11 @@ def format_path_trace(path, G, fanout, indent=2):
     return "\n".join(lines)
 
 
-def format_path_report(paths, G, max_paths=30):
+def format_path_report(paths, G, races=None, max_paths=30):
     """Format critical paths into a categorized, operationally-prioritized report."""
     fanout = compute_fanout(G)
+    if races is None:
+        races = []
     lines = []
 
     lines.append("# GateBoy PPU Critical Combinatorial Paths\n")
@@ -1458,6 +1539,113 @@ def format_path_report(paths, G, max_paths=30):
                      f"`{_display(G, path[0])}` -> `{_display(G, path[-1])}`\n")
         lines.append(format_path_trace(path, G, fanout))
         lines.append("")
+
+    # =========================================================================
+    # SIGNAL RACE PAIRS
+    # =========================================================================
+    if races:
+        lines.append("---")
+        lines.append("## Signal Race Pairs\n")
+        lines.append("A race pair occurs when a registered element (DFF/latch) has two or more inputs")
+        lines.append("that arrive at significantly different combinatorial depths. In real hardware,")
+        lines.append("the late-arriving signal may not be stable when the DFF samples. A behavioral")
+        lines.append("emulator resolves all inputs instantly, hiding this timing asymmetry.\n")
+        lines.append("> **How to read this:** A depth differential of N means one input passes through")
+        lines.append("> N more gates than another before reaching the same decision point. At 5-15 ns")
+        lines.append("> per gate, a differential of 10 means one signal arrives 50-150 ns later.\n")
+
+        # Filter to PPU-relevant races, skip reset-dominated
+        ppu_cats = {'Scroll/Fine Timing', 'Window Logic', 'Pixel Pipeline', 'Pixel Counter',
+                    'Sprite Store/Match', 'Sprite Fetcher', 'Sprite Scanner', 'Tile Fetcher',
+                    'STAT/LY Match', 'Mode/Rendering Control', 'OAM Bus', 'VRAM Bus',
+                    'Line Timing', 'LX Counter', 'PPU Registers', 'Interrupts', 'DMA',
+                    'LYC Register', 'LY Counter'}
+
+        # Remove races whose late input comes through VID_RST (reset-only)
+        def is_operational_race(r):
+            for inp in r['inputs']:
+                name = inp['name'].upper()
+                if any(x in name for x in ['VID_RST', 'XAPO', 'ATAR', 'ABEZ', 'LYFE', 'TOFU', 'ROSY', 'PYRY']):
+                    if inp['depth'] == r['max_depth']:  # the late signal is the reset chain
+                        return False
+            return True
+
+        op_races = [r for r in races if is_operational_race(r)]
+
+        lines.append(f"Found **{len(op_races)}** operational race points (depth diff >= 3, excluding reset chains).\n")
+
+        # Summary table of top races
+        lines.append("### Top Race Pairs by Depth Differential\n")
+        lines.append("| Decision Point | Type | Depth Diff | Late Signal (depth) | Early Signal (depth) | Source |")
+        lines.append("|----------------|------|-----------|--------------------|--------------------|--------|")
+
+        seen_nodes = set()
+        shown = 0
+        for r in op_races:
+            if r['display_name'] in seen_nodes:
+                continue
+            seen_nodes.add(r['display_name'])
+            if shown >= 30:
+                break
+
+            late = r['inputs'][0]
+            early = r['inputs'][-1]
+            phase_info = ""
+            if late['phase'] and early['phase'] and late['phase'] != early['phase']:
+                phase_info = f" **phase mismatch: {late['phase']}/{early['phase']}**"
+
+            lines.append(
+                f"| `{r['display_name']}` | {r['reg_type']} | **{r['depth_diff']}** | "
+                f"`{late['name']}` ({late['depth']}) | "
+                f"`{early['name']}` ({early['depth']}) | "
+                f"{r['source_file']}:{r['source_line']} |"
+            )
+            shown += 1
+        lines.append("")
+
+        # Detailed analysis of top 10 most interesting races
+        lines.append("### Detailed Race Analysis\n")
+
+        seen_nodes = set()
+        shown = 0
+        for r in op_races:
+            if r['display_name'] in seen_nodes:
+                continue
+            seen_nodes.add(r['display_name'])
+            if shown >= 10:
+                break
+
+            lines.append(f"#### `{r['display_name']}` (diff: {r['depth_diff']} gates, "
+                         f"{r['source_file']}:{r['source_line']})\n")
+            lines.append(f"Type: {r['node_type']} ({r['reg_type']})\n")
+            lines.append("| Input | Depth | Gate | Phase | Role |")
+            lines.append("|-------|-------|------|-------|------|")
+
+            for inp in r['inputs']:
+                role = "**LATE**" if inp['depth'] == r['max_depth'] else ("early" if inp['depth'] == r['min_depth'] else "mid")
+                delay_est = f"{inp['depth']*5}-{inp['depth']*15} ns" if inp['depth'] > 0 else "0 ns"
+                lines.append(
+                    f"| `{inp['name']}` | {inp['depth']} ({delay_est}) | "
+                    f"{inp['gate_func'] or inp['node_type']} | {inp['phase'] or '-'} | {role} |"
+                )
+            lines.append("")
+
+            # Explain the consequence
+            diff_min = r['depth_diff'] * 5
+            diff_max = r['depth_diff'] * 15
+            lines.append(f"The late-arriving signal reaches `{r['display_name']}` **{diff_min}-{diff_max} ns** "
+                         f"after the earliest input. ")
+            pct_ht = diff_max / 119.2 * 100
+            if diff_max > 119:
+                lines.append(f"This exceeds a half T-cycle ({pct_ht:.0f}%), meaning the late signal "
+                             f"may not settle before the next clock edge.\n")
+            elif diff_max > 60:
+                lines.append(f"This is a significant fraction of a half T-cycle ({pct_ht:.0f}%), "
+                             f"making this a likely source of one-dot timing discrepancies.\n")
+            else:
+                lines.append(f"This is {pct_ht:.0f}% of a half T-cycle.\n")
+
+            shown += 1
 
     # =========================================================================
     # DEPTH DISTRIBUTION
@@ -1719,13 +1907,26 @@ def main():
         print(f"  Deepest: {paths[0][0]} gates")
         print(f"  Top 10 depths: {[p[0] for p in paths[:10]]}")
 
+    # Race pair detection
+    print("\nFinding signal race pairs...")
+    races = find_race_pairs(DAG, G)
+    print(f"  Found {len(races)} race points (depth diff >= 3)")
+    if races:
+        print(f"  Largest differential: {races[0]['depth_diff']} gates at {races[0]['display_name']}")
+
     # Export everything
     out_dir = Path("output")
     export_graph_json(G, out_dir / "ppu_graph.json")
     export_paths_json(paths, G, out_dir / "critical_paths.json")
 
+    # Export race pairs
+    race_path = out_dir / "race_pairs.json"
+    with open(race_path, 'w') as f:
+        json.dump(races, f, indent=2)
+    print(f"Race pairs exported to {race_path}")
+
     # Write human-readable report
-    report = format_path_report(paths, G)
+    report = format_path_report(paths, G, races)
     report_path = out_dir / "critical_paths_report.md"
     with open(report_path, 'w') as f:
         f.write(report)

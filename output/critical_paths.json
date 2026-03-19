@@ -63376,7 +63376,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "LARA_DMA_LATCHn_odd",
@@ -69313,7 +69313,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69331,7 +69331,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69397,7 +69397,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69415,7 +69415,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69481,7 +69481,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69499,7 +69499,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69565,7 +69565,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69583,7 +69583,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69649,7 +69649,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69667,7 +69667,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69733,7 +69733,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69751,7 +69751,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69817,7 +69817,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69835,7 +69835,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69901,7 +69901,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -69919,7 +69919,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -69985,7 +69985,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 14,
-        "fan_out": 1
+        "fan_out": 11
       },
       {
         "name": "GateBoyLCD:DULA_SYS_RSTp",
@@ -70003,7 +70003,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyLCD.cpp",
         "source_line": 16,
-        "fan_out": 4
+        "fan_out": 1
       },
       {
         "name": "GateBoyLCD:XORE_SYS_RSTp",
@@ -70054,40 +70054,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70138,40 +70138,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70222,40 +70222,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70306,40 +70306,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70390,40 +70390,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70474,40 +70474,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70558,40 +70558,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70642,40 +70642,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70726,40 +70726,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70810,40 +70810,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70894,40 +70894,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -70978,40 +70978,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -71062,40 +71062,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -71146,40 +71146,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -71230,40 +71230,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -71314,40 +71314,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyPixPipe:XORE_SYS_RSTp",
@@ -71398,40 +71398,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71482,40 +71482,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71566,40 +71566,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71650,40 +71650,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71734,40 +71734,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71818,40 +71818,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -71902,40 +71902,40 @@
         "fan_out": 13
       },
       {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
         "display_name": "AVOR_SYS_RSTp",
         "node_type": "combinatorial",
         "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
         "source_line": 13,
         "fan_out": 1
       },
       {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
         "display_name": "CUNU_SYS_RSTn",
         "node_type": "combinatorial",
         "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
       },
       {
         "name": "GateBoyRegisters:XORE_SYS_RSTp",
@@ -72439,7 +72439,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -72598,7 +72598,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -72682,7 +72682,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -72766,7 +72766,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -72850,7 +72850,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -72934,7 +72934,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -73018,7 +73018,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -73177,7 +73177,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -73336,7 +73336,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -94912,7 +94912,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "GateBoyDMA:LOKO_DMA_RSTp_odd_new",
@@ -100139,72 +100139,6 @@
     "max_delay_ns": 60,
     "pct_half_tcycle": 50.3,
     "source": "AFER_SYS_RSTp",
-    "sink": "SOTO_DBG_VRAMp",
-    "is_reset": true,
-    "category": "VRAM Bus",
-    "nodes": [
-      {
-        "name": "AFER_SYS_RSTp",
-        "display_name": "AFER_SYS_RSTp",
-        "node_type": "registered",
-        "gate_func": "",
-        "source_file": "GateBoyReset.cpp",
-        "source_line": 34,
-        "fan_out": 13
-      },
-      {
-        "name": "GateBoyLCD:AVOR_SYS_RSTp",
-        "display_name": "AVOR_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "or2",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 13,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:ALUR_SYS_RSTn",
-        "display_name": "ALUR_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 14,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:DULA_SYS_RSTp",
-        "display_name": "DULA_SYS_RSTp",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 15,
-        "fan_out": 1
-      },
-      {
-        "name": "GateBoyLCD:CUNU_SYS_RSTn",
-        "display_name": "CUNU_SYS_RSTn",
-        "node_type": "combinatorial",
-        "gate_func": "not1",
-        "source_file": "GateBoyLCD.cpp",
-        "source_line": 16,
-        "fan_out": 4
-      },
-      {
-        "name": "SOTO_DBG_VRAMp",
-        "display_name": "SOTO_DBG_VRAMp",
-        "node_type": "registered",
-        "gate_func": "",
-        "source_file": "GateBoyReset.cpp",
-        "source_line": 55,
-        "fan_out": 1
-      }
-    ]
-  },
-  {
-    "depth": 4,
-    "min_delay_ns": 20,
-    "max_delay_ns": 60,
-    "pct_half_tcycle": 50.3,
-    "source": "AFER_SYS_RSTp",
     "sink": "LENE_DMA_TRIG_d4_odd",
     "is_reset": true,
     "category": "DMA",
@@ -100252,7 +100186,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "LENE_DMA_TRIG_d4_odd",
@@ -100318,7 +100252,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "LUVY_DMA_TRIG_d0_odd",
@@ -100384,7 +100318,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyDMA.cpp",
         "source_line": 14,
-        "fan_out": 5
+        "fan_out": 8
       },
       {
         "name": "MATU_DMA_RUNNINGp_odd",
@@ -100394,6 +100328,72 @@
         "source_file": "GateBoyDMA.cpp",
         "source_line": 61,
         "fan_out": 12
+      }
+    ]
+  },
+  {
+    "depth": 4,
+    "min_delay_ns": 20,
+    "max_delay_ns": 60,
+    "pct_half_tcycle": 50.3,
+    "source": "AFER_SYS_RSTp",
+    "sink": "SOTO_DBG_VRAMp",
+    "is_reset": true,
+    "category": "VRAM Bus",
+    "nodes": [
+      {
+        "name": "AFER_SYS_RSTp",
+        "display_name": "AFER_SYS_RSTp",
+        "node_type": "registered",
+        "gate_func": "",
+        "source_file": "GateBoyReset.cpp",
+        "source_line": 34,
+        "fan_out": 13
+      },
+      {
+        "name": "GateBoyDMA:AVOR_SYS_RSTp",
+        "display_name": "AVOR_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "or2",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 11,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:ALUR_SYS_RSTn",
+        "display_name": "ALUR_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 12,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:DULA_SYS_RSTp",
+        "display_name": "DULA_SYS_RSTp",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 13,
+        "fan_out": 1
+      },
+      {
+        "name": "GateBoyDMA:CUNU_SYS_RSTn",
+        "display_name": "CUNU_SYS_RSTn",
+        "node_type": "combinatorial",
+        "gate_func": "not1",
+        "source_file": "GateBoyDMA.cpp",
+        "source_line": 14,
+        "fan_out": 8
+      },
+      {
+        "name": "SOTO_DBG_VRAMp",
+        "display_name": "SOTO_DBG_VRAMp",
+        "node_type": "registered",
+        "gate_func": "",
+        "source_file": "GateBoyReset.cpp",
+        "source_line": 55,
+        "fan_out": 1
       }
     ]
   },
@@ -104572,7 +104572,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SABU_TMA0p",
@@ -104620,7 +104620,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "NYKE_TMA1p",
@@ -104668,7 +104668,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "MURU_TMA2p",
@@ -104716,7 +104716,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "TYVA_TMA3p",
@@ -104764,7 +104764,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "TYRU_TMA4p",
@@ -104812,7 +104812,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SUFY_TMA5p",
@@ -104860,7 +104860,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "PETO_TMA6p",
@@ -104908,7 +104908,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SETA_TMA7p",
@@ -104956,7 +104956,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SOPU_TAC0p",
@@ -105004,7 +105004,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SAMY_TAC1p",
@@ -105052,7 +105052,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "SABO_TAC2p",
@@ -105100,7 +105100,7 @@
         "gate_func": "not1",
         "source_file": "GateBoyTimer.cpp",
         "source_line": 92,
-        "fan_out": 24
+        "fan_out": 14
       },
       {
         "name": "MOBA_TIMER_OVERFLOWp",

@@ -65,7 +65,6 @@ at these nodes has the widest impact on timing.
 | `UNOR_MODE_DBG2p_new` | 26 | and2 | GateBoyPins.cpp:100 |
 | `XYMU_RENDERING_LATCHn` | 25 | registered | GateBoy.cpp:827 |
 | `SIG_VCC` | 24 | boundary | GateBoy.cpp:700 |
-| `ALUR_SYS_RSTn` | 24 | not1 | GateBoyTimer.cpp:92 |
 | `TEDO_CPU_RDp` | 19 | not1 | GateBoy.cpp:654 |
 | `LUMA_DMA_CARTp_new` | 19 | not1 | GateBoyExtBus.cpp:172 |
 | `TOVA_MODE_DBG2n_new` | 17 | not1 | GateBoyPins.cpp:102 |
@@ -81,6 +80,7 @@ at these nodes has the widest impact on timing.
 | `DEPO_OAM_DB7n` | 16 | registered | GateBoyOamBus.cpp:44 |
 | `AZUL_CBD_TO_OBDn_new` | 16 | not1 | GateBoyOamBus.cpp:162 |
 | `CEDE_EBD_TO_OBDn_new` | 16 | not1 | GateBoyOamBus.cpp:216 |
+| `AZAR_VBD_TO_OBDn_new` | 16 | not1 | GateBoyOamBus.cpp:258 |
 
 ### Clock Distribution (max depth 17, 13 paths)
 
@@ -1770,6 +1770,183 @@ the VID_RST inverter chain prefix (8 gates from AFER_SYS_RSTp through XAPO/ATAR/
                                           [nand2] LEBO_ODD  (GateBoy.cpp:1185)
                                             [REGISTERED] LAXU_BFETCH_S0p_odd  (GateBoy.cpp:1188)
 ```
+
+---
+## Signal Race Pairs
+
+A race pair occurs when a registered element (DFF/latch) has two or more inputs
+that arrive at significantly different combinatorial depths. In real hardware,
+the late-arriving signal may not be stable when the DFF samples. A behavioral
+emulator resolves all inputs instantly, hiding this timing asymmetry.
+
+> **How to read this:** A depth differential of N means one input passes through
+> N more gates than another before reaching the same decision point. At 5-15 ns
+> per gate, a differential of 10 means one signal arrives 50-150 ns later.
+
+Found **547** operational race points (depth diff >= 3, excluding reset chains).
+
+### Top Race Pairs by Depth Differential
+
+| Decision Point | Type | Depth Diff | Late Signal (depth) | Early Signal (depth) | Source |
+|----------------|------|-----------|--------------------|--------------------|--------|
+| `BESU_SCAN_DONEn_odd` | nor_latch | **17** | `ASEN_SCAN_DONE_tp_odd_new` (17) | `CATU_LINE_ENDp_odd` (0) | GateBoy.cpp:771 |
+| `LOVY_TFETCH_DONEp` | dff17 | **17** | `NYXU_BFETCH_RSTn` (17) | `LYRY_BFETCH_DONEp_odd@old` (0) | GateBoy.cpp:1193 |
+| `MESU_BFETCH_S1p_odd` | dff17_any | **17** | `NYXU_BFETCH_RSTn` (17) | `LAXU_BFETCH_S0p_odd` (0) | GateBoy.cpp:1189 |
+| `NYVA_BFETCH_S2p_odd` | dff17_any | **17** | `NYXU_BFETCH_RSTn` (17) | `MESU_BFETCH_S1p_odd` (0) | GateBoy.cpp:1190 |
+| `LONY_TFETCHINGp` | nand_latch | **16** | `NYXU_BFETCH_RSTn` (17) | `LURY_BG_FETCH_DONEn` (1) | GateBoy.cpp:1199 |
+| `XEPE_STORE0_X0p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `ZAGO_SPX0n_old` (1) | GateBoySpriteStore.cpp:105 |
+| `YLAH_STORE0_X1p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `ZOCY_SPX1n_old` (1) | GateBoySpriteStore.cpp:106 |
+| `ZOLA_STORE0_X2p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `YPUR_SPX2n_old` (1) | GateBoySpriteStore.cpp:107 |
+| `ZULU_STORE0_X3p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `YVOK_SPX3n_old` (1) | GateBoySpriteStore.cpp:108 |
+| `WELO_STORE0_X4p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `COSE_SPX4n_old` (1) | GateBoySpriteStore.cpp:109 |
+| `XUNY_STORE0_X5p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `AROP_SPX5n_old` (1) | GateBoySpriteStore.cpp:110 |
+| `WOTE_STORE0_X6p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `XATU_SPX6n_old` (1) | GateBoySpriteStore.cpp:111 |
+| `XAKO_STORE0_X7p` | dff9 | **16** | `DYNA_STORE0_RSTn` (17) | `BADY_SPX7n_old` (1) | GateBoySpriteStore.cpp:112 |
+| `DANY_STORE1_X0p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `ZAGO_SPX0n_old` (1) | GateBoySpriteStore.cpp:114 |
+| `DUKO_STORE1_X1p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `ZOCY_SPX1n_old` (1) | GateBoySpriteStore.cpp:115 |
+| `DESU_STORE1_X2p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `YPUR_SPX2n_old` (1) | GateBoySpriteStore.cpp:116 |
+| `DAZO_STORE1_X3p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `YVOK_SPX3n_old` (1) | GateBoySpriteStore.cpp:117 |
+| `DAKE_STORE1_X4p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `COSE_SPX4n_old` (1) | GateBoySpriteStore.cpp:118 |
+| `CESO_STORE1_X5p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `AROP_SPX5n_old` (1) | GateBoySpriteStore.cpp:119 |
+| `DYFU_STORE1_X6p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `XATU_SPX6n_old` (1) | GateBoySpriteStore.cpp:120 |
+| `CUSY_STORE1_X7p` | dff9 | **16** | `DOKU_STORE1_RSTn` (17) | `BADY_SPX7n_old` (1) | GateBoySpriteStore.cpp:121 |
+| `FOKA_STORE2_X0p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `ZAGO_SPX0n_old` (1) | GateBoySpriteStore.cpp:123 |
+| `FYTY_STORE2_X1p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `ZOCY_SPX1n_old` (1) | GateBoySpriteStore.cpp:124 |
+| `FUBY_STORE2_X2p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `YPUR_SPX2n_old` (1) | GateBoySpriteStore.cpp:125 |
+| `GOXU_STORE2_X3p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `YVOK_SPX3n_old` (1) | GateBoySpriteStore.cpp:126 |
+| `DUHY_STORE2_X4p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `COSE_SPX4n_old` (1) | GateBoySpriteStore.cpp:127 |
+| `EJUF_STORE2_X5p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `AROP_SPX5n_old` (1) | GateBoySpriteStore.cpp:128 |
+| `ENOR_STORE2_X6p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `XATU_SPX6n_old` (1) | GateBoySpriteStore.cpp:129 |
+| `DEPY_STORE2_X7p` | dff9 | **16** | `GAMY_STORE2_RSTn` (17) | `BADY_SPX7n_old` (1) | GateBoySpriteStore.cpp:130 |
+| `XOLY_STORE3_X0p` | dff9 | **16** | `WUPA_STORE3_RSTn` (17) | `ZAGO_SPX0n_old` (1) | GateBoySpriteStore.cpp:132 |
+
+### Detailed Race Analysis
+
+#### `BESU_SCAN_DONEn_odd` (diff: 17 gates, GateBoy.cpp:771)
+
+Type: registered (nor_latch)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `ASEN_SCAN_DONE_tp_odd_new` | 17 (85-255 ns) | or2 | ODD | **LATE** |
+| `CATU_LINE_ENDp_odd` | 0 (0 ns) | registered | ODD | early |
+
+The late-arriving signal reaches `BESU_SCAN_DONEn_odd` **85-255 ns** after the earliest input. 
+This exceeds a half T-cycle (214%), meaning the late signal may not settle before the next clock edge.
+
+#### `LOVY_TFETCH_DONEp` (diff: 17 gates, GateBoy.cpp:1193)
+
+Type: registered (dff17)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `NYXU_BFETCH_RSTn` | 17 (85-255 ns) | nor3 | - | **LATE** |
+| `MYVO_AxCxExGx` | 7 (35-105 ns) | not1 | AxCxExGx | mid |
+| `LYRY_BFETCH_DONEp_odd@old` | 0 (0 ns) | registered | ODD | early |
+
+The late-arriving signal reaches `LOVY_TFETCH_DONEp` **85-255 ns** after the earliest input. 
+This exceeds a half T-cycle (214%), meaning the late signal may not settle before the next clock edge.
+
+#### `MESU_BFETCH_S1p_odd` (diff: 17 gates, GateBoy.cpp:1189)
+
+Type: registered (dff17_any)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `NYXU_BFETCH_RSTn` | 17 (85-255 ns) | nor3 | - | **LATE** |
+| `LAXU_BFETCH_S0p_odd` | 0 (0 ns) | registered | ODD | early |
+
+The late-arriving signal reaches `MESU_BFETCH_S1p_odd` **85-255 ns** after the earliest input. 
+This exceeds a half T-cycle (214%), meaning the late signal may not settle before the next clock edge.
+
+#### `NYVA_BFETCH_S2p_odd` (diff: 17 gates, GateBoy.cpp:1190)
+
+Type: registered (dff17_any)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `NYXU_BFETCH_RSTn` | 17 (85-255 ns) | nor3 | - | **LATE** |
+| `MESU_BFETCH_S1p_odd` | 0 (0 ns) | registered | ODD | early |
+
+The late-arriving signal reaches `NYVA_BFETCH_S2p_odd` **85-255 ns** after the earliest input. 
+This exceeds a half T-cycle (214%), meaning the late signal may not settle before the next clock edge.
+
+#### `LONY_TFETCHINGp` (diff: 16 gates, GateBoy.cpp:1199)
+
+Type: registered (nand_latch)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `NYXU_BFETCH_RSTn` | 17 (85-255 ns) | nor3 | - | **LATE** |
+| `LURY_BG_FETCH_DONEn` | 1 (5-15 ns) | and2 | - | early |
+
+The late-arriving signal reaches `LONY_TFETCHINGp` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
+
+#### `XEPE_STORE0_X0p` (diff: 16 gates, GateBoySpriteStore.cpp:105)
+
+Type: registered (dff9)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `DYNA_STORE0_RSTn` | 17 (85-255 ns) | not1 | - | **LATE** |
+| `FUXU_STORE0_CLKp` | 5 (25-75 ns) | not1 | - | mid |
+| `ZAGO_SPX0n_old` | 1 (5-15 ns) | not1 | - | early |
+
+The late-arriving signal reaches `XEPE_STORE0_X0p` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
+
+#### `YLAH_STORE0_X1p` (diff: 16 gates, GateBoySpriteStore.cpp:106)
+
+Type: registered (dff9)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `DYNA_STORE0_RSTn` | 17 (85-255 ns) | not1 | - | **LATE** |
+| `FUXU_STORE0_CLKp` | 5 (25-75 ns) | not1 | - | mid |
+| `ZOCY_SPX1n_old` | 1 (5-15 ns) | not1 | - | early |
+
+The late-arriving signal reaches `YLAH_STORE0_X1p` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
+
+#### `ZOLA_STORE0_X2p` (diff: 16 gates, GateBoySpriteStore.cpp:107)
+
+Type: registered (dff9)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `DYNA_STORE0_RSTn` | 17 (85-255 ns) | not1 | - | **LATE** |
+| `FUXU_STORE0_CLKp` | 5 (25-75 ns) | not1 | - | mid |
+| `YPUR_SPX2n_old` | 1 (5-15 ns) | not1 | - | early |
+
+The late-arriving signal reaches `ZOLA_STORE0_X2p` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
+
+#### `ZULU_STORE0_X3p` (diff: 16 gates, GateBoySpriteStore.cpp:108)
+
+Type: registered (dff9)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `DYNA_STORE0_RSTn` | 17 (85-255 ns) | not1 | - | **LATE** |
+| `FUXU_STORE0_CLKp` | 5 (25-75 ns) | not1 | - | mid |
+| `YVOK_SPX3n_old` | 1 (5-15 ns) | not1 | - | early |
+
+The late-arriving signal reaches `ZULU_STORE0_X3p` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
+
+#### `WELO_STORE0_X4p` (diff: 16 gates, GateBoySpriteStore.cpp:109)
+
+Type: registered (dff9)
+
+| Input | Depth | Gate | Phase | Role |
+|-------|-------|------|-------|------|
+| `DYNA_STORE0_RSTn` | 17 (85-255 ns) | not1 | - | **LATE** |
+| `FUXU_STORE0_CLKp` | 5 (25-75 ns) | not1 | - | mid |
+| `COSE_SPX4n_old` | 1 (5-15 ns) | not1 | - | early |
+
+The late-arriving signal reaches `WELO_STORE0_X4p` **80-240 ns** after the earliest input. 
+This exceeds a half T-cycle (201%), meaning the late signal may not settle before the next clock edge.
 
 ---
 ## Depth Distribution (all paths)
