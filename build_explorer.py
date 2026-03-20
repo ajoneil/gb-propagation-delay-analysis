@@ -589,6 +589,16 @@ input[type="search"] {{ width: 260px; }}
   font-size: 10px;
   cursor: pointer;
 }}
+.badge-celltype {{
+  background: #1a2d1a;
+  color: #7ee787;
+  font-size: 10px;
+  cursor: pointer;
+}}
+.badge-celltype:hover {{
+  background: #2a3d2a;
+  text-decoration: none;
+}}
 .friendly-name {{
   display: block;
   font-size: 11px;
@@ -842,6 +852,22 @@ function dieLink(displayName) {{
   const netUrl = `https://iceboy.a-singer.de/doc/dmg_cpu_b_netlist.html#c_${{cell}}`;
   return `<a href="${{dieUrl}}" target="_blank" rel="noopener" class="badge badge-die" title="View ${{m[1]}} on die photo">Die</a>`
        + `<a href="${{netUrl}}" target="_blank" rel="noopener" class="badge badge-netlist" title="View ${{m[1]}} netlist connections">Netlist</a>`;
+}}
+
+const cellTypeAnchors = {{
+  'dff8': 'dffr', 'dff9': 'dffr', 'dff11': 'dffr', 'dff13': 'dffr',
+  'dff17': 'dffr', 'dff17_any': 'dffr', 'dff20': 'dffr', 'dff22': 'dffsr',
+  'dff22_async': 'dffsr', 'dff_r': 'dffr',
+  'nor_latch': 'nor_latch', 'nand_latch': 'nand_latch',
+  'tp_latchn': 'dlatch', 'tp_latchp': 'dlatch',
+}};
+
+function cellTypeLink(regType) {{
+  if (!regType) return '';
+  const anchor = cellTypeAnchors[regType];
+  if (!anchor) return '';
+  const url = `https://iceboy.a-singer.de/doc/dmg_cells.html#${{anchor}}`;
+  return `<a href="${{url}}" target="_blank" rel="noopener" class="badge badge-celltype" title="Cell type: ${{regType}}">${{escHtml(regType)}}</a>`;
 }}
 
 function pandocsLink(signalName) {{
@@ -1194,7 +1220,7 @@ function renderRaces() {{
     tr.innerHTML = `
       <td class="mono">${{signalLink(r.display_name, true)}}</td>
       <td>${{catBadge(r.category)}}</td>
-      <td class="mono muted">${{escHtml(r.reg_type)}}</td>
+      <td class="mono">${{cellTypeLink(r.reg_type) || escHtml(r.reg_type)}}</td>
       <td>${{phaseBadge(r.phase)}}</td>
       <td>${{depthBadge(r.depth_diff)}}</td>
       <td class="mono muted">${{r.max_depth}}</td>
@@ -1517,7 +1543,7 @@ function renderGraphNode(displayName) {{
       <div class="node-props">
         <div class="node-prop"><span class="label">Type: </span><span class="value">${{escHtml(node.node_type)}}</span></div>
         ${{node.gate_func ? `<div class="node-prop"><span class="label">Gate: </span><span class="value">${{escHtml(node.gate_func)}}</span></div>` : ''}}
-        ${{node.reg_type ? `<div class="node-prop"><span class="label">Reg: </span><span class="value">${{escHtml(node.reg_type)}}</span></div>` : ''}}
+        ${{node.reg_type ? `<div class="node-prop"><span class="label">Reg: </span><span class="value">${{cellTypeLink(node.reg_type) || escHtml(node.reg_type)}}</span></div>` : ''}}
         ${{node.phase ? `<div class="node-prop"><span class="label">Phase: </span><span class="value">${{phaseBadge(node.phase)}}</span></div>` : ''}}
         ${{node.source_file ? `<div class="node-prop"><span class="label">Source: </span><span class="value">${{srcLink(node.source_file, node.source_line)}}</span></div>` : ''}}
         <div class="node-prop">${{dieLink(dn)}} ${{pandocsLink(dn)}}</div>
