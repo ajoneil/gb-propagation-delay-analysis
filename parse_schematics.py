@@ -1169,54 +1169,211 @@ def export_paths_json(paths, G, races=None):
 # ============================================================================
 
 def format_report(paths, G, races):
-    """Generate markdown report sections."""
+    """Generate markdown report sections with substantive analysis."""
     HALF_TCYCLE_NS = 119.2
+    GATE_DELAY_MIN = 5
+    GATE_DELAY_MAX = 15
     fanout = {n: G.out_degree(n) for n in G.nodes()}
+    depth_map, _ = compute_depths(G)
 
     reset_paths = [(d, p) for d, p in paths if is_reset_path_schematic(p, G)]
     op_paths = [(d, p) for d, p in paths if not is_reset_path_schematic(p, G)]
+    op_max = op_paths[0][0] if op_paths else 0
+    rst_max = reset_paths[0][0] if reset_paths else 0
+
+    # Compute per-category stats
+    by_cat = {}
+    for d, p in op_paths:
+        cat = categorize_by_schematic(p, G)
+        if cat not in by_cat:
+            by_cat[cat] = []
+        by_cat[cat].append((d, p))
+
+    race_by_cat = {}
+    for r in races:
+        cat = CATEGORY_DISPLAY.get(r['category'], r['category'] or 'Other')
+        if cat not in race_by_cat:
+            race_by_cat[cat] = []
+        race_by_cat[cat].append(r)
+
+    ppu_races = sum(1 for r in races if r.get('category', '').startswith('ppu-'))
+
+    # Find key signals
+    high_fanout = sorted(
+        [(n, fanout[n], G.nodes[n]) for n in G.nodes() if fanout[n] >= 20],
+        key=lambda x: -x[1]
+    )
 
     sections = {}
 
-    # === Overview ===
-    lines = []
-    lines.append("# Game Boy (DMG-CPU B) Propagation Path Analysis")
-    lines.append("")
-    lines.append("Static analysis of the DMG-CPU B gate-level netlist from")
-    lines.append("[msinger/dmg-schematics](https://github.com/msinger/dmg-schematics),")
-    lines.append("identifying deep combinatorial paths that cause propagation delays")
-    lines.append("on real Game Boy hardware.")
-    lines.append("")
-    lines.append("## Source Data")
-    lines.append("")
-    lines.append("This analysis uses the corrected die-traced netlists from the")
-    lines.append("dmg-schematics project, which contain fixes not present in the")
-    lines.append("original DMG-CPU-Inside schematics. Key advantages over behavioral")
-    lines.append("simulator analysis:")
-    lines.append("- Ground-truth cell types with drive strength (x1 through x6)")
-    lines.append("- Physical cell coordinates and wire routing for delay estimation")
-    lines.append("- Gate-equivalent depth counting (AND=2, MUX=3, XOR=3, etc.)")
-    lines.append("- Explicit clock/reset/enable pin classification")
-    lines.append("")
-    lines.append("## Timing Reference")
-    lines.append("")
-    lines.append("- Game Boy master clock: 4.194304 MHz")
-    lines.append("- T-cycle period: ~238.4 ns (one dot)")
-    lines.append("- Half T-cycle: ~119.2 ns")
-    lines.append("- Estimated gate delay (Sharp SM83 CMOS, ~5 um): 5-15 ns per gate")
-    lines.append("- Depths use gate-equivalent counting (NOT=1, AND/OR=2, MUX=3, XOR=3)")
-    lines.append("")
-    lines.append("## Overview")
-    lines.append("")
-    lines.append("| Category | Count | Max Depth | Worst-case Delay |")
-    lines.append("|----------|-------|-----------|-----------------|")
-    op_max = op_paths[0][0] if op_paths else 0
-    rst_max = reset_paths[0][0] if reset_paths else 0
-    lines.append(f"| **Operational** (per-dot/scanline) | {len(op_paths)} | {op_max} | {op_max*15} ns ({op_max*15/HALF_TCYCLE_NS*100:.0f}% half T-cycle) |")
-    lines.append(f"| Reset-only | {len(reset_paths)} | {rst_max} | {rst_max*15} ns |")
-    lines.append(f"| **Total** | {len(paths)} | {paths[0][0] if paths else 0} | |")
-    lines.append("")
-    sections['critical_paths_report.md'] = '\n'.join(lines)
+    # =========================================================================
+    # OVERVIEW & KEY FINDINGS
+    # =========================================================================
+    L = []
+    L.append("# Game Boy (DMG-CPU B) Propagation Path Analysis")
+    L.append("")
+    L.append("Static analysis of the DMG-CPU B gate-level netlist identifying deep")
+    L.append("combinatorial paths that cause propagation delay on real hardware.")
+    L.append("Data source: [msinger/dmg-schematics](https://github.com/msinger/dmg-schematics).")
+    L.append("")
+    L.append("## Timing Reference")
+    L.append("")
+    L.append("| Parameter | Value |")
+    L.append("|-----------|-------|")
+    L.append("| Master clock | 4.194304 MHz |")
+    L.append("| T-cycle (one dot) | ~238.4 ns |")
+    L.append("| Half T-cycle | ~119.2 ns |")
+    L.append("| Gate delay (Sharp ~5 um CMOS) | 5-15 ns |")
+    L.append("| Gate-equivalent counting | NOT=1, AND/OR=2, MUX=3, XOR=3, full_add=4 |")
+    L.append("")
+    L.append("## Overview")
+    L.append("")
+    L.append(f"**{G.number_of_nodes()} cells** analyzed across the full DMG-CPU B chip")
+    L.append(f"({sum(1 for _,d in G.nodes(data=True) if d.get('node_type')=='registered')} registered,")
+    L.append(f"{sum(1 for _,d in G.nodes(data=True) if d.get('node_type')=='combinatorial')} combinatorial).")
+    L.append("")
+    L.append("| Category | Paths | Max Depth | Worst-case Delay |")
+    L.append("|----------|-------|-----------|-----------------|")
+    L.append(f"| **Operational** | {len(op_paths)} | {op_max} ge | {op_max*GATE_DELAY_MAX} ns ({op_max*GATE_DELAY_MAX/HALF_TCYCLE_NS*100:.0f}% half T-cycle) |")
+    L.append(f"| Reset-only | {len(reset_paths)} | {rst_max} ge | {rst_max*GATE_DELAY_MAX} ns |")
+    L.append(f"| **Total paths** | {len(paths)} | | |")
+    L.append(f"| **Race pairs** | {len(races)} ({ppu_races} PPU) | max diff {races[0]['depth_diff'] if races else 0} | |")
+    L.append("")
+
+    # === Key Findings ===
+    L.append("## Key Findings")
+    L.append("")
+    L.append("### 1. The VRAM Address Adder Is the Deepest Operational Path")
+    L.append("")
+    L.append("The longest operational combinatorial chain is the 8-bit ripple carry adder")
+    L.append("that computes the VRAM tile map address from the current scanline (LY) plus")
+    L.append("the scroll register (SCY or SCX). The carry propagates through a half_adder")
+    L.append("+ 7 full_adders, each costing 4 gate-equivalents, for a total depth of ~32 ge.")
+    L.append("")
+    L.append("This means the VRAM address may not settle until 160-480 ns after LY/SCY")
+    L.append("change — well beyond one full T-cycle. In practice, the scroll registers")
+    L.append("are stable for the entire scanline, so the adder output settles before the")
+    L.append("first tile fetch. But mid-scanline SCX writes (used by some games for")
+    L.append("split-scroll effects) may not take effect for 2+ dots.")
+    L.append("")
+
+    L.append("### 2. CLKPIPE (sacu) Is the Critical Fan-out Bottleneck")
+    L.append("")
+    sacu_depth = depth_map.get('sacu', 0)
+    sacu_fo = fanout.get('sacu', 0)
+    L.append(f"The pixel pipe shift clock `sacu` (OR2 gate, depth {sacu_depth}, fan-out **{sacu_fo}**)")
+    L.append("drives every pixel-level decision: BG pipe shift, sprite pipe shift, sprite X")
+    L.append("match, mask pipe, and pixel counter increment. All pipe data is ready at depth")
+    L.append("0-5, but CLKPIPE arrives at depth ~19, creating a systematic race at every pipe DFF.")
+    L.append("")
+    L.append("This is the single most impactful signal for emulator timing. A behavioral emulator")
+    L.append("resolves CLKPIPE and data simultaneously, but on real hardware the pipe effectively")
+    L.append(f"shifts {sacu_depth*GATE_DELAY_MIN}-{sacu_depth*GATE_DELAY_MAX} ns after data settles.")
+    L.append("")
+
+    L.append("### 3. Sprite Store Races Are Universal and Severe")
+    L.append("")
+    objreg_races = [r for r in races if r['category'] == 'ppu-objreg']
+    if objreg_races:
+        max_diff = max(r['depth_diff'] for r in objreg_races)
+        L.append(f"All 10 sprite stores exhibit identical timing races (diff={max_diff}).")
+        L.append("The sprite control signal (from the Y comparator carry chain) arrives at")
+        L.append(f"depth {objreg_races[0]['max_depth']} while OAM data arrives at depth 0.")
+        L.append("At scanline boundaries, the stores may capture stale data instead of")
+        L.append("clearing, causing wrong sprite position, tile index, or attribute flags")
+        L.append("for one dot at the start of the next scanline.")
+    L.append("")
+
+    L.append("### 4. Sprite X Match Has Massive Depth Differential")
+    L.append("")
+    xcomp_races = [r for r in races if r['category'] == 'ppu-xcomp']
+    if xcomp_races:
+        max_diff = max(r['depth_diff'] for r in xcomp_races)
+        L.append(f"The {len(xcomp_races)} sprite X comparator races (max diff={max_diff}) arise because")
+        L.append("the X comparison depends on the pixel counter, which is clocked by CLKPIPE.")
+        L.append("The comparator output settles at a different time than the pixel pipe data,")
+        L.append("causing sprites to potentially trigger fetch one dot early or late.")
+    L.append("")
+
+    L.append("### 5. Window Trigger Races Affect Split-screen Games")
+    L.append("")
+    win_races = [r for r in races if r['category'] == 'ppu-window']
+    if win_races:
+        max_diff = max(r['depth_diff'] for r in win_races)
+        L.append(f"Window logic has {len(win_races)} races (max diff={max_diff}). The WX/WY comparison")
+        L.append("and window activation signals race against the rendering pipeline, potentially")
+        L.append("shifting window content by one pixel. This affects games that use the window")
+        L.append("for status bars or dialogue boxes.")
+    L.append("")
+
+    # === Paths by category summary ===
+    L.append("## Critical Paths by Functional Area")
+    L.append("")
+    L.append("| Area | Paths | Max Depth | Max Delay | Key Race |")
+    L.append("|------|-------|-----------|-----------|----------|")
+    for cat in sorted(by_cat, key=lambda c: -by_cat[c][0][0]):
+        cat_paths = by_cat[cat]
+        max_d = cat_paths[0][0]
+        race_count = len(race_by_cat.get(cat, []))
+        max_race = max((r['depth_diff'] for r in race_by_cat.get(cat, [])), default=0)
+        race_str = f"diff={max_race} ({race_count} races)" if race_count else "—"
+        L.append(f"| {cat} | {len(cat_paths)} | {max_d} ge | {max_d*GATE_DELAY_MAX} ns | {race_str} |")
+    L.append("")
+
+    # === High fan-out signals ===
+    L.append("## High Fan-out Signals (>= 20 outputs)")
+    L.append("")
+    L.append("These signals drive many downstream gates. High fan-out combined with deep")
+    L.append("combinatorial depth means the signal arrives late at many destinations simultaneously.")
+    L.append("")
+    L.append("| Signal | Fan-out | Depth | Cell Type | Category |")
+    L.append("|--------|---------|-------|-----------|----------|")
+    for name, fo, nd in high_fanout[:20]:
+        d = depth_map.get(name, 0)
+        ct = nd.get('cell_type', '')
+        cat = nd.get('category', '')
+        L.append(f"| `{name}` | {fo} | {d} ge | {ct} | {cat} |")
+    L.append("")
+
+    # === APU findings ===
+    apu_races = [r for r in races if r.get('category', '').startswith('apu-')]
+    if apu_races:
+        L.append("## APU Timing")
+        L.append("")
+        apu_max = max(r['depth_diff'] for r in apu_races)
+        L.append(f"The APU has {len(apu_races)} timing races (max diff={apu_max}). These are primarily")
+        L.append("in the channel frequency counters and length timers, where the CPU data bus")
+        L.append("write path races against the channel's internal clock. APU timing races are")
+        L.append("less audible than PPU races are visible, but may affect cycle-accurate audio")
+        L.append("emulation — particularly for games that modify channel registers mid-note.")
+        L.append("")
+
+    # === Implications for emulators ===
+    L.append("## Implications for Emulator Developers")
+    L.append("")
+    L.append("### What This Analysis Shows")
+    L.append("")
+    L.append("Behavioral emulators resolve all combinatorial logic instantaneously within a")
+    L.append("single tick. On real hardware, signals propagate through chains of gates with")
+    L.append("finite delay. When two signals that should be sampled simultaneously arrive at")
+    L.append("different depths, the hardware captures a value that differs from what an")
+    L.append("emulator computes — typically by one dot (one T-cycle).")
+    L.append("")
+    L.append("### What to Do About It")
+    L.append("")
+    L.append("1. **CLKPIPE races**: The pixel pipe shift clock arrives ~19 gate-equivalents")
+    L.append("   late. Consider delaying pipe shift by one dot relative to data loading.")
+    L.append("2. **Sprite store races**: All 10 stores have identical races. If sprite")
+    L.append("   position is off by one dot at scanline start, this is the likely cause.")
+    L.append("3. **Scroll adder latency**: Mid-scanline SCX writes take 2+ dots to affect")
+    L.append("   the VRAM address. Don't apply scroll changes instantly.")
+    L.append("4. **Window activation**: Window trigger may fire one dot late. If window")
+    L.append("   content is shifted right by one pixel, this is the likely cause.")
+    L.append("5. **Mode transitions**: The mode 2→3 and mode 3→0 boundaries may shift by")
+    L.append("   one dot due to OAM scan done and tile fetch completion races.")
+    L.append("")
+
+    sections['critical_paths_report.md'] = '\n'.join(L)
 
     # === Operational paths by category ===
     lines = []

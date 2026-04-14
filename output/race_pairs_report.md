@@ -717,8 +717,8 @@ Category: bus
 | `dafe` | 32 | not_if0 | ppu-bgscroll |
 | `vulo` | 9 | not_if0 | ppu-window |
 | `rese` | 7 | not_if0 | ppu-vram |
-| `duve` | 6 | not_if0 | ppu-dma |
 | `gotu` | 6 | not_if0 | ppu-ycomp |
+| `duve` | 6 | not_if0 | ppu-dma |
 | `reso` | 5 | not_if1 | ppu-bgfifo |
 
 ### `bus:~ma4` () — diff=27, max=32
@@ -728,8 +728,8 @@ Category: bus
 |-------|-------|------|----------|
 | `ajan` | 32 | not_if0 | ppu-bgscroll |
 | `wuju` | 9 | not_if0 | ppu-window |
-| `famu` | 7 | not_if0 | ppu-ycomp |
 | `xeca` | 7 | not_if0 | ppu-vram |
+| `famu` | 7 | not_if0 | ppu-ycomp |
 | `damu` | 6 | not_if0 | ppu-dma |
 | `vapy` | 5 | not_if1 | ppu-bgfifo |
 
@@ -843,8 +843,8 @@ Category: bus
 | `ceta` | 28 | not_if0 | ppu-bgscroll |
 | `vovo` | 9 | not_if0 | ppu-window |
 | `rysu` | 7 | not_if0 | ppu-vram |
-| `wune` | 6 | not_if0 | ppu-ycomp |
 | `evax` | 6 | not_if0 | ppu-dma |
+| `wune` | 6 | not_if0 | ppu-ycomp |
 | `roha` | 5 | not_if1 | ppu-bgfifo |
 
 ### `bus:~ma3` () — diff=22, max=28
@@ -871,44 +871,44 @@ Category: bus
 | `xaca` | 18 | buf_if0 | ppu-xcomp |
 | `tovu` | 18 | buf_if0 | bus-data |
 | `yfap` | 18 | buf_if0 | ppu-ycomp |
-| `romy` | 16 | not_if1 | bus-data |
 | `poly` | 16 | not_if1 | ppu-dma |
-| `foru` | 15 | not_if0 | apu-ch1 |
-| `dopa` | 15 | not_if0 | apu-ch1 |
-| `fapy` | 15 | not_if0 | apu-ch3 |
-| `lova` | 15 | not_if0 | ppu-window |
-| `punu` | 15 | not_if0 | ppu-window |
+| `romy` | 16 | not_if1 | bus-data |
 | `xary` | 15 | not_if0 | ppu-pal |
+| `vega` | 15 | not_if0 | ppu-stat |
+| `ware` | 15 | not_if0 | ppu-bgscroll |
 | `juvy` | 15 | not_if0 | apu-ch3 |
+| `lova` | 15 | not_if0 | ppu-window |
 | `atel` | 15 | not_if0 | apu-ch4 |
+| `jofo` | 15 | not_if0 | apu-ch3 |
 | `fava` | 15 | not_if0 | apu-ch2 |
 | `edos` | 15 | not_if0 | ppu-bgscroll |
-| `vega` | 15 | not_if0 | ppu-stat |
-| `retu` | 15 | not_if0 | ppu-stat |
-| `raro` | 15 | not_if0 | ppu-pal |
-| `wypo` | 15 | not_if0 | ppu-control |
-| `huna` | 15 | not_if0 | apu-ch2 |
-| `ware` | 15 | not_if0 | ppu-bgscroll |
-| `jofo` | 15 | not_if0 | apu-ch3 |
 | `laju` | 15 | not_if0 | ppu-pal |
+| `fapy` | 15 | not_if0 | apu-ch3 |
+| `raro` | 15 | not_if0 | ppu-pal |
+| `huna` | 15 | not_if0 | apu-ch2 |
+| `retu` | 15 | not_if0 | ppu-stat |
+| `foru` | 15 | not_if0 | apu-ch1 |
+| `punu` | 15 | not_if0 | ppu-window |
+| `wypo` | 15 | not_if0 | ppu-control |
+| `dopa` | 15 | not_if0 | apu-ch1 |
 | `teby` | 14 | not_if1 | ppu-stat |
 | `dugu` | 14 | not_if1 | apu-ch3 |
-| `jyne` | 13 | not_if0 | apu-ch1 |
-| `buzu` | 13 | not_if0 | apu-control |
-| `coto` | 13 | not_if0 | apu-control |
-| `demy` | 13 | not_if0 | apu-ch4 |
-| `huvu` | 13 | not_if0 | apu-ch2 |
-| `akod` | 13 | not_if0 | apu-control |
 | `kamo` | 13 | not_if0 | apu-ch4 |
-| `kema` | 13 | not_if0 | joypad |
+| `akod` | 13 | not_if0 | apu-control |
+| `coto` | 13 | not_if0 | apu-control |
+| `huvu` | 13 | not_if0 | apu-ch2 |
+| `jyne` | 13 | not_if0 | apu-ch1 |
+| `demy` | 13 | not_if0 | apu-ch4 |
 | `amyd` | 13 | not_if0 | apu-ch1 |
+| `kema` | 13 | not_if0 | joypad |
+| `buzu` | 13 | not_if0 | apu-control |
+| `sypu` | 12 | not_if1 | bootrom |
+| `cugy` | 12 | not_if1 | serial |
 | `nela` | 12 | not_if1 | int |
 | `soku` | 12 | not_if1 | timer |
-| `tawu` | 12 | not_if1 | clocks |
-| `cugy` | 12 | not_if1 | serial |
-| `sete` | 12 | not_if1 | timer |
-| `sypu` | 12 | not_if1 | bootrom |
 | `ryla` | 12 | not_if1 | timer |
+| `tawu` | 12 | not_if1 | clocks |
+| `sete` | 12 | not_if1 | timer |
 | `core` | 12 | not_if1 | serial |
 | `ryma` | 10 | not_if0 | bus-data |
 | `cpu` | 6 | sm83 |  |
@@ -926,46 +926,46 @@ Category: bus
 | `xele` | 18 | buf_if0 | ppu-ycomp |
 | `xagu` | 18 | buf_if0 | ppu-xcomp |
 | `sosa` | 18 | buf_if0 | bus-data |
-| `rofo` | 16 | not_if1 | ppu-dma |
 | `ryne` | 16 | not_if1 | bus-data |
-| `jura` | 15 | not_if0 | apu-ch3 |
-| `paba` | 15 | not_if0 | ppu-pal |
-| `goba` | 15 | not_if0 | ppu-bgscroll |
-| `vojo` | 15 | not_if0 | ppu-stat |
-| `lepa` | 15 | not_if0 | ppu-pal |
-| `jaro` | 15 | not_if0 | apu-ch2 |
-| `poda` | 15 | not_if0 | ppu-window |
+| `rofo` | 16 | not_if1 | ppu-dma |
 | `kafu` | 15 | not_if0 | apu-ch3 |
 | `wuva` | 15 | not_if0 | ppu-stat |
 | `muka` | 15 | not_if0 | ppu-window |
-| `faro` | 15 | not_if0 | apu-ch3 |
-| `xero` | 15 | not_if0 | ppu-control |
-| `fajy` | 15 | not_if0 | apu-ch2 |
-| `ekob` | 15 | not_if0 | ppu-bgscroll |
-| `xoke` | 15 | not_if0 | ppu-pal |
 | `gefu` | 15 | not_if0 | apu-ch1 |
+| `xoke` | 15 | not_if0 | ppu-pal |
+| `jaro` | 15 | not_if0 | apu-ch2 |
+| `poda` | 15 | not_if0 | ppu-window |
 | `demu` | 15 | not_if0 | apu-ch1 |
-| `wuga` | 14 | not_if1 | ppu-stat |
+| `ekob` | 15 | not_if0 | ppu-bgscroll |
+| `xero` | 15 | not_if0 | ppu-control |
+| `goba` | 15 | not_if0 | ppu-bgscroll |
+| `vojo` | 15 | not_if0 | ppu-stat |
+| `lepa` | 15 | not_if0 | ppu-pal |
+| `paba` | 15 | not_if0 | ppu-pal |
+| `jura` | 15 | not_if0 | apu-ch3 |
+| `fajy` | 15 | not_if0 | apu-ch2 |
+| `faro` | 15 | not_if0 | apu-ch3 |
 | `desy` | 14 | not_if1 | apu-ch3 |
+| `wuga` | 14 | not_if1 | ppu-stat |
+| `kuro` | 13 | not_if0 | joypad |
 | `hyre` | 13 | not_if0 | apu-ch2 |
-| `atax` | 13 | not_if0 | apu-ch1 |
 | `coce` | 13 | not_if0 | apu-ch4 |
 | `efus` | 13 | not_if0 | apu-control |
-| `kaku` | 13 | not_if0 | apu-ch4 |
-| `awed` | 13 | not_if0 | apu-control |
-| `kuro` | 13 | not_if0 | joypad |
+| `atax` | 13 | not_if0 | apu-ch1 |
 | `capu` | 13 | not_if0 | apu-control |
 | `jaca` | 13 | not_if0 | apu-ch1 |
-| `dude` | 12 | not_if1 | serial |
-| `rote` | 12 | not_if1 | timer |
-| `racy` | 12 | not_if1 | timer |
+| `awed` | 13 | not_if0 | apu-control |
+| `kaku` | 13 | not_if0 | apu-ch4 |
 | `pyre` | 12 | not_if1 | timer |
-| `taku` | 12 | not_if1 | clocks |
+| `racy` | 12 | not_if1 | timer |
 | `nabo` | 12 | not_if1 | int |
+| `taku` | 12 | not_if1 | clocks |
+| `rote` | 12 | not_if1 | timer |
+| `dude` | 12 | not_if1 | serial |
 | `ruvo` | 10 | not_if0 | bus-data |
 | `cpu` | 6 | sm83 |  |
-| `high_ram` | 0 | high_ram |  |
 | `boot_rom` | 0 | boot_rom |  |
+| `high_ram` | 0 | high_ram |  |
 
 ### `bus:d2` () — diff=21, max=21
 Category: bus
@@ -975,49 +975,49 @@ Category: bus
 | `rybu` | 21 | not_if1 | ppu-vram |
 | `sugu` | 20 | buf_if0 | bus-data |
 | `ajec` | 19 | not_if0 |  |
-| `xepu` | 18 | buf_if0 | ppu-xcomp |
 | `ypon` | 18 | buf_if0 | ppu-ycomp |
+| `xepu` | 18 | buf_if0 | ppu-xcomp |
 | `sedu` | 18 | buf_if0 | bus-data |
-| `rema` | 16 | not_if1 | ppu-dma |
 | `rejy` | 16 | not_if1 | bus-data |
-| `fegu` | 15 | not_if0 | apu-ch2 |
-| `moko` | 15 | not_if0 | ppu-window |
-| `lyco` | 15 | not_if0 | ppu-stat |
-| `xuno` | 15 | not_if0 | ppu-pal |
-| `cuga` | 15 | not_if0 | ppu-bgscroll |
-| `gonu` | 15 | not_if0 | ppu-bgscroll |
-| `fote` | 15 | not_if0 | apu-ch3 |
-| `dexo` | 15 | not_if0 | apu-ch1 |
-| `kyvu` | 15 | not_if0 | apu-ch1 |
-| `lode` | 15 | not_if0 | ppu-pal |
-| `razu` | 15 | not_if0 | ppu-stat |
-| `redo` | 15 | not_if0 | ppu-pal |
-| `pygu` | 15 | not_if0 | ppu-window |
-| `wyju` | 15 | not_if0 | ppu-decode |
-| `hufo` | 15 | not_if0 | apu-ch3 |
-| `kesy` | 15 | not_if0 | apu-ch3 |
+| `rema` | 16 | not_if1 | ppu-dma |
 | `jeke` | 15 | not_if0 | apu-ch2 |
-| `sego` | 14 | not_if1 | ppu-stat |
+| `lyco` | 15 | not_if0 | ppu-stat |
+| `cuga` | 15 | not_if0 | ppu-bgscroll |
+| `xuno` | 15 | not_if0 | ppu-pal |
+| `gonu` | 15 | not_if0 | ppu-bgscroll |
+| `kesy` | 15 | not_if0 | apu-ch3 |
+| `hufo` | 15 | not_if0 | apu-ch3 |
+| `kyvu` | 15 | not_if0 | apu-ch1 |
+| `wyju` | 15 | not_if0 | ppu-decode |
+| `fegu` | 15 | not_if0 | apu-ch2 |
+| `razu` | 15 | not_if0 | ppu-stat |
+| `fote` | 15 | not_if0 | apu-ch3 |
+| `moko` | 15 | not_if0 | ppu-window |
+| `pygu` | 15 | not_if0 | ppu-window |
+| `lode` | 15 | not_if0 | ppu-pal |
+| `redo` | 15 | not_if0 | ppu-pal |
+| `dexo` | 15 | not_if0 | apu-ch1 |
 | `baty` | 14 | not_if1 | apu-ch3 |
-| `cuzu` | 13 | not_if0 | apu-ch4 |
+| `sego` | 14 | not_if1 | ppu-stat |
+| `joku` | 13 | not_if0 | apu-ch1 |
 | `fate` | 13 | not_if0 | apu-control |
 | `azyp` | 13 | not_if0 | apu-ch1 |
-| `avud` | 13 | not_if0 | apu-control |
 | `caga` | 13 | not_if0 | apu-control |
-| `joku` | 13 | not_if0 | apu-ch1 |
 | `havu` | 13 | not_if0 | apu-ch2 |
 | `kyro` | 13 | not_if0 | apu-ch4 |
+| `cuzu` | 13 | not_if0 | apu-ch4 |
 | `kuve` | 13 | not_if0 | joypad |
-| `nola` | 12 | not_if1 | timer |
-| `detu` | 12 | not_if1 | serial |
-| `rova` | 12 | not_if1 | int |
+| `avud` | 13 | not_if0 | apu-control |
 | `ravy` | 12 | not_if1 | timer |
+| `nola` | 12 | not_if1 | timer |
 | `temu` | 12 | not_if1 | clocks |
+| `rova` | 12 | not_if1 | int |
+| `detu` | 12 | not_if1 | serial |
 | `supe` | 12 | not_if1 | timer |
 | `ryko` | 10 | not_if0 | bus-data |
 | `cpu` | 6 | sm83 |  |
-| `high_ram` | 0 | high_ram |  |
 | `boot_rom` | 0 | boot_rom |  |
+| `high_ram` | 0 | high_ram |  |
 
 ### `bus:d3` () — diff=21, max=21
 Category: bus
@@ -1028,44 +1028,44 @@ Category: bus
 | `tawo` | 20 | buf_if0 | bus-data |
 | `asuz` | 19 | not_if0 |  |
 | `taxo` | 18 | buf_if0 | bus-data |
-| `xygu` | 18 | buf_if0 | ppu-xcomp |
 | `xuvo` | 18 | buf_if0 | ppu-ycomp |
+| `xygu` | 18 | buf_if0 | ppu-xcomp |
 | `rase` | 16 | not_if1 | bus-data |
 | `pane` | 16 | not_if1 | ppu-dma |
 | `xuby` | 15 | not_if0 | ppu-pal |
-| `lobe` | 15 | not_if0 | ppu-pal |
-| `fose` | 15 | not_if0 | apu-ch2 |
-| `loka` | 15 | not_if0 | ppu-window |
 | `godo` | 15 | not_if0 | ppu-bgscroll |
-| `redy` | 15 | not_if0 | ppu-stat |
+| `loka` | 15 | not_if0 | ppu-window |
+| `lyza` | 15 | not_if0 | ppu-pal |
+| `wony` | 15 | not_if0 | ppu-bgscroll |
+| `wuka` | 15 | not_if0 | ppu-control |
 | `wojy` | 15 | not_if0 | ppu-stat |
 | `jude` | 15 | not_if0 | apu-ch3 |
-| `fana` | 15 | not_if0 | apu-ch3 |
-| `lole` | 15 | not_if0 | ppu-window |
+| `fose` | 15 | not_if0 | apu-ch2 |
 | `kumo` | 15 | not_if0 | apu-ch1 |
-| `wony` | 15 | not_if0 | ppu-bgscroll |
+| `redy` | 15 | not_if0 | ppu-stat |
+| `lole` | 15 | not_if0 | ppu-window |
+| `fana` | 15 | not_if0 | apu-ch3 |
 | `puzo` | 15 | not_if0 | ppu-stat |
-| `lyza` | 15 | not_if0 | ppu-pal |
-| `wuka` | 15 | not_if0 | ppu-control |
+| `lobe` | 15 | not_if0 | ppu-pal |
 | `bade` | 14 | not_if1 | apu-ch3 |
-| `jeku` | 13 | not_if0 | joypad |
-| `hono` | 13 | not_if0 | apu-ch1 |
-| `keta` | 13 | not_if0 | apu-ch4 |
-| `koge` | 13 | not_if0 | apu-control |
 | `boca` | 13 | not_if0 | apu-control |
-| `axem` | 13 | not_if0 | apu-control |
 | `gome` | 13 | not_if0 | apu-ch4 |
 | `afox` | 13 | not_if0 | apu-ch1 |
+| `hono` | 13 | not_if0 | apu-ch1 |
+| `jeku` | 13 | not_if0 | joypad |
+| `keta` | 13 | not_if0 | apu-ch4 |
+| `koge` | 13 | not_if0 | apu-control |
+| `axem` | 13 | not_if0 | apu-control |
 | `gene` | 13 | not_if0 | apu-ch2 |
 | `salu` | 12 | not_if1 | timer |
-| `sosy` | 12 | not_if1 | timer |
 | `tuse` | 12 | not_if1 | clocks |
 | `pado` | 12 | not_if1 | int |
+| `sosy` | 12 | not_if1 | timer |
 | `daso` | 12 | not_if1 | serial |
 | `tavo` | 10 | not_if0 | bus-data |
 | `cpu` | 6 | sm83 |  |
-| `high_ram` | 0 | high_ram |  |
 | `boot_rom` | 0 | boot_rom |  |
+| `high_ram` | 0 | high_ram |  |
 
 ### `bus:d4` () — diff=21, max=21
 Category: bus
@@ -1078,37 +1078,37 @@ Category: bus
 | `zysa` | 18 | buf_if0 | ppu-ycomp |
 | `tahy` | 18 | buf_if0 | bus-data |
 | `xuna` | 18 | buf_if0 | ppu-xcomp |
-| `reka` | 16 | not_if1 | bus-data |
 | `pare` | 16 | not_if1 | ppu-dma |
-| `cedu` | 15 | not_if0 | ppu-bgscroll |
-| `pofo` | 15 | not_if0 | ppu-stat |
-| `cusa` | 15 | not_if0 | ppu-bgscroll |
+| `reka` | 16 | not_if1 | bus-data |
 | `luky` | 15 | not_if0 | ppu-pal |
-| `kary` | 15 | not_if0 | apu-ch1 |
+| `cedu` | 15 | not_if0 | ppu-bgscroll |
 | `fera` | 15 | not_if0 | apu-ch3 |
-| `juke` | 15 | not_if0 | apu-ch3 |
-| `lace` | 15 | not_if0 | ppu-pal |
-| `vyne` | 15 | not_if0 | ppu-stat |
-| `voke` | 15 | not_if0 | ppu-control |
-| `race` | 15 | not_if0 | ppu-stat |
-| `gero` | 15 | not_if0 | apu-ch2 |
-| `mele` | 15 | not_if0 | ppu-window |
 | `mega` | 15 | not_if0 | ppu-window |
+| `race` | 15 | not_if0 | ppu-stat |
+| `mele` | 15 | not_if0 | ppu-window |
 | `xaju` | 15 | not_if0 | ppu-pal |
+| `cusa` | 15 | not_if0 | ppu-bgscroll |
+| `juke` | 15 | not_if0 | apu-ch3 |
+| `vyne` | 15 | not_if0 | ppu-stat |
+| `pofo` | 15 | not_if0 | ppu-stat |
+| `kary` | 15 | not_if0 | apu-ch1 |
+| `lace` | 15 | not_if0 | ppu-pal |
+| `voke` | 15 | not_if0 | ppu-control |
+| `gero` | 15 | not_if0 | apu-ch2 |
 | `bune` | 14 | not_if1 | apu-ch3 |
 | `avek` | 13 | not_if0 | apu-ch1 |
-| `heda` | 13 | not_if0 | apu-ch4 |
-| `geda` | 13 | not_if0 | apu-ch4 |
-| `koce` | 13 | not_if0 | joypad |
-| `howu` | 13 | not_if0 | apu-ch1 |
-| `hupe` | 13 | not_if0 | apu-ch2 |
 | `cavu` | 13 | not_if0 | apu-control |
+| `heda` | 13 | not_if0 | apu-ch4 |
+| `howu` | 13 | not_if0 | apu-ch1 |
+| `geda` | 13 | not_if0 | apu-ch4 |
 | `amad` | 13 | not_if0 | apu-control |
-| `supo` | 12 | not_if1 | timer |
-| `pegy` | 12 | not_if1 | int |
-| `upug` | 12 | not_if1 | clocks |
-| `dame` | 12 | not_if1 | serial |
+| `hupe` | 13 | not_if0 | apu-ch2 |
+| `koce` | 13 | not_if0 | joypad |
 | `somu` | 12 | not_if1 | timer |
+| `dame` | 12 | not_if1 | serial |
+| `supo` | 12 | not_if1 | timer |
+| `upug` | 12 | not_if1 | clocks |
+| `pegy` | 12 | not_if1 | int |
 | `tepe` | 10 | not_if0 | bus-data |
 | `cpu` | 6 | sm83 |  |
 | `boot_rom` | 0 | boot_rom |  |
