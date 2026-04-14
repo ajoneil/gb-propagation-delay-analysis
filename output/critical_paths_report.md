@@ -73,13 +73,61 @@ SCX writes (used for split-scroll effects) may take 2+ dots to propagate.
 ### 3. CLKPIPE (sacu) — Critical Fan-out Bottleneck
 
 `sacu` is an OR2 gate at depth **19** with fan-out **53**.
-It is the pixel pipe shift clock (CLKPIPE), driving every pixel-level decision:
-BG pipe shift, sprite pipe shift, sprite X match, mask pipe, and pixel counter.
+It is the pixel pipe shift clock (CLKPIPE) — the single most impactful
+signal for emulator accuracy.
 
-All pipe data is ready at depth 0-5, but CLKPIPE arrives at depth ~19.
-This creates a systematic race at every pipe DFF — the pipe effectively
-shifts 95-285 ns after data settles.
-This is the single most impactful signal for emulator accuracy.
+**What it drives:**
+
+| Destination | Cells | Role |
+|-------------|-------|------|
+| Sprite Pixel Shifter | 16 | Shifts sprite pixel data out one dot at a time |
+| Sprite X Match | 16 | Compares sprite X position against pixel counter |
+| BG Pixel Shifter | 16 | Shifts BG/window tile data out one dot at a time |
+| STAT/LY | 4 | Increments pixel X counter (PX) |
+| BG/Win Cycles | 1 | Tile fetch cycle counter |
+
+**The core problem:**
+
+All pixel pipe data (BG tile bits, sprite tile bits, palette/priority)
+is loaded into the pipe shift registers at depth 0-5. But CLKPIPE, which
+triggers the shift, arrives at depth 19. On every single dot,
+the pipe data is ready and waiting while the shift clock propagates through
+a 19-gate chain. The pipe effectively shifts
+95-285 ns after data settles.
+
+A behavioral emulator applies the shift and data load simultaneously.
+On real hardware, the data is stable before the shift happens — meaning
+the previous dot's shift output is what gets captured by downstream logic
+during the propagation window. This is the primary source of one-dot
+horizontal pixel offset in emulators.
+
+**CLKPIPE input chain** (depth 19 ge):
+
+```
+[dffr_cc] afer  — System Reset
+  [or2] avor  — Clocks
+    [not_x2] alur  — System Clock Inv
+      [not_x1] dula  — PPU Control
+        [not_x2] cunu  — System Reset Inv
+          [not_x2] xore  — PPU Control
+            [not_x1] xebe  — PPU Control
+              [nand2] xodo  — PPU Control
+                [not_x2] xapo  — Video Reset
+                  [not_x1] pyry  — PPU Control
+                    [nor3] rydy  — BG/Win Cycles
+                      [not_x1] sylo  — BG/Win Cycles
+                        [not_x1] tomu  — BG/Win Cycles
+                          [not_x1] socy  — BG/Win Cycles
+                            [and3] tyfa  — BG/Win Cycles
+                              [not_x4] segu  — BG/Win Cycles
+                                [or2] sacu  — Pixel Shift Clock (CLKPIPE)
+```
+
+**Races caused** (36 where CLKPIPE is the late-arriving signal):
+
+- Sprite Pixel Shifter: 16 races
+- Sprite X Match: 16 races
+- STAT/LY: 4 races
 
 ### 4. Sprite Store Races (diff=44, all 10 stores identical)
 

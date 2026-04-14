@@ -1270,8 +1270,10 @@ def format_report(paths, G, races):
     GATE_DELAY_MIN = 5
     GATE_DELAY_MAX = 15
     fanout = {n: G.out_degree(n) for n in G.nodes()}
-    depth_map, _ = compute_depths(G)
+    depth_map, path_map = compute_depths(G)
     names = build_friendly_names(G)
+    graph_edges = [{'src': u, 'dst': v, 'edge_type': d.get('edge_type', 'data')}
+                   for u, v, d in G.edges(data=True)]
 
     reset_paths = [(d, p) for d, p in paths if is_reset_path_schematic(p, G)]
     op_paths = [(d, p) for d, p in paths if not is_reset_path_schematic(p, G)]
@@ -1399,14 +1401,86 @@ def format_report(paths, G, races):
     sacu_depth = depth_map.get('sacu', 0)
     sacu_fo = fanout.get('sacu', 0)
     L.append(f"`sacu` is an OR2 gate at depth **{sacu_depth}** with fan-out **{sacu_fo}**.")
-    L.append("It is the pixel pipe shift clock (CLKPIPE), driving every pixel-level decision:")
-    L.append("BG pipe shift, sprite pipe shift, sprite X match, mask pipe, and pixel counter.")
+    L.append("It is the pixel pipe shift clock (CLKPIPE) — the single most impactful")
+    L.append("signal for emulator accuracy.")
     L.append("")
-    L.append("All pipe data is ready at depth 0-5, but CLKPIPE arrives at depth ~19.")
-    L.append("This creates a systematic race at every pipe DFF — the pipe effectively")
-    L.append(f"shifts {sacu_depth*GATE_DELAY_MIN}-{sacu_depth*GATE_DELAY_MAX} ns after data settles.")
-    L.append("This is the single most impactful signal for emulator accuracy.")
+
+    # What CLKPIPE drives
+    sacu_succ_cats = {}
+    for succ in G.successors('sacu'):
+        cat = G.nodes[succ].get('category', '')
+        cat_display = CATEGORY_DISPLAY.get(cat, cat)
+        if cat_display not in sacu_succ_cats:
+            sacu_succ_cats[cat_display] = 0
+        sacu_succ_cats[cat_display] += 1
+
+    L.append("**What it drives:**")
     L.append("")
+    L.append("| Destination | Cells | Role |")
+    L.append("|-------------|-------|------|")
+    succ_roles = {
+        'Sprite Pixel Shifter': 'Shifts sprite pixel data out one dot at a time',
+        'Sprite X Match': 'Compares sprite X position against pixel counter',
+        'BG Pixel Shifter': 'Shifts BG/window tile data out one dot at a time',
+        'STAT/LY': 'Increments pixel X counter (PX)',
+        'BG/Win Cycles': 'Tile fetch cycle counter',
+    }
+    for cat_display in sorted(sacu_succ_cats, key=lambda c: -sacu_succ_cats[c]):
+        count = sacu_succ_cats[cat_display]
+        role = succ_roles.get(cat_display, '')
+        L.append(f"| {cat_display} | {count} | {role} |")
+    L.append("")
+
+    # The race it causes
+    clkpipe_races = []
+    for r in races:
+        for inp in r['inputs']:
+            if inp['name'] == 'sacu':
+                clkpipe_races.append(r)
+                break
+    clkpipe_late = [r for r in clkpipe_races
+                    if any(inp['name'] == 'sacu' and inp['depth'] == r['max_depth'] for inp in r['inputs'])]
+
+    L.append("**The core problem:**")
+    L.append("")
+    L.append("All pixel pipe data (BG tile bits, sprite tile bits, palette/priority)")
+    L.append("is loaded into the pipe shift registers at depth 0-5. But CLKPIPE, which")
+    L.append(f"triggers the shift, arrives at depth {sacu_depth}. On every single dot,")
+    L.append("the pipe data is ready and waiting while the shift clock propagates through")
+    L.append(f"a {sacu_depth}-gate chain. The pipe effectively shifts")
+    L.append(f"{sacu_depth*GATE_DELAY_MIN}-{sacu_depth*GATE_DELAY_MAX} ns after data settles.")
+    L.append("")
+    L.append("A behavioral emulator applies the shift and data load simultaneously.")
+    L.append("On real hardware, the data is stable before the shift happens — meaning")
+    L.append("the previous dot's shift output is what gets captured by downstream logic")
+    L.append("during the propagation window. This is the primary source of one-dot")
+    L.append("horizontal pixel offset in emulators.")
+    L.append("")
+
+    L.append(f"**CLKPIPE input chain** (depth {sacu_depth} ge):")
+    L.append("")
+    L.append("```")
+    # Trace the path stored in compute_depths for sacu
+    sacu_path = path_map.get('sacu', ['sacu'])
+    for j, node in enumerate(sacu_path):
+        nd = G.nodes.get(node, {})
+        ct = nd.get('cell_type', '')
+        friendly = names.get(node, '')
+        friendly_str = f"  — {friendly}" if friendly else ""
+        L.append(f"{'  ' * j}[{ct}] {node}{friendly_str}")
+    L.append("```")
+    L.append("")
+
+    if clkpipe_late:
+        clkpipe_race_cats = {}
+        for r in clkpipe_late:
+            cat = CATEGORY_DISPLAY.get(r['category'], r['category'])
+            clkpipe_race_cats[cat] = clkpipe_race_cats.get(cat, 0) + 1
+        L.append(f"**Races caused** ({len(clkpipe_late)} where CLKPIPE is the late-arriving signal):")
+        L.append("")
+        for cat, count in sorted(clkpipe_race_cats.items(), key=lambda x: -x[1]):
+            L.append(f"- {cat}: {count} races")
+        L.append("")
 
     objreg_races = [r for r in races if r['category'] == 'ppu-objreg']
     if objreg_races:
