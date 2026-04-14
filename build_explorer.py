@@ -1374,13 +1374,31 @@ function getFilteredRaces() {{
     return true;
   }});
 
-  filtered.sort((a, b) => {{
-    const av = a[raceSortKey], bv = b[raceSortKey];
+  // Group races with same functional role:
+  // Same friendly name pattern (with bit number stripped) + same depth_diff.
+  // e.g. "Sprite OAM data bit 2" and "bit 7" group together,
+  // but "Sprite Y offset" stays separate from "Sprite OAM data".
+  const groupMap = new Map();
+  for (const r of filtered) {{
+    const fname = friendlyName(r.display_name) || r.display_name;
+    // Strip trailing bit/store numbers to get the pattern
+    const pattern = fname.replace(/\s*(?:bit\s*)?\d+(?:\s*\(.*\))?\s*$/, '').trim();
+    const key = `${{pattern}}|${{r.depth_diff}}`;
+    if (!groupMap.has(key)) {{
+      groupMap.set(key, {{ representative: r, members: [], key, pattern }});
+    }}
+    groupMap.get(key).members.push(r);
+  }}
+
+  let groups = [...groupMap.values()];
+  groups.sort((a, b) => {{
+    const ar = a.representative, br = b.representative;
+    const av = ar[raceSortKey], bv = br[raceSortKey];
     if (typeof av === 'string') return raceSortDir * av.localeCompare(bv);
     return raceSortDir * (av - bv);
   }});
 
-  return filtered;
+  return {{ filtered, groups }};
 }}
 
 function renderRaceDetail(r) {{
@@ -1446,17 +1464,22 @@ function renderRaceDetail(r) {{
 }}
 
 function renderRaces() {{
-  const filtered = getFilteredRaces();
-  document.getElementById('race-count').textContent = `${{filtered.length}} races`;
+  const {{ filtered, groups }} = getFilteredRaces();
+  document.getElementById('race-count').textContent = `${{filtered.length}} races in ${{groups.length}} groups`;
 
   const tbody = document.getElementById('race-tbody');
   tbody.innerHTML = '';
 
-  for (const r of filtered) {{
+  for (const group of groups) {{
+    const r = group.representative;
+    const count = group.members.length;
+    const countBadge = count > 1 ? `<span class="badge badge-cat" style="font-size:10px">${{count}} cells</span>` : '';
+    const groupLabel = count > 1 ? `<span class="friendly-name">${{escHtml(group.pattern)}}</span>` : '';
+
     const tr = document.createElement('tr');
     tr.className = 'data-row';
     tr.innerHTML = `
-      <td class="mono">${{signalLink(r.display_name, true)}}</td>
+      <td class="mono">${{count > 1 ? groupLabel : signalLink(r.display_name, true)}} ${{countBadge}}</td>
       <td>${{catBadge(r.category)}}</td>
       <td class="mono">${{cellTypeLink(r.reg_type) || escHtml(r.reg_type)}}</td>
       <td>${{depthBadge(r.depth_diff)}}</td>
@@ -1467,7 +1490,16 @@ function renderRaces() {{
     const detailTr = document.createElement('tr');
     detailTr.className = 'detail-row';
     detailTr.style.display = 'none';
-    detailTr.innerHTML = `<td colspan="7">${{renderRaceDetail(r)}}</td>`;
+
+    // Build detail: show representative's full detail + list of all members
+    const memberList = count > 1 ? `<div class="detail-section">
+      <h4>All cells in this group (${{count}})</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">
+        ${{group.members.map(m => `<span class="mono" style="font-size:12px">${{signalLink(m.display_name, true)}}</span>`).join('')}}
+      </div>
+    </div>` : '';
+
+    detailTr.innerHTML = `<td colspan="7">${{renderRaceDetail(r)}}${{memberList}}</td>`;
 
     tr.addEventListener('click', (e) => {{
       if (e.target.closest('.signal-link')) return;
