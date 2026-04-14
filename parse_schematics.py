@@ -1444,6 +1444,11 @@ def format_report(paths, G, races):
             L.append(f"- {cat}: {count} races")
         L.append("")
 
+    L.append("> **Emulator guidance:** Consider delaying the pixel pipe shift by one dot")
+    L.append("> relative to data loading. If BG or sprite pixels appear one dot to the")
+    L.append("> right of their expected position, CLKPIPE latency is the likely cause.")
+    L.append("")
+
     # Deepest operational path
     if op_paths:
         deepest = op_paths[0]
@@ -1489,6 +1494,10 @@ def format_report(paths, G, races):
         L.append(f"scanline so the address settles well before fetch begins. But mid-scanline")
         L.append(f"SCX writes (used for split-scroll effects) may take 2+ dots to propagate.")
         L.append("")
+        L.append(f"> **Emulator guidance:** Don't apply mid-scanline SCX writes instantly.")
+        L.append(f"> The VRAM address takes {vp_d*GATE_DELAY_MIN}-{vp_d*GATE_DELAY_MAX} ns to settle,")
+        L.append(f"> so the new scroll value won't affect tile fetch for 2+ dots.")
+        L.append("")
 
     objreg_races = [r for r in races if r['category'] == 'ppu-objreg']
     if objreg_races:
@@ -1502,6 +1511,10 @@ def format_report(paths, G, races):
         L.append(f"clearing — causing wrong sprite position, tile, or attributes for one")
         L.append(f"dot at the start of the next scanline.")
         L.append("")
+        L.append(f"> **Emulator guidance:** If sprites show wrong position or attributes for")
+        L.append(f"> one dot at the start of a scanline, this race is the cause. The stores")
+        L.append(f"> hold stale data for one dot while the control signal propagates.")
+        L.append("")
 
     xcomp_races = [r for r in races if r['category'] == 'ppu-xcomp']
     if xcomp_races:
@@ -1514,6 +1527,10 @@ def format_report(paths, G, races):
         L.append(f"at a different time than the fetch control signals, causing sprites to")
         L.append(f"potentially trigger fetch one dot early or late.")
         L.append("")
+        L.append(f"> **Emulator guidance:** Sprite fetch may trigger one dot early or late")
+        L.append(f"> relative to the pixel counter. If sprites appear shifted horizontally")
+        L.append(f"> by one pixel, the X match race with CLKPIPE is the likely cause.")
+        L.append("")
 
     win_races = [r for r in races if r['category'] == 'ppu-window']
     if win_races:
@@ -1523,6 +1540,10 @@ def format_report(paths, G, races):
         L.append(f"The WX/WY comparison and window activation signals race against the rendering")
         L.append(f"pipeline. Window content may shift one pixel right. Affects games that use the")
         L.append(f"window for status bars, dialogue boxes, or HUD overlays.")
+        L.append("")
+        L.append(f"> **Emulator guidance:** If window content is shifted one pixel to the")
+        L.append(f"> right, the window trigger race is the likely cause. The window")
+        L.append(f"> activation may need to be delayed by one dot.")
         L.append("")
 
     # === Paths by category summary ===
@@ -1568,31 +1589,6 @@ def format_report(paths, G, races):
         L.append("less audible than PPU races are visible, but may affect cycle-accurate audio")
         L.append("emulation — particularly for games that modify channel registers mid-note.")
         L.append("")
-
-    # === Implications for emulators ===
-    L.append("## Implications for Emulator Developers")
-    L.append("")
-    L.append("### What This Analysis Shows")
-    L.append("")
-    L.append("Behavioral emulators resolve all combinatorial logic instantaneously within a")
-    L.append("single tick. On real hardware, signals propagate through chains of gates with")
-    L.append("finite delay. When two signals that should be sampled simultaneously arrive at")
-    L.append("different depths, the hardware captures a value that differs from what an")
-    L.append("emulator computes — typically by one dot (one T-cycle).")
-    L.append("")
-    L.append("### What to Do About It")
-    L.append("")
-    L.append("1. **CLKPIPE races**: The pixel pipe shift clock arrives ~19 gate-equivalents")
-    L.append("   late. Consider delaying pipe shift by one dot relative to data loading.")
-    L.append("2. **Sprite store races**: All 10 stores have identical races. If sprite")
-    L.append("   position is off by one dot at scanline start, this is the likely cause.")
-    L.append("3. **Scroll adder latency**: Mid-scanline SCX writes take 2+ dots to affect")
-    L.append("   the VRAM address. Don't apply scroll changes instantly.")
-    L.append("4. **Window activation**: Window trigger may fire one dot late. If window")
-    L.append("   content is shifted right by one pixel, this is the likely cause.")
-    L.append("5. **Mode transitions**: The mode 2→3 and mode 3→0 boundaries may shift by")
-    L.append("   one dot due to OAM scan done and tile fetch completion races.")
-    L.append("")
 
     sections['critical_paths_report.md'] = '\n'.join(L)
 

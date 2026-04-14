@@ -93,6 +93,10 @@ counter before CLKPIPE can fire.
 - Sprite X Match: 16 races
 - STAT/LY: 4 races
 
+> **Emulator guidance:** Consider delaying the pixel pipe shift by one dot
+> relative to data loading. If BG or sprite pixels appear one dot to the
+> right of their expected position, CLKPIPE latency is the likely cause.
+
 ### 2. Deepest Operational Path: 39 Gate-equivalents
 
 The longest operational combinatorial chain runs from `muwy` (LY bit 0)
@@ -134,6 +138,10 @@ after the inputs change. In practice, LY and SCY are stable for the full
 scanline so the address settles well before fetch begins. But mid-scanline
 SCX writes (used for split-scroll effects) may take 2+ dots to propagate.
 
+> **Emulator guidance:** Don't apply mid-scanline SCX writes instantly.
+> The VRAM address takes 160-480 ns to settle,
+> so the new scroll value won't affect tile fetch for 2+ dots.
+
 ### 4. Sprite Store Races (diff=44, all 10 stores identical)
 
 All 10 sprite stores exhibit identical timing races. The sprite control
@@ -143,6 +151,10 @@ At scanline boundaries, the stores may capture stale data instead of
 clearing — causing wrong sprite position, tile, or attributes for one
 dot at the start of the next scanline.
 
+> **Emulator guidance:** If sprites show wrong position or attributes for
+> one dot at the start of a scanline, this race is the cause. The stores
+> hold stale data for one dot while the control signal propagates.
+
 ### 5. Sprite X Match (112 races, max diff=43)
 
 The sprite X comparators check each sprite's stored X position against the
@@ -151,11 +163,19 @@ which is clocked by CLKPIPE (depth 19). The X match output settles
 at a different time than the fetch control signals, causing sprites to
 potentially trigger fetch one dot early or late.
 
+> **Emulator guidance:** Sprite fetch may trigger one dot early or late
+> relative to the pixel counter. If sprites appear shifted horizontally
+> by one pixel, the X match race with CLKPIPE is the likely cause.
+
 ### 6. Window Trigger Races (30 races, max diff=20)
 
 The WX/WY comparison and window activation signals race against the rendering
 pipeline. Window content may shift one pixel right. Affects games that use the
 window for status bars, dialogue boxes, or HUD overlays.
+
+> **Emulator guidance:** If window content is shifted one pixel to the
+> right, the window trigger race is the likely cause. The window
+> activation may need to be delayed by one dot.
 
 ## Critical Paths by Functional Area
 
@@ -219,26 +239,3 @@ in the channel frequency counters and length timers, where the CPU data bus
 write path races against the channel's internal clock. APU timing races are
 less audible than PPU races are visible, but may affect cycle-accurate audio
 emulation — particularly for games that modify channel registers mid-note.
-
-## Implications for Emulator Developers
-
-### What This Analysis Shows
-
-Behavioral emulators resolve all combinatorial logic instantaneously within a
-single tick. On real hardware, signals propagate through chains of gates with
-finite delay. When two signals that should be sampled simultaneously arrive at
-different depths, the hardware captures a value that differs from what an
-emulator computes — typically by one dot (one T-cycle).
-
-### What to Do About It
-
-1. **CLKPIPE races**: The pixel pipe shift clock arrives ~19 gate-equivalents
-   late. Consider delaying pipe shift by one dot relative to data loading.
-2. **Sprite store races**: All 10 stores have identical races. If sprite
-   position is off by one dot at scanline start, this is the likely cause.
-3. **Scroll adder latency**: Mid-scanline SCX writes take 2+ dots to affect
-   the VRAM address. Don't apply scroll changes instantly.
-4. **Window activation**: Window trigger may fire one dot late. If window
-   content is shifted right by one pixel, this is the likely cause.
-5. **Mode transitions**: The mode 2→3 and mode 3→0 boundaries may shift by
-   one dot due to OAM scan done and tile fetch completion races.
