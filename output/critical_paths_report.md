@@ -31,9 +31,12 @@ Data source: [msinger/dmg-schematics](https://github.com/msinger/dmg-schematics)
 
 ### 1. CLKPIPE (sacu) — The Most Impactful Timing Race
 
-`sacu` is an OR2 gate at depth **19** with fan-out **53**.
+`sacu` is an OR2 gate at static depth 19 (fan-out **53**).
 It is the pixel pipe shift clock (CLKPIPE) — the single most impactful
-signal for emulator accuracy.
+signal for emulator accuracy. During normal rendering, the effective
+operational depth is ~16 ge (the reset chain input is stable); the static
+depth of 19 includes the reset inverter chain which only changes on
+LCDC toggle or system reset.
 
 **What it drives:**
 
@@ -49,10 +52,11 @@ signal for emulator accuracy.
 
 All pixel pipe data (BG tile bits, sprite tile bits, palette/priority)
 is loaded into the pipe shift registers at depth 0-5. But CLKPIPE, which
-triggers the shift, arrives at depth 19. On every single dot,
-the pipe data is ready and waiting while the shift clock propagates through
-a 19-gate chain. The pipe effectively shifts
-95-285 ns after data settles.
+triggers the shift, must wait for the sprite X priority check (depth 10),
+the H-blank detection (depth 13), and the PPU clock phase (depth 8)
+before it can fire. The effective operational delay is ~16 ge
+(80-240 ns), during which the pipe data
+is ready and waiting.
 
 A behavioral emulator applies the shift and data load simultaneously.
 On real hardware, the data is stable before the shift happens — meaning
@@ -105,6 +109,10 @@ to `dezy` (Sprite Control), passing through
 Worst-case delay: 195-585 ns
 (491% of half T-cycle).
 
+This path fires once per scanline (when LY increments), not per dot.
+It computes which sprites are on the current line via the Y comparator
+carry chain and feeds the result into the sprite store control logic.
+
 ```
 [dffr] muwy  — LY bit 0
   [not_x1] ebos  — Sprite Y Compare
@@ -144,12 +152,16 @@ SCX writes (used for split-scroll effects) may take 2+ dots to propagate.
 
 ### 4. Sprite Store Races (diff=44, all 10 stores identical)
 
-All 10 sprite stores exhibit identical timing races. The sprite control
-signal arrives at depth 44 (through the Y comparator
-carry chain and sprite control logic) while OAM data arrives at depth 0.
-At scanline boundaries, the stores may capture stale data instead of
-clearing — causing wrong sprite position, tile, or attributes for one
-dot at the start of the next scanline.
+All 10 sprite stores exhibit identical timing races. The store write-enable
+signal (`bejy` (Sprite Control), depth 44)
+propagates through the sprite Y comparator carry chain and sprite control
+decode logic before reaching the store latches, while OAM data arrives
+at the data pin at depth 0 (direct from the OAM bus).
+
+At scanline boundaries when the stores are being loaded during OAM scan,
+the write-enable arrives 220-660 ns
+after the data. During this window the latch may capture data from the
+wrong OAM entry — the previous sprite's data instead of the current one.
 
 > **Emulator guidance:** If sprites show wrong position or attributes for
 > one dot at the start of a scanline, this race is the cause. The stores
