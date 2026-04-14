@@ -171,29 +171,8 @@ def build_graph_friendly(graph_path: Path) -> dict:
         elif bus_name.startswith('oam_render_a'):
             sprite_bus_cells[cell] = ('OAM data', bus_name.replace('oam_render_a', ''))
 
-    if sprite_bus_cells:
-        # Find clock/enable inputs for each sprite cell
-        cell_enables = {}
-        for e in graph['edges']:
-            if e['edge_type'] == 'clock' and e['dst'] in sprite_bus_cells:
-                if e['dst'] not in cell_enables:
-                    cell_enables[e['dst']] = set()
-                cell_enables[e['dst']].add(e['src'])
-
-        # Group by (bus_type, enable set) → store number, numbered per type
-        type_counters = {}  # bus_type -> {enable_key -> store_num}
-        for cell in sorted(sprite_bus_cells.keys()):
-            key = tuple(sorted(cell_enables.get(cell, set())))
-            if not key:
-                continue
-            bus_type, data_bit = sprite_bus_cells[cell]
-            if bus_type not in type_counters:
-                type_counters[bus_type] = {}
-            tc = type_counters[bus_type]
-            if key not in tc:
-                tc[key] = len(tc)
-            sn = tc[key]
-            friendly[cell] = f'Sprite {sn} {bus_type} bit {data_bit}'
+    for cell, (bus_type, data_bit) in sprite_bus_cells.items():
+        friendly[cell] = f'Sprite store {bus_type} bit {data_bit}'
 
     # For cells fed by the CPU data bus, use category + bit for a useful name
     cat_labels = {
