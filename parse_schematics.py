@@ -1457,18 +1457,33 @@ def format_report(paths, G, races):
     L.append("horizontal pixel offset in emulators.")
     L.append("")
 
-    L.append(f"**CLKPIPE input chain** (depth {sacu_depth} ge):")
+    # Show the input tree as a diagram, not just the single deepest path
+    L.append(f"**CLKPIPE input tree** (`sacu` = OR2):")
     L.append("")
     L.append("```")
-    # Trace the path stored in compute_depths for sacu
-    sacu_path = path_map.get('sacu', ['sacu'])
-    for j, node in enumerate(sacu_path):
-        nd = G.nodes.get(node, {})
-        ct = nd.get('cell_type', '')
-        friendly = names.get(node, '')
-        friendly_str = f"  — {friendly}" if friendly else ""
-        L.append(f"{'  ' * j}[{ct}] {node}{friendly_str}")
+    L.append("sacu [or2] — Pixel Shift Clock (CLKPIPE)")
+    L.append("├── roxy [nor_latch] — Fine Scroll Done (depth 0, registered)")
+    L.append("└── segu [not_x4] — CLKPIPE buffer (depth 17)")
+    L.append("    └── tyfa [and3] — CLKPIPE gate (depth 16)")
+    L.append("        ├── poky [nor_latch] — Pixel Pipe Done (depth 0, registered)")
+    L.append("        ├── socy (depth 14) — through reset inverter chain")
+    L.append("        │   └── ... xapo [Video Reset] → pyry → rydy → sylo → tomu → socy")
+    L.append("        │   (stable during rendering — only changes on LCDC toggle/reset)")
+    L.append("        └── vybo [nor3] (depth 14) — OPERATIONAL path, active every dot:")
+    L.append("            ├── fepo [or2] — sprite X priority match (depth 10)")
+    L.append("            │   └── 10 sprite X comparators (NAND5+NAND3 trees)")
+    L.append("            ├── myvo — PPU clock phase (depth 8)")
+    L.append("            └── wodu [and2] — H-blank gate (depth 13)")
+    L.append("                └── pixel counter X == 160 check (NAND5)")
     L.append("```")
+    L.append("")
+    L.append("During normal rendering, the reset chain (`socy`) is stable — it only")
+    L.append("changes on system reset or LCDC bit 7 toggle. The actual per-dot delay")
+    L.append("comes from `vybo`, which combines three signals that change every dot:")
+    L.append("the sprite X priority match result, the PPU clock phase, and the H-blank")
+    L.append("detection. The sprite X priority path (depth 10) is the deepest of these —")
+    L.append("it must check all 10 stored sprite X positions against the current pixel")
+    L.append("counter before CLKPIPE can fire.")
     L.append("")
 
     if clkpipe_late:

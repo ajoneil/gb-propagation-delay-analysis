@@ -101,27 +101,32 @@ the previous dot's shift output is what gets captured by downstream logic
 during the propagation window. This is the primary source of one-dot
 horizontal pixel offset in emulators.
 
-**CLKPIPE input chain** (depth 19 ge):
+**CLKPIPE input tree** (`sacu` = OR2):
 
 ```
-[dffr_cc] afer  — System Reset
-  [or2] avor  — Clocks
-    [not_x2] alur  — System Clock Inv
-      [not_x1] dula  — PPU Control
-        [not_x2] cunu  — System Reset Inv
-          [not_x2] xore  — PPU Control
-            [not_x1] xebe  — PPU Control
-              [nand2] xodo  — PPU Control
-                [not_x2] xapo  — Video Reset
-                  [not_x1] pyry  — PPU Control
-                    [nor3] rydy  — BG/Win Cycles
-                      [not_x1] sylo  — BG/Win Cycles
-                        [not_x1] tomu  — BG/Win Cycles
-                          [not_x1] socy  — BG/Win Cycles
-                            [and3] tyfa  — BG/Win Cycles
-                              [not_x4] segu  — BG/Win Cycles
-                                [or2] sacu  — Pixel Shift Clock (CLKPIPE)
+sacu [or2] — Pixel Shift Clock (CLKPIPE)
+├── roxy [nor_latch] — Fine Scroll Done (depth 0, registered)
+└── segu [not_x4] — CLKPIPE buffer (depth 17)
+    └── tyfa [and3] — CLKPIPE gate (depth 16)
+        ├── poky [nor_latch] — Pixel Pipe Done (depth 0, registered)
+        ├── socy (depth 14) — through reset inverter chain
+        │   └── ... xapo [Video Reset] → pyry → rydy → sylo → tomu → socy
+        │   (stable during rendering — only changes on LCDC toggle/reset)
+        └── vybo [nor3] (depth 14) — OPERATIONAL path, active every dot:
+            ├── fepo [or2] — sprite X priority match (depth 10)
+            │   └── 10 sprite X comparators (NAND5+NAND3 trees)
+            ├── myvo — PPU clock phase (depth 8)
+            └── wodu [and2] — H-blank gate (depth 13)
+                └── pixel counter X == 160 check (NAND5)
 ```
+
+During normal rendering, the reset chain (`socy`) is stable — it only
+changes on system reset or LCDC bit 7 toggle. The actual per-dot delay
+comes from `vybo`, which combines three signals that change every dot:
+the sprite X priority match result, the PPU clock phase, and the H-blank
+detection. The sprite X priority path (depth 10) is the deepest of these —
+it must check all 10 stored sprite X positions against the current pixel
+counter before CLKPIPE can fire.
 
 **Races caused** (36 where CLKPIPE is the late-arriving signal):
 
