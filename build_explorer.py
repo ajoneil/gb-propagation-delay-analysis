@@ -161,20 +161,39 @@ def build_graph_friendly(graph_path: Path) -> dict:
             if src.get('node_type') == 'bus':
                 cell_to_bus[e['dst']] = e['src']
 
-    # Generate descriptions from bus names (sprite store internals)
-    bus_descs = {
-        'oam_render_a': 'Sprite OAM data bit {} (tile/attr)',
-        'sprite_y_store': 'Sprite Y offset bit {}',
-    }
+    # Map sprite store cells to their store number via enable signal grouping.
+    # Cells sharing the same clock/enable signals belong to the same store.
+    sprite_bus_cells = {}  # cell -> (bus_type, data_bit)
     for cell, bus in cell_to_bus.items():
         bus_name = bus.replace('bus:', '')
-        for prefix, template in bus_descs.items():
-            if bus_name.startswith(prefix):
-                suffix = bus_name[len(prefix):]
-                digits = re.search(r'(\d+)$', suffix)
-                if digits:
-                    friendly[cell] = template.format(digits.group(1))
-                break
+        if bus_name.startswith('sprite_y_store'):
+            sprite_bus_cells[cell] = ('Y offset', bus_name.replace('sprite_y_store', ''))
+        elif bus_name.startswith('oam_render_a'):
+            sprite_bus_cells[cell] = ('OAM data', bus_name.replace('oam_render_a', ''))
+
+    if sprite_bus_cells:
+        # Find clock/enable inputs for each sprite cell
+        cell_enables = {}
+        for e in graph['edges']:
+            if e['edge_type'] == 'clock' and e['dst'] in sprite_bus_cells:
+                if e['dst'] not in cell_enables:
+                    cell_enables[e['dst']] = set()
+                cell_enables[e['dst']].add(e['src'])
+
+        # Group by (bus_type, enable set) → store number, numbered per type
+        type_counters = {}  # bus_type -> {enable_key -> store_num}
+        for cell in sorted(sprite_bus_cells.keys()):
+            key = tuple(sorted(cell_enables.get(cell, set())))
+            if not key:
+                continue
+            bus_type, data_bit = sprite_bus_cells[cell]
+            if bus_type not in type_counters:
+                type_counters[bus_type] = {}
+            tc = type_counters[bus_type]
+            if key not in tc:
+                tc[key] = len(tc)
+            sn = tc[key]
+            friendly[cell] = f'Sprite {sn} {bus_type} bit {data_bit}'
 
     # For cells fed by the CPU data bus, use category + bit for a useful name
     cat_labels = {
@@ -1494,9 +1513,13 @@ function renderRaces() {{
     // Build detail: show representative's full detail + list of all members
     const memberList = count > 1 ? `<div class="detail-section">
       <h4>All cells in this group (${{count}})</h4>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">
-        ${{group.members.map(m => `<span class="mono" style="font-size:12px">${{signalLink(m.display_name, true)}}</span>`).join('')}}
-      </div>
+      <table class="inputs-table">
+        <thead><tr><th>Cell</th><th>Description</th></tr></thead>
+        <tbody>${{group.members.map(m => `<tr>
+          <td class="mono">${{signalLink(m.display_name)}}</td>
+          <td style="font-size:12px">${{escHtml(friendlyName(m.display_name) || m.category)}}</td>
+        </tr>`).join('')}}</tbody>
+      </table>
     </div>` : '';
 
     detailTr.innerHTML = `<td colspan="7">${{renderRaceDetail(r)}}${{memberList}}</td>`;
