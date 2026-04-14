@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the interactive Game Boy PPU Explorer HTML page.
+"""Build the interactive DMG-CPU B Explorer HTML page.
 
 Reads the analysis JSON outputs and signal concordance, then generates
 a single self-contained HTML file at docs/index.html for GitHub Pages.
@@ -193,7 +193,7 @@ def build_html(graph_json: str, paths_json: str, races_json: str,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Boy PPU Explorer</title>
+<title>Game Boy Propagation Explorer</title>
 <style>
 :root {{
   --bg: #0d1117;
@@ -721,7 +721,7 @@ input[type="search"] {{ width: 260px; }}
 <body>
 
 <div class="header">
-  <h1>Game Boy PPU Explorer</h1>
+  <h1>Game Boy Propagation Explorer</h1>
   <div class="tabs">
     <button class="tab-btn active" data-tab="races">Race Pairs</button>
     <button class="tab-btn" data-tab="paths">Critical Paths</button>
@@ -739,7 +739,7 @@ input[type="search"] {{ width: 260px; }}
   <div class="filter-bar">
     <div class="filter-group">
       <label>Category</label>
-      <select id="race-cat-filter"><option value="">All</option></select>
+      <select id="race-cat-filter"><option value="">All</option><option value="ppu">PPU only</option></select>
     </div>
     <div class="filter-group">
       <label>Min Diff</label>
@@ -779,7 +779,7 @@ input[type="search"] {{ width: 260px; }}
   <div class="filter-bar">
     <div class="filter-group">
       <label>Category</label>
-      <select id="path-cat-filter"><option value="">All</option></select>
+      <select id="path-cat-filter"><option value="">All</option><option value="ppu">PPU only</option></select>
     </div>
     <div class="filter-group">
       <label>Min Depth</label>
@@ -1327,7 +1327,8 @@ function getFilteredRaces() {{
   const search = document.getElementById('race-search').value.toUpperCase();
 
   let filtered = races.filter(r => {{
-    if (cat && r.category !== cat) return false;
+    if (cat === 'ppu' && !r.category.startsWith('ppu-')) return false;
+    if (cat && cat !== 'ppu' && r.category !== cat) return false;
     if (r.depth_diff < minDiff) return false;
     if (phase && r.phase !== phase) return false;
     if (search && !r.display_name.toUpperCase().includes(search)) return false;

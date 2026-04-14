@@ -1,4 +1,4 @@
-# Game Boy PPU Signal Concordance
+# Game Boy (DMG-CPU B) Signal Concordance
 
 Cross-reference between die cell names (4-char identifiers from the DMG-CPU B
 silicon) and standard Game Boy documentation (Pan Docs, Gekkio's gb-ctr,

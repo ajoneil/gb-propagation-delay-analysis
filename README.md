@@ -1,12 +1,12 @@
-# Game Boy PPU Propagation Delay Analysis
+# Game Boy Propagation Delay Analysis
 
-Static analysis of the Game Boy (DMG) PPU's gate-level netlist to identify deep combinatorial paths that cause propagation delay on real hardware. The analysis is derived from [msinger's dmg-schematics](https://github.com/msinger/dmg-schematics), which contains corrected reverse-engineered schematics and parsable netlists of the DMG-CPU B chip, traced from die photography.
+Static analysis of the Game Boy's DMG-CPU B gate-level netlist to identify deep combinatorial paths that cause propagation delay on real hardware. The analysis covers the entire chip — PPU, APU, CPU bus interface, timer, serial, DMA, interrupts, and clock distribution. The data is derived from [msinger's dmg-schematics](https://github.com/msinger/dmg-schematics), which contains corrected reverse-engineered schematics and parsable netlists of the DMG-CPU B chip, traced from die photography.
 
 ## Motivation
 
 Behavioral Game Boy emulators resolve all combinatorial logic instantaneously within a single tick. On real DMG silicon, signals propagate through chains of gates with finite delay (5–15 ns per gate on Sharp's ~5 µm CMOS process). When a signal chain exceeds ~8 gates, the total delay can consume a significant fraction of a half T-cycle (~119 ns at 4.194 MHz), causing the hardware to capture different values than an emulator expects.
 
-This project extracts the PPU's netlist as a dependency graph, finds the longest combinatorial paths between clocked elements, and ranks them by depth — producing a guide for emulator developers investigating one-dot timing discrepancies.
+This project extracts the chip's netlist as a dependency graph, finds the longest combinatorial paths between clocked elements, and ranks them by depth — producing a guide for emulator developers investigating timing discrepancies.
 
 ## Key Results
 

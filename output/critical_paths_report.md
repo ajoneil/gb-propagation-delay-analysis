@@ -1,4 +1,4 @@
-# DMG-CPU B PPU Propagation Path Analysis
+# Game Boy (DMG-CPU B) Propagation Path Analysis
 
 Static analysis of the DMG-CPU B gate-level netlist from
 [msinger/dmg-schematics](https://github.com/msinger/dmg-schematics),
@@ -28,6 +28,6 @@ simulator analysis:
 
 | Category | Count | Max Depth | Worst-case Delay |
 |----------|-------|-----------|-----------------|
-| **Operational** (per-dot/scanline) | 1665 | 32 | 480 ns (403% half T-cycle) |
-| Reset-only | 723 | 31 | 465 ns |
-| **Total** | 2388 | 32 | |
+| **Operational** (per-dot/scanline) | 1676 | 32 | 480 ns (403% half T-cycle) |
+| Reset-only | 719 | 43 | 645 ns |
+| **Total** | 2395 | 43 | |

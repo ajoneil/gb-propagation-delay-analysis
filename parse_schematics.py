@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DMG-CPU B Netlist Parser — Graph Builder for PPU Propagation Analysis
+DMG-CPU B Netlist Parser — Graph Builder for Propagation Delay Analysis
 
 Parses the machine-readable netlists from msinger/dmg-schematics to build a
 signal dependency graph for critical path and race pair analysis.
@@ -1163,7 +1163,7 @@ def format_report(paths, G, races):
 
     # === Overview ===
     lines = []
-    lines.append("# DMG-CPU B PPU Propagation Path Analysis")
+    lines.append("# Game Boy (DMG-CPU B) Propagation Path Analysis")
     lines.append("")
     lines.append("Static analysis of the DMG-CPU B gate-level netlist from")
     lines.append("[msinger/dmg-schematics](https://github.com/msinger/dmg-schematics),")
