@@ -8206,171 +8206,6 @@
     ]
   },
   {
-    "node": "boot_rom",
-    "display_name": "boot_rom",
-    "node_type": "boundary",
-    "reg_type": "",
-    "cell_type": "boot_rom",
-    "category": "",
-    "source_file": "dmg-schematics/netlist/cpu-mem.nl",
-    "depth_diff": 45.86,
-    "max_depth": 45.86,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "zoku",
-        "depth": 45.86,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zery",
-        "depth": 40.82,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zyky",
-        "depth": 8.08,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zyga",
-        "depth": 8.01,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zovy",
-        "depth": 7.75,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zuko",
-        "depth": 7.07,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zabu",
-        "depth": 5.23,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zete",
-        "depth": 5.18,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zefu",
-        "depth": 4.93,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zoke",
-        "depth": 4.91,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zyro",
-        "depth": 4.76,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zage",
-        "depth": 3.95,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zyra",
-        "depth": 3.93,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "zapa",
-        "depth": 3.78,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "bus:a2",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:a3",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:a6",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:a7",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      }
-    ]
-  },
-  {
     "node": "dezy",
     "display_name": "dezy",
     "node_type": "registered",
@@ -8457,561 +8292,6 @@
         "cell_type": "not_x1",
         "node_type": "combinatorial",
         "category": "ppu-window"
-      }
-    ]
-  },
-  {
-    "node": "bus:a0",
-    "display_name": "bus:a0",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "kejo",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a1",
-    "display_name": "bus:a1",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "byxe",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a10",
-    "display_name": "bus:a10",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "rala",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a11",
-    "display_name": "bus:a11",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "lora",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a12",
-    "display_name": "bus:a12",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "lyna",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a13",
-    "display_name": "bus:a13",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "lefy",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a14",
-    "display_name": "bus:a14",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "nefe",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a2",
-    "display_name": "bus:a2",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "akan",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a3",
-    "display_name": "bus:a3",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "anar",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a4",
-    "display_name": "bus:a4",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "azuv",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a5",
-    "display_name": "bus:a5",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "ajov",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a6",
-    "display_name": "bus:a6",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "byne",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a7",
-    "display_name": "bus:a7",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "byna",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a8",
-    "display_name": "bus:a8",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "lofa",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
-      }
-    ]
-  },
-  {
-    "node": "bus:a9",
-    "display_name": "bus:a9",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 37.8,
-    "max_depth": 37.8,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "mapu",
-        "depth": 37.8,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
       }
     ]
   },
@@ -9192,203 +8472,6 @@
         "cell_type": "nand2",
         "node_type": "combinatorial",
         "category": "ppu-xcomp"
-      }
-    ]
-  },
-  {
-    "node": "cpu",
-    "display_name": "cpu",
-    "node_type": "boundary",
-    "reg_type": "",
-    "cell_type": "sm83",
-    "category": "",
-    "source_file": "dmg-schematics/netlist/cpu-mem.nl",
-    "depth_diff": 30.01,
-    "max_depth": 30.01,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "taba",
-        "depth": 30.01,
-        "gate_func": "or3",
-        "cell_type": "or3",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "syro",
-        "depth": 27.39,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "sys-decode"
-      },
-      {
-        "name": "tutu",
-        "depth": 23.11,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "bootrom"
-      },
-      {
-        "name": "bowa",
-        "depth": 15.68,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "unor",
-        "depth": 15.61,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "umut",
-        "depth": 15.41,
-        "gate_func": "and2",
-        "cell_type": "and2",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "boma",
-        "depth": 14.47,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "bedo",
-        "depth": 12.72,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "buke",
-        "depth": 7.84,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "afer",
-        "depth": 0.0,
-        "gate_func": "dffr_cc",
-        "cell_type": "dffr_cc",
-        "node_type": "registered",
-        "category": "clocks"
-      },
-      {
-        "name": "awob",
-        "depth": 0.0,
-        "gate_func": "dlatch",
-        "cell_type": "dlatch",
-        "node_type": "registered",
-        "category": "joypad"
-      },
-      {
-        "name": "bus:clk_t4",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:data_phase",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:~clk_t4",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "bus:~data_phase",
-        "depth": 0.0,
-        "gate_func": "bus",
-        "cell_type": "",
-        "node_type": "bus",
-        "category": "bus"
-      },
-      {
-        "name": "lalu",
-        "depth": 0.0,
-        "gate_func": "dffsr",
-        "cell_type": "dffsr",
-        "node_type": "registered",
-        "category": "int"
-      },
-      {
-        "name": "lope",
-        "depth": 0.0,
-        "gate_func": "dffsr",
-        "cell_type": "dffsr",
-        "node_type": "registered",
-        "category": "int"
-      },
-      {
-        "name": "nybo",
-        "depth": 0.0,
-        "gate_func": "dffsr",
-        "cell_type": "dffsr",
-        "node_type": "registered",
-        "category": "int"
-      },
-      {
-        "name": "supply",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "tie",
-        "node_type": "boundary",
-        "category": ""
-      },
-      {
-        "name": "ubul",
-        "depth": 0.0,
-        "gate_func": "dffsr",
-        "cell_type": "dffsr",
-        "node_type": "registered",
-        "category": "int"
-      },
-      {
-        "name": "ulak",
-        "depth": 0.0,
-        "gate_func": "dffsr",
-        "cell_type": "dffsr",
-        "node_type": "registered",
-        "category": "int"
       }
     ]
   },
@@ -9598,43 +8681,6 @@
         "cell_type": "dffr",
         "node_type": "registered",
         "category": "ppu-ycomp"
-      }
-    ]
-  },
-  {
-    "node": "bus:a15",
-    "display_name": "bus:a15",
-    "node_type": "bus",
-    "reg_type": "",
-    "cell_type": "",
-    "category": "bus",
-    "source_file": "",
-    "depth_diff": 24.78,
-    "max_depth": 24.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "syzu",
-        "depth": 24.78,
-        "gate_func": "buf_if0",
-        "cell_type": "buf_if0",
-        "node_type": "combinatorial",
-        "category": "bus-adr"
-      },
-      {
-        "name": "cpu",
-        "depth": 0.0,
-        "gate_func": "",
-        "cell_type": "sm83",
-        "node_type": "boundary",
-        "category": ""
       }
     ]
   },
@@ -10500,271 +9546,6 @@
         "cell_type": "not_x1",
         "node_type": "combinatorial",
         "category": "ppu-ycomp"
-      }
-    ]
-  },
-  {
-    "node": "adyk",
-    "display_name": "adyk",
-    "node_type": "registered",
-    "reg_type": "drlatch_ee",
-    "cell_type": "drlatch_ee",
-    "category": "clocks",
-    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
-    "depth_diff": 16.78,
-    "max_depth": 16.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "upoj",
-        "depth": 16.78,
-        "gate_func": "nand3",
-        "cell_type": "nand3",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "adeh",
-        "depth": 3.42,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "atal",
-        "depth": 1.61,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "apuk",
-        "depth": 0.0,
-        "gate_func": "drlatch_ee",
-        "cell_type": "drlatch_ee",
-        "node_type": "registered",
-        "category": "clocks"
-      }
-    ]
-  },
-  {
-    "node": "afer",
-    "display_name": "afer",
-    "node_type": "registered",
-    "reg_type": "dffr_cc",
-    "cell_type": "dffr_cc",
-    "category": "clocks",
-    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
-    "depth_diff": 16.78,
-    "max_depth": 16.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "upoj",
-        "depth": 16.78,
-        "gate_func": "nand3",
-        "cell_type": "nand3",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "boma",
-        "depth": 14.47,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "asol",
-        "depth": 0.0,
-        "gate_func": "nor_latch",
-        "cell_type": "nor_latch",
-        "node_type": "registered",
-        "category": "clocks"
-      }
-    ]
-  },
-  {
-    "node": "afur",
-    "display_name": "afur",
-    "node_type": "registered",
-    "reg_type": "drlatch_ee",
-    "cell_type": "drlatch_ee",
-    "category": "clocks",
-    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
-    "depth_diff": 16.78,
-    "max_depth": 16.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "upoj",
-        "depth": 16.78,
-        "gate_func": "nand3",
-        "cell_type": "nand3",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "adeh",
-        "depth": 3.42,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "atal",
-        "depth": 1.61,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "adyk",
-        "depth": 0.0,
-        "gate_func": "drlatch_ee",
-        "cell_type": "drlatch_ee",
-        "node_type": "registered",
-        "category": "clocks"
-      }
-    ]
-  },
-  {
-    "node": "alef",
-    "display_name": "alef",
-    "node_type": "registered",
-    "reg_type": "drlatch_ee",
-    "cell_type": "drlatch_ee",
-    "category": "clocks",
-    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
-    "depth_diff": 16.78,
-    "max_depth": 16.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "upoj",
-        "depth": 16.78,
-        "gate_func": "nand3",
-        "cell_type": "nand3",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "adeh",
-        "depth": 3.42,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "atal",
-        "depth": 1.61,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "afur",
-        "depth": 0.0,
-        "gate_func": "drlatch_ee",
-        "cell_type": "drlatch_ee",
-        "node_type": "registered",
-        "category": "clocks"
-      }
-    ]
-  },
-  {
-    "node": "apuk",
-    "display_name": "apuk",
-    "node_type": "registered",
-    "reg_type": "drlatch_ee",
-    "cell_type": "drlatch_ee",
-    "category": "clocks",
-    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
-    "depth_diff": 16.78,
-    "max_depth": 16.78,
-    "min_depth": 0.0,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "upoj",
-        "depth": 16.78,
-        "gate_func": "nand3",
-        "cell_type": "nand3",
-        "node_type": "combinatorial",
-        "category": "test"
-      },
-      {
-        "name": "adeh",
-        "depth": 3.42,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "atal",
-        "depth": 1.61,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "alef",
-        "depth": 0.0,
-        "gate_func": "drlatch_ee",
-        "cell_type": "drlatch_ee",
-        "node_type": "registered",
-        "category": "clocks"
       }
     ]
   },
@@ -11781,51 +10562,6 @@
     ]
   },
   {
-    "node": "d5",
-    "display_name": "d5",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 11.56,
-    "max_depth": 58.65,
-    "min_depth": 47.09,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "ryvo",
-        "depth": 58.65,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "tamu",
-        "depth": 47.09,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
     "node": "rewo",
     "display_name": "rewo",
     "node_type": "registered",
@@ -12215,51 +10951,6 @@
     ]
   },
   {
-    "node": "d7",
-    "display_name": "d7",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/left.nl",
-    "depth_diff": 9.46,
-    "max_depth": 58.21,
-    "min_depth": 48.75,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "ravu",
-        "depth": 58.21,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "ryda",
-        "depth": 48.75,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
     "node": "a4",
     "display_name": "a4",
     "node_type": "pad",
@@ -12403,51 +11094,6 @@
     ]
   },
   {
-    "node": "d3",
-    "display_name": "d3",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 8.47,
-    "max_depth": 60.94,
-    "min_depth": 52.47,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "rera",
-        "depth": 60.94,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "seze",
-        "depth": 52.47,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
     "node": "a3",
     "display_name": "a3",
     "node_type": "pad",
@@ -12481,231 +11127,6 @@
         "cell_type": "nand2",
         "node_type": "combinatorial",
         "category": "bus-adr"
-      }
-    ]
-  },
-  {
-    "node": "d0",
-    "display_name": "d0",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 8.36,
-    "max_depth": 64.49,
-    "min_depth": 56.13,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "ruxa",
-        "depth": 64.49,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "rune",
-        "depth": 61.01,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
-    "node": "d4",
-    "display_name": "d4",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 8.35,
-    "max_depth": 59.75,
-    "min_depth": 51.4,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "rory",
-        "depth": 59.75,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "resy",
-        "depth": 51.4,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
-    "node": "d6",
-    "display_name": "d6",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/left.nl",
-    "depth_diff": 8.09,
-    "max_depth": 59.46,
-    "min_depth": 51.37,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "rafy",
-        "depth": 59.46,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "rogy",
-        "depth": 51.37,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
-    "node": "d2",
-    "display_name": "d2",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 7.43,
-    "max_depth": 61.7,
-    "min_depth": 54.27,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "raby",
-        "depth": 61.7,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "suly",
-        "depth": 54.27,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      }
-    ]
-  },
-  {
-    "node": "d1",
-    "display_name": "d1",
-    "node_type": "pad",
-    "reg_type": "",
-    "cell_type": "pad_bidir_pu",
-    "category": "bus-data",
-    "source_file": "dmg-schematics/netlist/io/top.nl",
-    "depth_diff": 7.38,
-    "max_depth": 63.51,
-    "min_depth": 56.13,
-    "deadline_ns": 953.6,
-    "timing_domain": "per-line",
-    "effective_deadline_ns": 953.6,
-    "effective_domain": "per-line",
-    "critical_source": "t1",
-    "critical_source_category": "test",
-    "critical_source_freq": "per-dot",
-    "inputs": [
-      {
-        "name": "ruja",
-        "depth": 63.51,
-        "gate_func": "nand2",
-        "cell_type": "nand2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "rypu",
-        "depth": 58.73,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "bus-data"
-      },
-      {
-        "name": "lula",
-        "depth": 56.13,
-        "gate_func": "not_x1",
-        "cell_type": "not_x1",
-        "node_type": "combinatorial",
-        "category": "bus-data"
       }
     ]
   },
@@ -37413,6 +35834,186 @@
     ]
   },
   {
+    "node": "acef",
+    "display_name": "acef",
+    "node_type": "registered",
+    "reg_type": "dffr",
+    "cell_type": "dffr",
+    "category": "joypad",
+    "source_file": "dmg-schematics/netlist/right-col/a.nl",
+    "depth_diff": 11.51,
+    "max_depth": 11.51,
+    "min_depth": 0.0,
+    "deadline_ns": 3814.4,
+    "timing_domain": "loose",
+    "effective_deadline_ns": 3814.4,
+    "effective_domain": "per-frame",
+    "critical_source": "afur",
+    "critical_source_category": "clocks",
+    "critical_source_freq": "per-frame",
+    "inputs": [
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "alur",
+        "depth": 8.64,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "batu",
+        "depth": 0.0,
+        "gate_func": "dffr",
+        "cell_type": "dffr",
+        "node_type": "registered",
+        "category": "joypad"
+      }
+    ]
+  },
+  {
+    "node": "agem",
+    "display_name": "agem",
+    "node_type": "registered",
+    "reg_type": "dffr",
+    "cell_type": "dffr",
+    "category": "joypad",
+    "source_file": "dmg-schematics/netlist/right-col/a.nl",
+    "depth_diff": 11.51,
+    "max_depth": 11.51,
+    "min_depth": 0.0,
+    "deadline_ns": 3814.4,
+    "timing_domain": "loose",
+    "effective_deadline_ns": 3814.4,
+    "effective_domain": "per-frame",
+    "critical_source": "afur",
+    "critical_source_category": "clocks",
+    "critical_source_freq": "per-frame",
+    "inputs": [
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "alur",
+        "depth": 8.64,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "acef",
+        "depth": 0.0,
+        "gate_func": "dffr",
+        "cell_type": "dffr",
+        "node_type": "registered",
+        "category": "joypad"
+      }
+    ]
+  },
+  {
+    "node": "apug",
+    "display_name": "apug",
+    "node_type": "registered",
+    "reg_type": "dffr",
+    "cell_type": "dffr",
+    "category": "joypad",
+    "source_file": "dmg-schematics/netlist/right-col/a.nl",
+    "depth_diff": 11.51,
+    "max_depth": 11.51,
+    "min_depth": 0.0,
+    "deadline_ns": 3814.4,
+    "timing_domain": "loose",
+    "effective_deadline_ns": 3814.4,
+    "effective_domain": "per-frame",
+    "critical_source": "afur",
+    "critical_source_category": "clocks",
+    "critical_source_freq": "per-frame",
+    "inputs": [
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "alur",
+        "depth": 8.64,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "agem",
+        "depth": 0.0,
+        "gate_func": "dffr",
+        "cell_type": "dffr",
+        "node_type": "registered",
+        "category": "joypad"
+      }
+    ]
+  },
+  {
+    "node": "moba",
+    "display_name": "moba",
+    "node_type": "registered",
+    "reg_type": "dffr",
+    "cell_type": "dffr",
+    "category": "timer",
+    "source_file": "dmg-schematics/netlist/top-center-col/m.nl",
+    "depth_diff": 10.48,
+    "max_depth": 11.51,
+    "min_depth": 1.03,
+    "deadline_ns": 3814.4,
+    "timing_domain": "loose",
+    "effective_deadline_ns": 3814.4,
+    "effective_domain": "per-frame",
+    "critical_source": "afur",
+    "critical_source_category": "clocks",
+    "critical_source_freq": "per-frame",
+    "inputs": [
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "alur",
+        "depth": 8.64,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "mery",
+        "depth": 1.03,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "timer"
+      }
+    ]
+  },
+  {
     "node": "efal",
     "display_name": "efal",
     "node_type": "registered",
@@ -45113,6 +43714,171 @@
     ]
   },
   {
+    "node": "boot_rom",
+    "display_name": "boot_rom",
+    "node_type": "boundary",
+    "reg_type": "",
+    "cell_type": "boot_rom",
+    "category": "",
+    "source_file": "dmg-schematics/netlist/cpu-mem.nl",
+    "depth_diff": 45.86,
+    "max_depth": 45.86,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "zoku",
+        "depth": 45.86,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zery",
+        "depth": 40.82,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zyky",
+        "depth": 8.08,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zyga",
+        "depth": 8.01,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zovy",
+        "depth": 7.75,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zuko",
+        "depth": 7.07,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zabu",
+        "depth": 5.23,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zete",
+        "depth": 5.18,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zefu",
+        "depth": 4.93,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zoke",
+        "depth": 4.91,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zyro",
+        "depth": 4.76,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zage",
+        "depth": 3.95,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zyra",
+        "depth": 3.93,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "zapa",
+        "depth": 3.78,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "bus:a2",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:a3",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:a6",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:a7",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      }
+    ]
+  },
+  {
     "node": "meda",
     "display_name": "meda",
     "node_type": "registered",
@@ -46049,6 +44815,561 @@
     ]
   },
   {
+    "node": "bus:a0",
+    "display_name": "bus:a0",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "kejo",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a1",
+    "display_name": "bus:a1",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "byxe",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a10",
+    "display_name": "bus:a10",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "rala",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a11",
+    "display_name": "bus:a11",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "lora",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a12",
+    "display_name": "bus:a12",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "lyna",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a13",
+    "display_name": "bus:a13",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "lefy",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a14",
+    "display_name": "bus:a14",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "nefe",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a2",
+    "display_name": "bus:a2",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "akan",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a3",
+    "display_name": "bus:a3",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "anar",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a4",
+    "display_name": "bus:a4",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "azuv",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a5",
+    "display_name": "bus:a5",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "ajov",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a6",
+    "display_name": "bus:a6",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "byne",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a7",
+    "display_name": "bus:a7",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "byna",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a8",
+    "display_name": "bus:a8",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "lofa",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "node": "bus:a9",
+    "display_name": "bus:a9",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 37.8,
+    "max_depth": 37.8,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "mapu",
+        "depth": 37.8,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
     "node": "anel",
     "display_name": "anel",
     "node_type": "registered",
@@ -46418,6 +45739,203 @@
         "cell_type": "not_x2",
         "node_type": "combinatorial",
         "category": "ppu-oam"
+      }
+    ]
+  },
+  {
+    "node": "cpu",
+    "display_name": "cpu",
+    "node_type": "boundary",
+    "reg_type": "",
+    "cell_type": "sm83",
+    "category": "",
+    "source_file": "dmg-schematics/netlist/cpu-mem.nl",
+    "depth_diff": 30.01,
+    "max_depth": 30.01,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "taba",
+        "depth": 30.01,
+        "gate_func": "or3",
+        "cell_type": "or3",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "syro",
+        "depth": 27.39,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "sys-decode"
+      },
+      {
+        "name": "tutu",
+        "depth": 23.11,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "bootrom"
+      },
+      {
+        "name": "bowa",
+        "depth": 15.68,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "unor",
+        "depth": 15.61,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "umut",
+        "depth": 15.41,
+        "gate_func": "and2",
+        "cell_type": "and2",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "boma",
+        "depth": 14.47,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "bedo",
+        "depth": 12.72,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "buke",
+        "depth": 7.84,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "afer",
+        "depth": 0.0,
+        "gate_func": "dffr_cc",
+        "cell_type": "dffr_cc",
+        "node_type": "registered",
+        "category": "clocks"
+      },
+      {
+        "name": "awob",
+        "depth": 0.0,
+        "gate_func": "dlatch",
+        "cell_type": "dlatch",
+        "node_type": "registered",
+        "category": "joypad"
+      },
+      {
+        "name": "bus:clk_t4",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:data_phase",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:~clk_t4",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "bus:~data_phase",
+        "depth": 0.0,
+        "gate_func": "bus",
+        "cell_type": "",
+        "node_type": "bus",
+        "category": "bus"
+      },
+      {
+        "name": "lalu",
+        "depth": 0.0,
+        "gate_func": "dffsr",
+        "cell_type": "dffsr",
+        "node_type": "registered",
+        "category": "int"
+      },
+      {
+        "name": "lope",
+        "depth": 0.0,
+        "gate_func": "dffsr",
+        "cell_type": "dffsr",
+        "node_type": "registered",
+        "category": "int"
+      },
+      {
+        "name": "nybo",
+        "depth": 0.0,
+        "gate_func": "dffsr",
+        "cell_type": "dffsr",
+        "node_type": "registered",
+        "category": "int"
+      },
+      {
+        "name": "supply",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "tie",
+        "node_type": "boundary",
+        "category": ""
+      },
+      {
+        "name": "ubul",
+        "depth": 0.0,
+        "gate_func": "dffsr",
+        "cell_type": "dffsr",
+        "node_type": "registered",
+        "category": "int"
+      },
+      {
+        "name": "ulak",
+        "depth": 0.0,
+        "gate_func": "dffsr",
+        "cell_type": "dffsr",
+        "node_type": "registered",
+        "category": "int"
       }
     ]
   },
@@ -49419,6 +48937,43 @@
     ]
   },
   {
+    "node": "bus:a15",
+    "display_name": "bus:a15",
+    "node_type": "bus",
+    "reg_type": "",
+    "cell_type": "",
+    "category": "bus",
+    "source_file": "",
+    "depth_diff": 24.78,
+    "max_depth": 24.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "syzu",
+        "depth": 24.78,
+        "gate_func": "buf_if0",
+        "cell_type": "buf_if0",
+        "node_type": "combinatorial",
+        "category": "bus-adr"
+      },
+      {
+        "name": "cpu",
+        "depth": 0.0,
+        "gate_func": "",
+        "cell_type": "sm83",
+        "node_type": "boundary",
+        "category": ""
+      }
+    ]
+  },
+  {
     "node": "elox",
     "display_name": "elox",
     "node_type": "registered",
@@ -52266,6 +51821,271 @@
     ]
   },
   {
+    "node": "adyk",
+    "display_name": "adyk",
+    "node_type": "registered",
+    "reg_type": "drlatch_ee",
+    "cell_type": "drlatch_ee",
+    "category": "clocks",
+    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
+    "depth_diff": 16.78,
+    "max_depth": 16.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "upoj",
+        "depth": 16.78,
+        "gate_func": "nand3",
+        "cell_type": "nand3",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "adeh",
+        "depth": 3.42,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "atal",
+        "depth": 1.61,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "apuk",
+        "depth": 0.0,
+        "gate_func": "drlatch_ee",
+        "cell_type": "drlatch_ee",
+        "node_type": "registered",
+        "category": "clocks"
+      }
+    ]
+  },
+  {
+    "node": "afer",
+    "display_name": "afer",
+    "node_type": "registered",
+    "reg_type": "dffr_cc",
+    "cell_type": "dffr_cc",
+    "category": "clocks",
+    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
+    "depth_diff": 16.78,
+    "max_depth": 16.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "upoj",
+        "depth": 16.78,
+        "gate_func": "nand3",
+        "cell_type": "nand3",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "boma",
+        "depth": 14.47,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "boga",
+        "depth": 11.51,
+        "gate_func": "not_x6",
+        "cell_type": "not_x6",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "asol",
+        "depth": 0.0,
+        "gate_func": "nor_latch",
+        "cell_type": "nor_latch",
+        "node_type": "registered",
+        "category": "clocks"
+      }
+    ]
+  },
+  {
+    "node": "afur",
+    "display_name": "afur",
+    "node_type": "registered",
+    "reg_type": "drlatch_ee",
+    "cell_type": "drlatch_ee",
+    "category": "clocks",
+    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
+    "depth_diff": 16.78,
+    "max_depth": 16.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "upoj",
+        "depth": 16.78,
+        "gate_func": "nand3",
+        "cell_type": "nand3",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "adeh",
+        "depth": 3.42,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "atal",
+        "depth": 1.61,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "adyk",
+        "depth": 0.0,
+        "gate_func": "drlatch_ee",
+        "cell_type": "drlatch_ee",
+        "node_type": "registered",
+        "category": "clocks"
+      }
+    ]
+  },
+  {
+    "node": "alef",
+    "display_name": "alef",
+    "node_type": "registered",
+    "reg_type": "drlatch_ee",
+    "cell_type": "drlatch_ee",
+    "category": "clocks",
+    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
+    "depth_diff": 16.78,
+    "max_depth": 16.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "upoj",
+        "depth": 16.78,
+        "gate_func": "nand3",
+        "cell_type": "nand3",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "adeh",
+        "depth": 3.42,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "atal",
+        "depth": 1.61,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "afur",
+        "depth": 0.0,
+        "gate_func": "drlatch_ee",
+        "cell_type": "drlatch_ee",
+        "node_type": "registered",
+        "category": "clocks"
+      }
+    ]
+  },
+  {
+    "node": "apuk",
+    "display_name": "apuk",
+    "node_type": "registered",
+    "reg_type": "drlatch_ee",
+    "cell_type": "drlatch_ee",
+    "category": "clocks",
+    "source_file": "dmg-schematics/netlist/top-center-row/a.nl",
+    "depth_diff": 16.78,
+    "max_depth": 16.78,
+    "min_depth": 0.0,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "upoj",
+        "depth": 16.78,
+        "gate_func": "nand3",
+        "cell_type": "nand3",
+        "node_type": "combinatorial",
+        "category": "test"
+      },
+      {
+        "name": "adeh",
+        "depth": 3.42,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "atal",
+        "depth": 1.61,
+        "gate_func": "not_x2",
+        "cell_type": "not_x2",
+        "node_type": "combinatorial",
+        "category": "clocks"
+      },
+      {
+        "name": "alef",
+        "depth": 0.0,
+        "gate_func": "drlatch_ee",
+        "cell_type": "drlatch_ee",
+        "node_type": "registered",
+        "category": "clocks"
+      }
+    ]
+  },
+  {
     "node": "esut",
     "display_name": "esut",
     "node_type": "registered",
@@ -52652,137 +52472,47 @@
     ]
   },
   {
-    "node": "acef",
-    "display_name": "acef",
-    "node_type": "registered",
-    "reg_type": "dffr",
-    "cell_type": "dffr",
-    "category": "joypad",
-    "source_file": "dmg-schematics/netlist/right-col/a.nl",
-    "depth_diff": 11.51,
-    "max_depth": 11.51,
-    "min_depth": 0.0,
-    "deadline_ns": 3814.4,
-    "timing_domain": "loose",
+    "node": "d5",
+    "display_name": "d5",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 11.56,
+    "max_depth": 58.65,
+    "min_depth": 47.09,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
     "effective_deadline_ns": 15257.6,
     "effective_domain": "static",
-    "critical_source": "afur",
-    "critical_source_category": "clocks",
+    "critical_source": "t1",
+    "critical_source_category": "test",
     "critical_source_freq": "static",
     "inputs": [
       {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
+        "name": "ryvo",
+        "depth": 58.65,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
         "node_type": "combinatorial",
-        "category": "clocks"
+        "category": "bus-data"
       },
       {
-        "name": "alur",
-        "depth": 8.64,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
         "node_type": "combinatorial",
-        "category": "clocks"
+        "category": "bus-data"
       },
       {
-        "name": "batu",
-        "depth": 0.0,
-        "gate_func": "dffr",
-        "cell_type": "dffr",
-        "node_type": "registered",
-        "category": "joypad"
-      }
-    ]
-  },
-  {
-    "node": "agem",
-    "display_name": "agem",
-    "node_type": "registered",
-    "reg_type": "dffr",
-    "cell_type": "dffr",
-    "category": "joypad",
-    "source_file": "dmg-schematics/netlist/right-col/a.nl",
-    "depth_diff": 11.51,
-    "max_depth": 11.51,
-    "min_depth": 0.0,
-    "deadline_ns": 3814.4,
-    "timing_domain": "loose",
-    "effective_deadline_ns": 15257.6,
-    "effective_domain": "static",
-    "critical_source": "afur",
-    "critical_source_category": "clocks",
-    "critical_source_freq": "static",
-    "inputs": [
-      {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
+        "name": "tamu",
+        "depth": 47.09,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
         "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "alur",
-        "depth": 8.64,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "acef",
-        "depth": 0.0,
-        "gate_func": "dffr",
-        "cell_type": "dffr",
-        "node_type": "registered",
-        "category": "joypad"
-      }
-    ]
-  },
-  {
-    "node": "apug",
-    "display_name": "apug",
-    "node_type": "registered",
-    "reg_type": "dffr",
-    "cell_type": "dffr",
-    "category": "joypad",
-    "source_file": "dmg-schematics/netlist/right-col/a.nl",
-    "depth_diff": 11.51,
-    "max_depth": 11.51,
-    "min_depth": 0.0,
-    "deadline_ns": 3814.4,
-    "timing_domain": "loose",
-    "effective_deadline_ns": 15257.6,
-    "effective_domain": "static",
-    "critical_source": "afur",
-    "critical_source_category": "clocks",
-    "critical_source_freq": "static",
-    "inputs": [
-      {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "alur",
-        "depth": 8.64,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "agem",
-        "depth": 0.0,
-        "gate_func": "dffr",
-        "cell_type": "dffr",
-        "node_type": "registered",
-        "category": "joypad"
+        "category": "bus-data"
       }
     ]
   },
@@ -52832,51 +52562,6 @@
     ]
   },
   {
-    "node": "moba",
-    "display_name": "moba",
-    "node_type": "registered",
-    "reg_type": "dffr",
-    "cell_type": "dffr",
-    "category": "timer",
-    "source_file": "dmg-schematics/netlist/top-center-col/m.nl",
-    "depth_diff": 10.48,
-    "max_depth": 11.51,
-    "min_depth": 1.03,
-    "deadline_ns": 3814.4,
-    "timing_domain": "loose",
-    "effective_deadline_ns": 15257.6,
-    "effective_domain": "static",
-    "critical_source": "afur",
-    "critical_source_category": "clocks",
-    "critical_source_freq": "static",
-    "inputs": [
-      {
-        "name": "boga",
-        "depth": 11.51,
-        "gate_func": "not_x6",
-        "cell_type": "not_x6",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "alur",
-        "depth": 8.64,
-        "gate_func": "not_x2",
-        "cell_type": "not_x2",
-        "node_type": "combinatorial",
-        "category": "clocks"
-      },
-      {
-        "name": "mery",
-        "depth": 1.03,
-        "gate_func": "nor2",
-        "cell_type": "nor2",
-        "node_type": "combinatorial",
-        "category": "timer"
-      }
-    ]
-  },
-  {
     "node": "maka",
     "display_name": "maka",
     "node_type": "registered",
@@ -52918,6 +52603,51 @@
         "cell_type": "not_x1",
         "node_type": "combinatorial",
         "category": "ppu-oam"
+      }
+    ]
+  },
+  {
+    "node": "d7",
+    "display_name": "d7",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/left.nl",
+    "depth_diff": 9.46,
+    "max_depth": 58.21,
+    "min_depth": 48.75,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "ravu",
+        "depth": 58.21,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "ryda",
+        "depth": 48.75,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
       }
     ]
   },
@@ -53004,6 +52734,141 @@
     ]
   },
   {
+    "node": "d3",
+    "display_name": "d3",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 8.47,
+    "max_depth": 60.94,
+    "min_depth": 52.47,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "rera",
+        "depth": 60.94,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "seze",
+        "depth": 52.47,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      }
+    ]
+  },
+  {
+    "node": "d0",
+    "display_name": "d0",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 8.36,
+    "max_depth": 64.49,
+    "min_depth": 56.13,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "ruxa",
+        "depth": 64.49,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "rune",
+        "depth": 61.01,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      }
+    ]
+  },
+  {
+    "node": "d4",
+    "display_name": "d4",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 8.35,
+    "max_depth": 59.75,
+    "min_depth": 51.4,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "rory",
+        "depth": 59.75,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "resy",
+        "depth": 51.4,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      }
+    ]
+  },
+  {
     "node": "jyna",
     "display_name": "jyna",
     "node_type": "registered",
@@ -53041,6 +52906,51 @@
     ]
   },
   {
+    "node": "d6",
+    "display_name": "d6",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/left.nl",
+    "depth_diff": 8.09,
+    "max_depth": 59.46,
+    "min_depth": 51.37,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "rafy",
+        "depth": 59.46,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "rogy",
+        "depth": 51.37,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      }
+    ]
+  },
+  {
     "node": "kaly",
     "display_name": "kaly",
     "node_type": "registered",
@@ -53074,6 +52984,96 @@
         "cell_type": "not_x1",
         "node_type": "combinatorial",
         "category": "apu-ch1"
+      }
+    ]
+  },
+  {
+    "node": "d2",
+    "display_name": "d2",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 7.43,
+    "max_depth": 61.7,
+    "min_depth": 54.27,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "raby",
+        "depth": 61.7,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "suly",
+        "depth": 54.27,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      }
+    ]
+  },
+  {
+    "node": "d1",
+    "display_name": "d1",
+    "node_type": "pad",
+    "reg_type": "",
+    "cell_type": "pad_bidir_pu",
+    "category": "bus-data",
+    "source_file": "dmg-schematics/netlist/io/top.nl",
+    "depth_diff": 7.38,
+    "max_depth": 63.51,
+    "min_depth": 56.13,
+    "deadline_ns": 953.6,
+    "timing_domain": "per-line",
+    "effective_deadline_ns": 15257.6,
+    "effective_domain": "static",
+    "critical_source": "t1",
+    "critical_source_category": "test",
+    "critical_source_freq": "static",
+    "inputs": [
+      {
+        "name": "ruja",
+        "depth": 63.51,
+        "gate_func": "nand2",
+        "cell_type": "nand2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "rypu",
+        "depth": 58.73,
+        "gate_func": "nor2",
+        "cell_type": "nor2",
+        "node_type": "combinatorial",
+        "category": "bus-data"
+      },
+      {
+        "name": "lula",
+        "depth": 56.13,
+        "gate_func": "not_x1",
+        "cell_type": "not_x1",
+        "node_type": "combinatorial",
+        "category": "bus-data"
       }
     ]
   },

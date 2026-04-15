@@ -1525,37 +1525,47 @@ DEFAULT_DEADLINE_NS = MCYCLE_NS
 # Per-frame:   changes once per frame or on CPU write
 # Static:      only changes on reset or LCDC toggle
 
-# Categories whose registers update per-dot during rendering
+# Categories whose registers update per-dot during rendering.
+# NOTE: This is a category-level approximation.  Some categories (e.g.
+# ppu-stat) contain both per-dot registers (pixel counter) and per-line
+# registers (LY counter).  The classification reflects the MOST COMMON
+# update frequency for registers that appear as critical path sources.
 _SOURCE_FREQ_PER_DOT = {
     'ppu-cycles',      # BG/sprite fetch state machine
     'ppu-bgfifo',      # pixel FIFO shift state
     'ppu-objfifo',     # sprite FIFO shift state
     'ppu-mux',         # pixel output mux
+    'ppu-xcomp',       # sprite X match (clocked by CLKPIPE, per-dot)
+    'ppu-xprio',       # sprite X priority (resolved per-dot)
 }
 
 # Categories whose registers update per-line (at scanline boundaries)
 _SOURCE_FREQ_PER_LINE = {
-    'ppu-stat',        # LY counter, mode flags, STAT register
+    'ppu-stat',        # LY counter, mode flags (PX counter is per-dot but
+                       #   actual sources muwy/xymu are per-line)
     'ppu-ycomp',       # sprite Y comparator (re-evaluated each line)
     'ppu-objctl',      # sprite control (OAM scan, once per line)
     'ppu-objreg',      # sprite store latches (loaded during OAM scan)
     'ppu-oam',         # OAM interface
     'ppu-dma',         # DMA (transfers once initiated, per-line timing)
     'ppu-control',     # rendering mode transitions
-    'ppu-window',      # window Y match (checked at line start)
+    'ppu-window',      # window Y match (WY compared at line start)
     'ppu-lcd',         # LCD timing signals
-    'ppu-bgscroll',    # scroll registers (written by CPU, but per-line effect)
+    'ppu-bgscroll',    # scroll position registers (CPU-written)
     'ppu-vram',        # VRAM interface
     'ppu-decode',      # PPU address decode
     'ppu-pal',         # palette data
-    'ppu-xcomp',       # sprite X match (per-dot check, but store data is per-line)
-    'ppu-xprio',       # sprite X priority
 }
 
 # Source categories that are static during rendering
 _SOURCE_FREQ_STATIC = {
-    'clocks',          # system reset, clock distribution
-    'test',            # test mode pins
+    'test',            # test mode pins (held static during normal operation)
+}
+
+# Individual registers with known static behaviour, overriding their category
+_STATIC_REGISTERS = {
+    'afer',   # system reset (clocks category, but only changes on reset)
+    'asol',   # system reset inverted
 }
 
 # Source types that imply bus/CPU-write frequency
@@ -1569,12 +1579,18 @@ def _classify_source_frequency(source_name, G):
 
     Returns (frequency_label, effective_deadline_ns).
     """
+    # Individual register overrides (known static signals in active categories)
+    if source_name in _STATIC_REGISTERS:
+        return 'static', MCYCLE_NS * 16
+
     nd = G.nodes.get(source_name, {})
     cat = nd.get('category', '')
     nt = nd.get('node_type', '')
 
-    # Pad nodes (crystal clock, test pins) — classify by name
+    # Pad nodes — crystal clock is per-dot, test pins are static
     if nt == 'pad':
+        if cat == 'test':
+            return 'static', MCYCLE_NS * 16
         return 'per-dot', TCYCLE_NS
 
     # Bus nodes
@@ -1590,7 +1606,7 @@ def _classify_source_frequency(source_name, G):
     if cat in _SOURCE_FREQ_STATIC:
         return 'static', MCYCLE_NS * 16
 
-    # APU, timer, serial, joypad, etc. — loose
+    # APU, timer, serial, joypad, clocks, etc. — per-frame
     return 'per-frame', MCYCLE_NS * 4
 
 
