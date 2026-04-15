@@ -128,6 +128,7 @@ class Edge:
     src: str
     dst: str
     edge_type: str = "data"
+    src_inverted: bool = False  # True if source drives via ~q (inverted output)
 
 
 # ============================================================================
@@ -540,8 +541,8 @@ def build_graph(cell_types: dict, cells: list, wires: list):
                 continue
             continue
 
-        # Skip memory macros and analog blocks — they're black boxes
-        if ct.is_memory or cell.cell_type.startswith('amp') or cell.cell_type in ('dac', 'mixer', 'rv', 'vdiv'):
+        # Skip complex modules, memory macros and analog blocks — they're black boxes
+        if ct.is_memory or cell.cell_type in ('sm83', 'tie') or cell.cell_type.startswith('amp') or cell.cell_type in ('dac', 'mixer', 'rv', 'vdiv'):
             # Create a boundary node for memory I/O
             node = Node(
                 name=cell.name,
@@ -628,6 +629,16 @@ def build_graph(cell_types: dict, cells: list, wires: list):
         elif wire.signal_type == "rst":
             edge_type = "reset"
 
+        # Determine if the source output is inverted (~q vs q)
+        # Build a map: driver_cell -> is_inverted for this wire
+        drv_inverted = {}
+        for cell_name, pin_ref in driver_refs:
+            pin = _extract_pin_name(pin_ref)
+            if pin.startswith('~'):
+                drv_inverted[cell_name] = True
+            else:
+                drv_inverted[cell_name] = False
+
         # For multi-driver wires, create an intermediate bus node
         if len(driver_cells) > 1 and sink_cells:
             bus_node_name = f"bus:{wire.name}"
@@ -645,7 +656,8 @@ def build_graph(cell_types: dict, cells: list, wires: list):
             for drv in driver_cells:
                 if drv == bus_node_name:
                     continue
-                edges.append(Edge(src=drv, dst=bus_node_name, edge_type="data"))
+                edges.append(Edge(src=drv, dst=bus_node_name, edge_type="data",
+                                  src_inverted=drv_inverted.get(drv, False)))
 
             # Connect bus node to each sink
             for snk in sink_cells:
@@ -660,7 +672,8 @@ def build_graph(cell_types: dict, cells: list, wires: list):
                     if drv == snk:
                         continue
                     snk_edge_type = _pin_edge_type(snk, wire.sinks, edge_type, nodes.get(snk))
-                    edges.append(Edge(src=drv, dst=snk, edge_type=snk_edge_type))
+                    edges.append(Edge(src=drv, dst=snk, edge_type=snk_edge_type,
+                                      src_inverted=drv_inverted.get(drv, False)))
 
     return nodes, edges
 
@@ -672,11 +685,17 @@ def _pin_edge_type(sink_cell: str, sink_pin_refs: list, default_type: str,
     Only registered cells have clock/reset pins. Combinatorial cells treat
     all inputs as data, even if the wire's signal type is 'clk' — a clock
     signal passing through a buffer is still a data dependency for timing.
+
+    For registered cells, we classify by the actual pin being driven:
+    - clk/ena pins → clock edge (timing boundary)
+    - reset/set pins → reset edge
+    - data pins (d, l, etc.) → data edge, even if the wire carries a clock signal
     """
     # Combinatorial/bus/pad cells: all inputs are data
     if sink_node and sink_node.node_type not in ('registered',):
         return "data"
 
+    # For registered cells, classify by the specific pin being driven
     for pin_ref in sink_pin_refs:
         if _extract_cell_name(pin_ref) == sink_cell:
             pin_name = _extract_pin_name(pin_ref)
@@ -686,6 +705,8 @@ def _pin_edge_type(sink_cell: str, sink_pin_refs: list, default_type: str,
                 return "clock"
             elif pin_name in ('~r', '~s', 'r', 's'):
                 return "reset"
+            elif pin_name in ('d', 'l'):
+                return "data"
     return default_type
 
 
@@ -755,7 +776,8 @@ def dedup_edges(edges: list) -> list:
 # Export
 # ============================================================================
 
-def export_graph_json(nodes: dict, edges: list, cell_types: dict) -> dict:
+def export_graph_json(nodes: dict, edges: list, cell_types: dict,
+                      clock_domains: dict = None, clock_tree: dict = None) -> dict:
     """Export graph as JSON for the web viewer."""
     node_list = []
     for n in nodes.values():
@@ -776,6 +798,10 @@ def export_graph_json(nodes: dict, edges: list, cell_types: dict) -> dict:
         }
         if n.bbox:
             entry["bbox"] = list(n.bbox)
+        # Add clock domain info for registered nodes
+        if clock_domains and n.name in clock_domains:
+            cd = clock_domains[n.name]
+            entry["clock_drivers"] = cd['clock_drivers']
         node_list.append(entry)
 
     edge_list = []
@@ -891,7 +917,8 @@ def build_networkx_graph(nodes: dict, edges: list):
 
     for e in edges:
         if e.src in G and e.dst in G:
-            G.add_edge(e.src, e.dst, edge_type=e.edge_type)
+            G.add_edge(e.src, e.dst, edge_type=e.edge_type,
+                       src_inverted=e.src_inverted)
 
     return G
 
@@ -1052,6 +1079,512 @@ def find_race_pairs(G):
     return races
 
 
+# ============================================================================
+# Clock Domain Analysis
+# ============================================================================
+
+def analyze_clock_domains(G):
+    """Identify the clock domain of every registered cell by tracing clock inputs.
+
+    For each registered cell, finds the edge(s) with edge_type="clock" and
+    identifies the immediate clock driver. Then traces the clock tree structure
+    to understand the hierarchy.
+
+    Returns:
+        domains: dict mapping registered cell name -> clock domain info
+        clock_groups: dict mapping immediate_driver -> list of registered cells
+        clock_tree: dict mapping each clock node -> its clock source chain
+    """
+    # Step 1: Build a map of clock predecessors for each registered cell.
+    # These are the nodes driving the clk/ena/~ena pins.
+    clock_preds = {}  # registered_cell -> list of immediate drivers
+    for u, v, data in G.edges(data=True):
+        if data.get('edge_type') == 'clock':
+            vtype = G.nodes[v].get('node_type', '')
+            if vtype == 'registered':
+                if v not in clock_preds:
+                    clock_preds[v] = []
+                if u not in clock_preds[v]:
+                    clock_preds[v].append(u)
+
+    # Step 2: Build clock domain assignments grouped by immediate driver.
+    domains = {}
+    for reg_cell, drivers in clock_preds.items():
+        domains[reg_cell] = {
+            'cell_type': G.nodes[reg_cell].get('cell_type', ''),
+            'category': G.nodes[reg_cell].get('category', ''),
+            'clock_drivers': sorted(drivers),
+        }
+
+    # Step 3: Group registers by their set of immediate clock drivers.
+    # Registers with the same driver(s) are in the same clock domain.
+    clock_groups = {}  # frozenset of drivers -> list of registered cells
+    driver_to_group = {}  # individual driver -> list of registered cells
+    for reg_cell, info in domains.items():
+        key = tuple(sorted(info['clock_drivers']))
+        if key not in clock_groups:
+            clock_groups[key] = []
+        clock_groups[key].append(reg_cell)
+        for drv in info['clock_drivers']:
+            if drv not in driver_to_group:
+                driver_to_group[drv] = []
+            driver_to_group[drv].append(reg_cell)
+
+    # Step 4: Trace the clock tree — for each immediate driver, find the chain
+    # of clock sources back to the crystal or phase generators.
+    def trace_clock_chain(node, visited=None):
+        """Trace backward from a clock driver to find its clock source chain.
+        Stops at registered cells (which are clock boundaries), pads, or cycles.
+        Returns the chain as a list from root to node."""
+        if visited is None:
+            visited = set()
+        if node in visited:
+            return [node]  # cycle
+        visited.add(node)
+
+        ntype = G.nodes[node].get('node_type', '')
+
+        # If this is a registered/pad/boundary node, it's a clock root
+        if ntype in ('registered', 'pad', 'boundary'):
+            # But this registered cell may itself be clocked — trace its clock
+            # source to build the full chain (but only one level deep for the
+            # clock root identification, not recursively through combinational)
+            return [node]
+
+        # Combinational node: find the deepest registered predecessor
+        # (following data edges only, not clock/reset on intermediate nodes)
+        best_chain = [node]
+        for pred in sorted(G.predecessors(node)):
+            edata = G.edges[pred, node]
+            if edata.get('edge_type') in ('clock', 'reset'):
+                continue
+            chain = trace_clock_chain(pred, visited.copy())
+            if len(chain) > len(best_chain) - 1:
+                # Check if this chain reaches a registered/pad root
+                root_type = G.nodes[chain[0]].get('node_type', '')
+                if root_type in ('registered', 'pad', 'boundary'):
+                    best_chain = chain + [node]
+
+        return best_chain
+
+    clock_tree = {}
+    all_drivers = set()
+    for info in domains.values():
+        all_drivers.update(info['clock_drivers'])
+
+    for driver in sorted(all_drivers):
+        clock_tree[driver] = trace_clock_chain(driver)
+
+    # Step 5: Compute effective polarity for each clock driver.
+    # Count inversions through the combinational chain from root to driver.
+    # This determines whether the clock signal is in-phase or anti-phase
+    # with the root's output.
+    INVERTING_GATES = {
+        'not_x1', 'not_x2', 'not_x3', 'not_x4', 'not_x6',
+        'nand2', 'nand3', 'nand4', 'nand5', 'nand6', 'nand7',
+        'eco_nand2',
+        'nor2', 'nor3', 'nor4', 'nor5', 'nor6', 'nor8',
+        'oai21',
+        'muxi',
+        'not_if0', 'not_if1',
+    }
+    NON_INVERTING_GATES = {
+        'and2', 'and3', 'and4',
+        'or2', 'or3', 'or4',
+        'ao21', 'ao22', 'ao222', 'ao2222', 'ao222222',
+        'oa21',
+        'mux',
+        'buf_if0',
+    }
+
+    clock_polarity = {}  # driver -> {'inversions': N, 'root_inverted': bool, 'polarity': str}
+    for driver in sorted(all_drivers):
+        chain = clock_tree.get(driver, [driver])
+        if len(chain) < 2:
+            # Driver is the root itself (ripple clock). Check whether Q or ~Q
+            # is used to clock downstream registers.
+            ripple_inverted = False
+            for succ in sorted(G.successors(driver)):
+                edata = G.edges[driver, succ]
+                if edata.get('edge_type') == 'clock':
+                    ripple_inverted = edata.get('src_inverted', False)
+                    break
+            clock_polarity[driver] = {
+                'inversions': 0,
+                'root_inverted': ripple_inverted,
+                'polarity': 'inverted' if ripple_inverted else 'non-inverted',
+            }
+            continue
+
+        root = chain[0]
+        inversions = 0
+        ambiguous = False
+
+        # Check if root outputs via ~q (inverted output)
+        root_inverted = False
+        if root in G and chain[1] in G and G.has_edge(root, chain[1]):
+            edata = G.edges[root, chain[1]]
+            root_inverted = edata.get('src_inverted', False)
+
+        # Count inversions through all combinational gates from root to driver
+        for node in chain[1:]:
+            ct = G.nodes[node].get('cell_type', '') if node in G else ''
+            if ct in INVERTING_GATES:
+                inversions += 1
+            elif ct in NON_INVERTING_GATES:
+                pass  # no inversion
+            elif ct and ct not in REGISTERED_TYPES and not ct.startswith('pad'):
+                ambiguous = True
+
+        total_inverted = (inversions % 2 == 1) != root_inverted  # XOR
+        if ambiguous:
+            polarity = 'ambiguous'
+        elif total_inverted:
+            polarity = 'inverted'
+        else:
+            polarity = 'non-inverted'
+
+        clock_polarity[driver] = {
+            'inversions': inversions,
+            'root_inverted': root_inverted,
+            'polarity': polarity,
+        }
+
+    return domains, clock_groups, clock_tree, clock_polarity
+
+
+def _classify_clock_root(driver, clock_tree, G):
+    """Classify a clock driver into a high-level clock domain.
+
+    Returns (root_name, root_type) where root_name is the registered cell
+    or pad at the head of the clock chain, and root_type describes the kind
+    of clocking (direct, gated, ripple).
+    """
+    chain = clock_tree.get(driver, [driver])
+    root = chain[0]
+    root_ntype = G.nodes[root].get('node_type', '') if root in G.nodes else ''
+    root_cat = G.nodes[root].get('category', '') if root in G.nodes else ''
+    chain_len = len(chain)
+
+    if root_ntype == 'pad':
+        if root_cat == 'clocks':
+            return root, 'crystal-derived'
+        elif root_cat == 'test':
+            return root, 'test-gated'
+        else:
+            return root, 'io-derived'
+    elif root_ntype == 'registered':
+        if chain_len == 1:
+            return root, 'ripple'
+        else:
+            return root, 'gated'
+    elif root_ntype == 'boundary':
+        return root, 'cpu-derived'
+    else:
+        return driver, 'combinational'
+
+
+def format_clock_domain_report(domains, clock_groups, clock_tree, clock_polarity, G):
+    """Generate a markdown report of clock domain analysis."""
+    lines = []
+    lines.append("# Clock Domain Analysis")
+    lines.append("")
+    lines.append("Structural analysis of the DMG-CPU B clock distribution network,")
+    lines.append("derived entirely from netlist connectivity.")
+    lines.append("")
+    lines.append("Data source: [msinger/dmg-schematics](https://github.com/msinger/dmg-schematics).")
+    lines.append("No GateBoy-derived data is used — all classifications come from tracing")
+    lines.append("the `clk`/`ena`/`~ena` pin connectivity in the netlist.")
+    lines.append("")
+
+    # =========================================================================
+    # Clock tree overview
+    # =========================================================================
+    lines.append("## Clock Tree Overview")
+    lines.append("")
+    lines.append("The DMG-CPU B has a single crystal oscillator (`ck1_ck2`) at 4.194 MHz.")
+    lines.append("All on-chip timing derives from this source through the following hierarchy:")
+    lines.append("")
+    lines.append("```")
+    lines.append("Crystal (ck1_ck2, 4.194 MHz)")
+    lines.append("├── atal/adeh — 4 MHz complementary enables (via anos/avet feedback)")
+    lines.append("│   ├── Phase generators (AFUR/ALEF/APUK/ADYK) — drlatch_ee ring")
+    lines.append("│   │   ├── boga/boma — clk_1mhz / ~clk_1mhz")
+    lines.append("│   │   │   └── Drives: CPU, timer, joypad, APU registers")
+    lines.append("│   │   ├── bufa/byly — clk_t4 (write phase)")
+    lines.append("│   │   ├── bude/beva — data_phase")
+    lines.append("│   │   ├── bedo/bowa — exec_phase")
+    lines.append("│   │   └── buke — ~pch_phase (pixel clock)")
+    lines.append("│   └── azof — buffered 4 MHz (via zaxy/zeme/xyva)")
+    lines.append("│       ├── alet — PPU line timing")
+    lines.append("│       ├── xota — PPU video clock (non-inverted)")
+    lines.append("│       │   └── wuvu — video clock (dffr, clocked by xota)")
+    lines.append("│       │       └── vena — video clock (dffr, clocked by wuvu.~q)")
+    lines.append("│       └── xyfy — PPU video clock (inverted xota)")
+    lines.append("│           └── wosu — video clock (dffr, clocked by xyfy)")
+    lines.append("├── Timer divider chains (clk_1mhz → ukup → ufor → uner → ...)")
+    lines.append("│   └── 16 Hz to 262 kHz frequency outputs")
+    lines.append("└── Ripple counters (LY, BG fetch, sprite scan, APU)")
+    lines.append("```")
+    lines.append("")
+
+    # =========================================================================
+    # Summary statistics
+    # =========================================================================
+    total_registered = sum(1 for n, d in G.nodes(data=True) if d.get('node_type') == 'registered')
+    assigned = len(domains)
+    unassigned = total_registered - assigned
+    lines.append("## Summary")
+    lines.append("")
+    lines.append(f"| Metric | Count |")
+    lines.append(f"|--------|-------|")
+    lines.append(f"| Total registered cells | {total_registered} |")
+    lines.append(f"| With clock inputs traced | {assigned} |")
+    lines.append(f"| Without clock edges (SR latches) | {unassigned} |")
+    lines.append(f"| Distinct clock configurations | {len(clock_groups)} |")
+    lines.append("")
+
+    # =========================================================================
+    # High-level domain classification
+    # =========================================================================
+    # Classify each clock group by its root source
+    root_domains = {}  # root_name -> {type, groups: [(drivers, cells)], total_regs}
+    sorted_groups = sorted(clock_groups.items(),
+                           key=lambda x: (-len(x[1]), x[0]))
+
+    for drivers, cells in sorted_groups:
+        # Use the first driver's classification for the group
+        root, rtype = _classify_clock_root(drivers[0], clock_tree, G)
+        if root not in root_domains:
+            root_domains[root] = {'type': rtype, 'groups': [], 'total_regs': 0}
+        root_domains[root]['groups'].append((drivers, cells))
+        root_domains[root]['total_regs'] += len(cells)
+
+    lines.append("## Clock Domains by Root Source")
+    lines.append("")
+    lines.append("Registers grouped by the root node of their clock chain (the registered")
+    lines.append("cell, pad, or boundary at the head of the combinational path driving their")
+    lines.append("clock pin). Roots with fewer than 3 registers are omitted (mostly ripple")
+    lines.append("counter chains).")
+    lines.append("")
+    lines.append("| Root | Type | Clock Signals | Registers |")
+    lines.append("|------|------|--------------|-----------|")
+    small_root_count = 0
+    small_root_regs = 0
+    for root in sorted(root_domains, key=lambda r: -root_domains[r]['total_regs']):
+        info = root_domains[root]
+        if info['total_regs'] < 3:
+            small_root_count += 1
+            small_root_regs += info['total_regs']
+            continue
+        root_type = G.nodes[root].get('cell_type', '') if root in G.nodes else ''
+        lines.append(f"| `{root}` ({root_type}) | {info['type']} | {len(info['groups'])} | {info['total_regs']} |")
+    if small_root_count:
+        lines.append(f"| *{small_root_count} other roots* | *ripple/gated* | *—* | *{small_root_regs}* |")
+    lines.append("")
+    lines.append("**Note on test-gated domains:** `t1` and `t2` are test pins held at static")
+    lines.append("logic levels during normal Game Boy operation. Registers whose clock chain")
+    lines.append("traces back to a test pin are actually clocked by the crystal-derived path")
+    lines.append("through the test gate — the test pin simply enables/disables the clock for")
+    lines.append("manufacturing test. In normal operation these registers behave identically")
+    lines.append("to crystal-derived registers; the test gate is always open.")
+    lines.append("")
+    lines.append("**Note on `muwy` domain (181 registers):** `muwy` is LY bit 0 (the lowest")
+    lines.append("bit of the scanline counter). Its 181 registers are sprite store (100) and")
+    lines.append("sprite X match (80) banks, clocked by signals gated through the sprite Y")
+    lines.append("comparator chain. These registers update during OAM scan when the comparator")
+    lines.append("output (derived from the LY counter) enables the sprite store clock gates.")
+    lines.append("")
+
+    # =========================================================================
+    # Phase generators — the most important section for emu devs
+    # =========================================================================
+    lines.append("## Phase Generator Analysis")
+    lines.append("")
+    lines.append("The CPU clock phase generators form a 4-stage `drlatch_ee` ring with")
+    lines.append("alternating enables. This is the core timing mechanism that determines")
+    lines.append("when registers throughout the chip update.")
+    lines.append("")
+    lines.append("### Enable Signals")
+    lines.append("")
+    lines.append("Both enables derive from the crystal via `ck1_ck2` → `anos` → `avet` → `atal`.")
+    lines.append("`adeh` is the complement of `atal` (a NOT gate).")
+    lines.append("")
+    lines.append("| Latch | ena (transparent when high) | ~ena (transparent when low) | Data in | Data out |")
+    lines.append("|-------|---------------------------|---------------------------|---------|----------|")
+
+    phase_data = {
+        'afur': {'ena': 'atal', '~ena': 'adeh', 'data_in': 'adyk.~q', 'data_out': 'alef.d'},
+        'alef': {'ena': 'adeh', '~ena': 'atal', 'data_in': 'afur.q', 'data_out': 'apuk.d'},
+        'apuk': {'ena': 'atal', '~ena': 'adeh', 'data_in': 'alef.q', 'data_out': 'adyk.d'},
+        'adyk': {'ena': 'adeh', '~ena': 'atal', 'data_in': 'apuk.q', 'data_out': 'afur.d (via ~q)'},
+    }
+    for pc in ['afur', 'alef', 'apuk', 'adyk']:
+        pd = phase_data[pc]
+        lines.append(f"| `{pc}` | `{pd['ena']}` | `{pd['~ena']}` | `{pd['data_in']}` | `{pd['data_out']}` |")
+    lines.append("")
+    lines.append("When `atal` is high: `afur` and `apuk` are transparent (pass data through).")
+    lines.append("When `atal` is low (= `adeh` high): `alef` and `adyk` are transparent.")
+    lines.append("")
+    lines.append("The ring shifts data each half-cycle of the 4 MHz clock, producing four")
+    lines.append("overlapping phase windows. Each latch's output drives combinational logic")
+    lines.append("that generates the clock distribution signals (`clk_1mhz`, `clk_t4`, etc.).")
+    lines.append("")
+
+    # =========================================================================
+    # PPU video clock generators
+    # =========================================================================
+    lines.append("## PPU Video Clock Generators")
+    lines.append("")
+    lines.append("The PPU has its own clock divider, separate from the CPU clock phases.")
+    lines.append("These are positive-edge-triggered `dffr` flip-flops derived from the")
+    lines.append("4 MHz buffered clock (`azof` → `zaxy` → `zeme` → `xyva` → `xota`/`xyfy`).")
+    lines.append("")
+    lines.append("- **`wuvu`** (dffr): clocked by `xota` (positive edge)")
+    lines.append("- **`vena`** (dffr): clocked by `wuvu.~q` (inverted output → captures on wuvu falling edge)")
+    lines.append("- **`wosu`** (dffr): clocked by `xyfy` (inverted `xota` → captures on opposite edge to wuvu)")
+    lines.append("")
+    lines.append("Note: `wosu` is NOT ripple-clocked from `wuvu`. It receives `wuvu.~q` as")
+    lines.append("its **data** input, but its clock comes independently from `xyfy`. This means")
+    lines.append("`wosu` samples `wuvu`'s output on the opposite clock edge, creating a")
+    lines.append("half-period timing constraint between them.")
+    lines.append("")
+
+    # =========================================================================
+    # Major clock groups (≥4 registers)
+    # =========================================================================
+    lines.append("## Major Clock Groups")
+    lines.append("")
+    lines.append("Clock signals driving 10 or more registers.")
+    lines.append("")
+
+    MAJOR_GROUP_THRESHOLD = 10
+    MAX_CHAIN_DISPLAY = 6  # Only show chains ≤ this length
+
+    for drivers, cells in sorted_groups:
+        if len(cells) < MAJOR_GROUP_THRESHOLD:
+            continue
+
+        driver_strs = []
+        for drv in drivers:
+            drv_type = G.nodes[drv].get('cell_type', '') if drv in G.nodes else ''
+            driver_strs.append(f"`{drv}` ({drv_type})")
+
+        header_drivers = ", ".join(driver_strs)
+        lines.append(f"### {header_drivers} — {len(cells)} registers")
+
+        # Show clock chain and polarity for each driver
+        for drv in drivers:
+            chain = clock_tree.get(drv, [drv])
+            pol = clock_polarity.get(drv, {})
+            pol_str = pol.get('polarity', '')
+            if pol_str == 'inverted':
+                pol_label = ' — **inverted** from root'
+            elif pol_str == 'non-inverted':
+                pol_label = ' — **non-inverted** from root'
+            elif pol_str == 'ambiguous':
+                pol_label = ' — polarity depends on gate input state'
+            else:
+                pol_label = ''
+
+            if 1 < len(chain) <= MAX_CHAIN_DISPLAY:
+                chain_str = " → ".join(f"`{n}`" for n in chain)
+                lines.append(f"")
+                lines.append(f"Clock source: {chain_str}{pol_label}")
+            elif len(chain) > MAX_CHAIN_DISPLAY:
+                root = chain[0]
+                root_type = G.nodes[root].get('cell_type', '') if root in G.nodes else ''
+                _, rtype = _classify_clock_root(drv, clock_tree, G)
+                lines.append(f"")
+                lines.append(f"Clock root: `{root}` ({root_type}) — {rtype}, {len(chain)-1} gates deep{pol_label}")
+        lines.append("")
+
+        # Group cells by category
+        by_cat = {}
+        for c in sorted(cells):
+            cat = G.nodes[c].get('category', '(none)')
+            cat_display = CATEGORY_DISPLAY.get(cat, cat)
+            if cat_display not in by_cat:
+                by_cat[cat_display] = []
+            by_cat[cat_display].append(c)
+
+        for cat_display in sorted(by_cat):
+            cat_cells = by_cat[cat_display]
+            cell_list = ", ".join(f"`{c}`" for c in cat_cells[:20])
+            if len(cat_cells) > 20:
+                cell_list += f" … (+{len(cat_cells)-20} more)"
+            lines.append(f"- **{cat_display}** ({len(cat_cells)}): {cell_list}")
+        lines.append("")
+
+    # =========================================================================
+    # Small groups summary (< 4 registers)
+    # =========================================================================
+    small_groups = [(d, c) for d, c in sorted_groups if len(c) < MAJOR_GROUP_THRESHOLD]
+    if small_groups:
+        total_small_regs = sum(len(c) for _, c in small_groups)
+        lines.append(f"## Remaining Clock Groups (< {MAJOR_GROUP_THRESHOLD} registers)")
+        lines.append("")
+        lines.append(f"{len(small_groups)} additional clock signals driving {total_small_regs}")
+        lines.append("registered cells. These are predominantly ripple counters (one register's")
+        lines.append("output clocking the next) and dedicated clock gates for small register banks.")
+        lines.append("Full details are in `clock_domains.json`.")
+        lines.append("")
+
+    # =========================================================================
+    # Cross-domain path implications
+    # =========================================================================
+    lines.append("## Emulation Implications")
+    lines.append("")
+    lines.append("### Timing budgets for cross-domain paths")
+    lines.append("")
+    lines.append("When a combinatorial path connects a source register to a sink register,")
+    lines.append("the available settling time depends on their clock relationship:")
+    lines.append("")
+    lines.append("| Source → Sink Clocking | Available Budget | Notes |")
+    lines.append("|----------------------|-----------------|-------|")
+    lines.append("| Same clock signal | Full period (~238 ns) | Standard synchronous path |")
+    lines.append("| Same root, different gate | Depends on gate timing | Common in PPU — gate condition determines when path is live |")
+    lines.append("| atal → adeh (complementary) | Half period (~119 ns) | Phase generator cross-paths |")
+    lines.append("| Ripple chain | Parent CK→Q + budget | Ripple counters: child clocked by parent output |")
+    lines.append("| Unrelated domains | Async crossing | Rare on DMG; mainly CPU ↔ external |")
+    lines.append("")
+    lines.append("### What this means for emulators")
+    lines.append("")
+    lines.append("A behavioral emulator that updates all registers simultaneously on each")
+    lines.append("dot clock will get the right answer for same-domain paths. Cross-domain")
+    lines.append("paths are where real hardware may differ — the source register's output")
+    lines.append("may not have settled before the sink register samples it, causing the")
+    lines.append("sink to capture the *previous* value rather than the *current* one.")
+    lines.append("")
+
+    # =========================================================================
+    # Registers without clock edges
+    # =========================================================================
+    all_registered = [n for n, d in G.nodes(data=True) if d.get('node_type') == 'registered']
+    no_clock = sorted(set(all_registered) - set(domains.keys()))
+    if no_clock:
+        lines.append("## Registers Without Clock Edges")
+        lines.append("")
+        lines.append("These registered cells have no `clk`/`ena` inputs in the netlist.")
+        lines.append("They are SR latches whose timing is determined by their set/reset")
+        lines.append("input arrival times rather than a clock edge.")
+        lines.append("")
+        by_type = {}
+        for c in no_clock:
+            ct = G.nodes[c].get('cell_type', '?')
+            if ct not in by_type:
+                by_type[ct] = []
+            by_type[ct].append(c)
+        for ct in sorted(by_type):
+            cell_list = ", ".join(f"`{c}`" for c in by_type[ct][:20])
+            if len(by_type[ct]) > 20:
+                cell_list += f" … (+{len(by_type[ct])-20} more)"
+            lines.append(f"- **{ct}** ({len(by_type[ct])}): {cell_list}")
+        lines.append("")
+
+    return '\n'.join(lines)
+
+
 CATEGORY_DISPLAY = {
     'ppu-bgfifo': 'BG Pixel Shifter',
     'ppu-bgscroll': 'BG Scrolling',
@@ -1136,7 +1669,7 @@ def is_reset_path_schematic(path, G):
     return False
 
 
-def export_paths_json(paths, G, races=None):
+def export_paths_json(paths, G, races=None, clock_domains=None):
     """Export critical paths and races in format compatible with build_explorer.py."""
     HALF_TCYCLE_NS = 119.2
     GATE_DELAY_MIN = 5   # ns
@@ -1163,7 +1696,7 @@ def export_paths_json(paths, G, races=None):
                 'fan_out': G.out_degree(n),
             })
 
-        path_list.append({
+        entry = {
             'depth': depth,
             'min_delay_ns': min_ns,
             'max_delay_ns': max_ns,
@@ -1173,7 +1706,23 @@ def export_paths_json(paths, G, races=None):
             'is_reset': is_reset_path_schematic(path, G),
             'category': categorize_by_schematic(path, G),
             'nodes': path_nodes,
-        })
+        }
+
+        # Add clock domain info for source and sink
+        if clock_domains:
+            src = path[0]
+            snk = path[-1]
+            if src in clock_domains:
+                entry['source_clock'] = clock_domains[src]['clock_drivers']
+            if snk in clock_domains:
+                entry['sink_clock'] = clock_domains[snk]['clock_drivers']
+            # Flag cross-domain paths
+            src_clk = set(clock_domains.get(src, {}).get('clock_drivers', []))
+            snk_clk = set(clock_domains.get(snk, {}).get('clock_drivers', []))
+            if src_clk and snk_clk:
+                entry['cross_domain'] = src_clk != snk_clk
+
+        path_list.append(entry)
 
     return path_list
 
@@ -1774,18 +2323,29 @@ def main():
     ppu_races = [r for r in races if r.get('category', '').startswith('ppu-')]
     print(f"  PPU-related: {len(ppu_races)}")
 
+    print("Analyzing clock domains...")
+    clock_domains, clock_groups, clock_tree, clock_polarity = analyze_clock_domains(G)
+    print(f"  {len(clock_domains)} registered cells with clock inputs traced")
+    print(f"  {len(clock_groups)} distinct clock groups")
+    pol_counts = {}
+    for p in clock_polarity.values():
+        pol_counts[p['polarity']] = pol_counts.get(p['polarity'], 0) + 1
+    print(f"  Polarity: {pol_counts}")
+
     # Step 7: Export
     output_dir = Path("output")
     output_dir.mkdir(exist_ok=True)
 
     # Graph JSON
-    graph_data = export_graph_json(nodes, edges, cell_types)
+    graph_data = export_graph_json(nodes, edges, cell_types,
+                                   clock_domains=clock_domains,
+                                   clock_tree=clock_tree)
     with open(output_dir / "ppu_graph.json", 'w') as f:
         json.dump(graph_data, f, indent=2)
     print(f"\nExported: ppu_graph.json ({len(graph_data['nodes'])} nodes, {len(graph_data['edges'])} edges)")
 
     # Critical paths JSON
-    paths_data = export_paths_json(paths, G, races)
+    paths_data = export_paths_json(paths, G, races, clock_domains=clock_domains)
     with open(output_dir / "critical_paths.json", 'w') as f:
         json.dump(paths_data, f, indent=2)
     print(f"Exported: critical_paths.json ({len(paths_data)} paths)")
@@ -1801,6 +2361,42 @@ def main():
         with open(output_dir / f"{fname}", 'w') as f:
             f.write(content)
         print(f"Exported: {fname}")
+
+    # Clock domain report
+    clock_report = format_clock_domain_report(clock_domains, clock_groups, clock_tree, clock_polarity, G)
+    with open(output_dir / "clock_domains.md", 'w') as f:
+        f.write(clock_report)
+    print("Exported: clock_domains.md")
+
+    # Clock domains JSON
+    clock_json = {
+        'domains': {
+            cell: {
+                'cell_type': info['cell_type'],
+                'category': info['category'],
+                'clock_drivers': info['clock_drivers'],
+            }
+            for cell, info in clock_domains.items()
+        },
+        'groups': {
+            ','.join(drivers): {
+                'drivers': list(drivers),
+                'cells': sorted(cells),
+            }
+            for drivers, cells in clock_groups.items()
+        },
+        'clock_tree': {
+            driver: chain
+            for driver, chain in clock_tree.items()
+        },
+        'polarity': {
+            driver: info
+            for driver, info in clock_polarity.items()
+        },
+    }
+    with open(output_dir / "clock_domains.json", 'w') as f:
+        json.dump(clock_json, f, indent=2)
+    print(f"Exported: clock_domains.json ({len(clock_domains)} domains, {len(clock_groups)} groups)")
 
 
 

@@ -1,6 +1,6 @@
 # Reset-Only Paths
 
-Total: 236 paths (max depth 45)
+Total: 64 paths (max depth 45)
 
 These paths only fire on LCDC toggle or system reset, not during
 normal per-dot rendering.
@@ -14,53 +14,53 @@ normal per-dot rendering.
 ### Path 3: depth 37 — APU CH1 (Square+Sweep)
 `avaf` → `dygy`
 
-### Path 4: depth 35 — Clock Distribution
-`alef` → `wave_ram`
-
-### Path 5: depth 33 — APU CH1 (Square+Sweep)
+### Path 4: depth 33 — APU CH1 (Square+Sweep)
 `avaf` → `hopo`
 
-### Path 6: depth 32 — VRAM Interface
-`alef` → `md0`
+### Path 5: depth 29 — APU CH1 (Square+Sweep)
+`avaf` → `hyxu`
 
-### Path 7: depth 32 — VRAM Interface
-`alef` → `md1`
+### Path 6: depth 28 — Clock Distribution
+`adyk` → `wave_ram`
 
-### Path 8: depth 32 — VRAM Interface
-`alef` → `md2`
+### Path 7: depth 25 — APU CH1 (Square+Sweep)
+`avaf` → `holu`
 
-### Path 9: depth 32 — VRAM Interface
-`alef` → `md3`
+### Path 8: depth 24 — LCD Output
+`afer` → `cp`
 
-### Path 10: depth 32 — VRAM Interface
-`alef` → `md4`
+### Path 9: depth 24 — Sprite Y Compare
+`afer` → `sobu`
 
-### Path 11: depth 32 — VRAM Interface
-`alef` → `md5`
+### Path 10: depth 24 — LCD Output
+`afer` → `st`
 
-### Path 12: depth 32 — VRAM Interface
-`alef` → `md6`
+### Path 11: depth 22 — BG/Win Cycles
+`afer` → `lovy`
 
-### Path 13: depth 32 — VRAM Interface
-`alef` → `md7`
+### Path 12: depth 22 — BG/Win Cycles
+`afer` → `nyka`
 
-### Path 14: depth 31 — VRAM Interface
-`alef` → `md0`
+### Path 13: depth 21 — APU CH1 (Square+Sweep)
+`avaf` → `fely`
 
-### Path 15: depth 31 — VRAM Interface
-`alef` → `md1`
+### Path 14: depth 20 — Clock Distribution
+`adyk` → `wave_ram`
 
-### Path 16: depth 31 — VRAM Interface
-`alef` → `md2`
+### Path 15: depth 17 — APU CH1 (Square+Sweep)
+`avaf` → `edul`
 
-### Path 17: depth 31 — VRAM Interface
-`alef` → `md3`
+### Path 16: depth 13 — APU CH1 (Square+Sweep)
+`avaf` → `havo`
 
-### Path 18: depth 31 — VRAM Interface
-`alef` → `md4`
+### Path 17: depth 13 — Clock Distribution
+`adyk` → `high_ram`
 
-### Path 19: depth 31 — VRAM Interface
-`alef` → `md5`
+### Path 18: depth 13 — Clock Distribution
+`adyk` → `wave_ram`
 
-### Path 20: depth 31 — VRAM Interface
-`alef` → `md6`
+### Path 19: depth 12 — DMA
+`adyk` → `luvy`
+
+### Path 20: depth 11 — Address Bus
+`afur` → `a15`

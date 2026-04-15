@@ -1606,11 +1606,21 @@ function renderChain(nodes) {{
 }}
 
 function renderPathDetail(p) {{
+  const clockInfo = (p.source_clock || p.sink_clock) ? `
+    <div class="detail-section" style="margin-top:12px">
+      <h4>Clock Domains</h4>
+      <div style="font-size:12px;line-height:1.6">
+        ${{p.source_clock ? `<div><span class="label">Source clock: </span>${{p.source_clock.map(d => `<a href="#" class="signal-link" onclick="navigateGraph('${{d}}'); return false;">${{d}}</a>`).join(', ')}}</div>` : ''}}
+        ${{p.sink_clock ? `<div><span class="label">Sink clock: </span>${{p.sink_clock.map(d => `<a href="#" class="signal-link" onclick="navigateGraph('${{d}}'); return false;">${{d}}</a>`).join(', ')}}</div>` : ''}}
+        ${{p.cross_domain ? '<div style="color:var(--accent);margin-top:4px">\\u26a0 Cross-domain path: source and sink clocked by different signals</div>' : ''}}
+      </div>
+    </div>` : '';
   return `<div class="detail-panel">
     <div class="detail-section">
       <h4>Gate Chain (${{p.depth}} combinatorial gates)</h4>
       <div class="chain">${{renderChain(p.nodes)}}</div>
     </div>
+    ${{clockInfo}}
   </div>`;
 }}
 
@@ -1632,7 +1642,7 @@ function renderPaths() {{
       <td class="mono muted">${{p.min_delay_ns}}-${{p.max_delay_ns}}</td>
       <td class="${{pctClass}} mono">${{p.pct_half_tcycle}}%</td>
       <td>${{catBadge(p.category)}}</td>
-      <td>${{p.is_reset ? '<span class="badge badge-reset">reset</span>' : '<span class="badge badge-operational">op</span>'}}</td>
+      <td>${{p.is_reset ? '<span class="badge badge-reset">reset</span>' : '<span class="badge badge-operational">op</span>'}}${{p.cross_domain ? ' <span class="badge" style="background:var(--accent);color:white;font-size:9px" title="Source and sink are in different clock domains">x-clk</span>' : ''}}</td>
     `;
     const detailTr = document.createElement('tr');
     detailTr.className = 'detail-row';
@@ -1825,6 +1835,7 @@ function renderGraphNode(displayName) {{
         ${{node.reg_type ? `<div class="node-prop"><span class="label">Reg: </span><span class="value">${{cellTypeLink(node.reg_type) || escHtml(node.reg_type)}}</span></div>` : ''}}
         ${{node.category ? `<div class="node-prop"><span class="label">Category: </span><span class="value">${{catBadge(node.category)}}</span></div>` : ''}}
         ${{node.drive_strength > 1 ? `<div class="node-prop"><span class="label">Drive: </span><span class="value">x${{node.drive_strength}}</span></div>` : ''}}
+        ${{node.clock_drivers ? `<div class="node-prop"><span class="label">Clock: </span><span class="value">${{node.clock_drivers.map(d => `<a href="#" class="signal-link" onclick="navigateGraph('${{d}}'); return false;">${{d}}</a>`).join(', ')}}</span></div>` : ''}}
         ${{node.source_file ? `<div class="node-prop"><span class="label">Source: </span><span class="value">${{srcLink(node.source_file, node.source_line)}}</span></div>` : ''}}
         <div class="node-prop">${{dieLink(dn)}} ${{pandocsLink(dn)}}</div>
         <div class="node-prop"><span class="label">Fan-in: </span><span class="value">${{preds.length}}</span></div>

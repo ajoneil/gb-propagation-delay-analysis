@@ -40,7 +40,7 @@
 ```
 
 
-## Bus (326 paths, max depth 32)
+## Bus (465 paths, max depth 32)
 
 ### Path 1: depth 32 (160-480 ns, 403% half T-cycle)
 ```
@@ -439,6 +439,585 @@
           [nand3] ydug  — Sprite X Priority
             [nor2] guva  — Sprite X Priority
               [REGISTERED:dffr] eboj  — Sprite X Priority
+```
+
+
+## VRAM Interface (37 paths, max depth 26)
+
+### Path 1: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] sefa  — VRAM
+                                [not_x2] rege  — VRAM x2
+                                  [PAD:pad_bidir_pu] md0  — VRAM
+```
+
+### Path 2: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] sogo  — VRAM
+                                [not_x2] ryky  — VRAM x2
+                                  [PAD:pad_bidir_pu] md1  — VRAM
+```
+
+### Path 3: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] sefu  — VRAM
+                                [not_x2] razo  — VRAM x2
+                                  [PAD:pad_bidir_pu] md2  — VRAM
+```
+
+### Path 4: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] suna  — VRAM
+                                [not_x2] rada  — VRAM x2
+                                  [PAD:pad_bidir_pu] md3  — VRAM
+```
+
+### Path 5: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] sumo  — VRAM
+                                [not_x2] ryro  — VRAM x2
+                                  [PAD:pad_bidir_pu] md4  — VRAM
+```
+
+### Path 6: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] sazu  — VRAM
+                                [not_x2] revu  — VRAM x2
+                                  [PAD:pad_bidir_pu] md5  — VRAM
+```
+
+### Path 7: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] samo  — VRAM
+                                [not_x2] reku  — VRAM x2
+                                  [PAD:pad_bidir_pu] md6  — VRAM
+```
+
+### Path 8: depth 26 (130-390 ns, 327% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [not_x1] rove  — VRAM
+                              [and2] suke  — VRAM
+                                [not_x2] ryze  — VRAM x2
+                                  [PAD:pad_bidir_pu] md7  — VRAM
+```
+
+### Path 9: depth 25 (125-375 ns, 315% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [or2] synu  — VRAM
+                              [not_x2] rura  — VRAM x2
+                                [PAD:pad_bidir_pu] md0  — VRAM
+```
+
+### Path 10: depth 25 (125-375 ns, 315% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [nor2] tefa  — VRAM
+          [and2] sose  — VRAM
+            [and2] tuca  — VRAM
+              [mux] tole  — VRAM
+                [and2] sere  — VRAM
+                  [and2] sazo  — VRAM
+                    [not_x1] ryje  — VRAM
+                      [not_x1] revo  — VRAM
+                        [and2] rocy  — VRAM
+                          [not_x3] rahu  — VRAM x3 fan-out=17
+                            [or2] syma  — VRAM
+                              [not_x2] ruly  — VRAM x2
+                                [PAD:pad_bidir_pu] md1  — VRAM
+```
+
+
+## Test Mode (13 paths, max depth 23)
+
+### Path 1: depth 23 (115-345 ns, 289% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [nand2] wycy  — OAM
+                                    [not_x2] wory  — OAM x2
+                                      [not_x2] wame  — OAM x2
+                                        [BOUNDARY:oam] oam_a
+```
+
+### Path 2: depth 23 (115-345 ns, 289% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [nand2] wycy  — OAM
+                                    [not_x2] wory  — OAM x2
+                                      [not_x2] wame  — OAM x2
+                                        [BOUNDARY:oam] oam_b
+```
+
+### Path 3: depth 22 (110-330 ns, 277% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [nand2] wega  — OAM
+                                    [not_x2] wejy  — OAM x2
+                                      [BOUNDARY:oam] oam_a
+```
+
+### Path 4: depth 22 (110-330 ns, 277% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [nand2] wema  — OAM
+                                    [not_x2] wexa  — OAM x2
+                                      [BOUNDARY:oam] oam_b
+```
+
+### Path 5: depth 20 (100-300 ns, 252% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [BOUNDARY:oam] oam_a
+```
+
+### Path 6: depth 20 (100-300 ns, 252% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [not_x2] ajas  — PPU Control x2
+            [not_x4] asot  — PPU Control x4 fan-out=14
+              [nand3] bota  — OAM
+                [and3] asyt  — OAM
+                  [not_x1] bode  — OAM fan-out=17
+                    [not_x1] yval  — OAM
+                      [not_x1] yryv  — OAM
+                        [not_x2] zodo  — OAM x2
+                          [not_x1] wusu  — OAM
+                            [or3] wazo  — OAM
+                              [nand2] wujy  — OAM
+                                [not_x3] wahe  — OAM x3
+                                  [BOUNDARY:oam] oam_b
+```
+
+### Path 7: depth 11 (55-165 ns, 138% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [and3] yula
+            [nand2] zado
+              [not_x1] zery
+                [not_x1] zoku
+                  [BOUNDARY:boot_rom] boot_rom
+```
+
+### Path 8: depth 10 (50-150 ns, 126% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [and3] yula
+            [nand2] zado
+              [not_x1] zery
+                [BOUNDARY:boot_rom] boot_rom
+```
+
+### Path 9: depth 9 (45-135 ns, 113% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [nand2] abuf
+            [not_x2] apow x2
+              [not_x1] anyk
+                [BOUNDARY:high_ram] high_ram
+```
+
+### Path 10: depth 8 (40-120 ns, 101% half T-cycle)
+```
+[PAD:pad_in] t1
+  [not_x1] ubet
+    [and2] unor  — Test Mode Gate fan-out=34
+      [muxi] ujyv
+        [not_x3] tedo x3 fan-out=14
+          [nand2] abuf
+            [not_x2] apow x2
+              [BOUNDARY:high_ram] high_ram
+```
+
+
+## Data Bus (16 paths, max depth 16)
+
+### Path 1: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] ruxa
+                      [PAD:pad_bidir_pu] d0
+```
+
+### Path 2: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] ruja
+                      [PAD:pad_bidir_pu] d1
+```
+
+### Path 3: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] raby
+                      [PAD:pad_bidir_pu] d2
+```
+
+### Path 4: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] rera
+                      [PAD:pad_bidir_pu] d3
+```
+
+### Path 5: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] rory
+                      [PAD:pad_bidir_pu] d4
+```
+
+### Path 6: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] ryvo
+                      [PAD:pad_bidir_pu] d5
+```
+
+### Path 7: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] rafy
+                      [PAD:pad_bidir_pu] d6
+```
+
+### Path 8: depth 16 (80-240 ns, 201% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [nand2] ravu
+                      [PAD:pad_bidir_pu] d7
+```
+
+### Path 9: depth 15 (75-225 ns, 189% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [PAD:pad_bidir_pu] d0
+```
+
+### Path 10: depth 15 (75-225 ns, 189% half T-cycle)
+```
+[BUS:] bus:a15  — CPU addr bus A15
+  [not_x1] sore
+    [or3] tevy
+      [and2] texo
+        [not_x1] levo
+          [ao21] lagu
+            [not_x1] lywe
+              [or2] moty
+                [mux] roru fan-out=10
+                  [not_x1] lula fan-out=16
+                    [PAD:pad_bidir_pu] d1
 ```
 
 
@@ -1010,7 +1589,7 @@
 ```
 
 
-## APU CH2 (Square) (16 paths, max depth 6)
+## APU CH2 (Square) (17 paths, max depth 6)
 
 ### Path 1: depth 6 (30-90 ns, 76% half T-cycle)
 ```
@@ -1111,7 +1690,7 @@
 ```
 
 
-## APU CH1 (Square+Sweep) (35 paths, max depth 6)
+## APU CH1 (Square+Sweep) (36 paths, max depth 6)
 
 ### Path 1: depth 6 (30-90 ns, 76% half T-cycle)
 ```
@@ -1256,7 +1835,7 @@
 ```
 
 
-## APU CH4 (Noise) (9 paths, max depth 4)
+## APU CH4 (Noise) (11 paths, max depth 4)
 
 ### Path 1: depth 4 (20-60 ns, 50% half T-cycle)
 ```
@@ -1300,25 +1879,23 @@
 
 ### Path 6: depth 2 (10-30 ns, 25% half T-cycle)
 ```
-[REGISTERED:drlatch_ee] jamy  — CH4
-  [ao22] kavu  — CH4
-    [REGISTERED:dffr] jepe  — CH4
+[REGISTERED:tffnl] cofe  — CH4
+  [and3] ejex  — CH4
+    [REGISTERED:dffr] fosy  — CH4
 ```
 
 ### Path 7: depth 2 (10-30 ns, 25% half T-cycle)
 ```
-[REGISTERED:dffr] gary  — CH4
-  [nor2] gofu  — CH4
-    [not_x1] huce  — CH4
-      [REGISTERED:tffnl] jyco  — CH4
+[REGISTERED:tffnl] jyco  — CH4
+  [and3] hyno  — CH4
+    [REGISTERED:dffr] gary  — CH4
 ```
 
 ### Path 8: depth 2 (10-30 ns, 25% half T-cycle)
 ```
-[REGISTERED:dffr] gary  — CH4
-  [nor2] gofu  — CH4
-    [not_x1] huce  — CH4
-      [REGISTERED:tffnl] jyfu  — CH4
+[REGISTERED:drlatch_ee] jamy  — CH4
+  [ao22] kavu  — CH4
+    [REGISTERED:dffr] jepe  — CH4
 ```
 
 ### Path 9: depth 2 (10-30 ns, 25% half T-cycle)
@@ -1326,7 +1903,33 @@
 [REGISTERED:dffr] gary  — CH4
   [nor2] gofu  — CH4
     [not_x1] huce  — CH4
-      [REGISTERED:tffnl] jyre  — CH4
+      [REGISTERED:tffnl] jyco  — CH4
+```
+
+### Path 10: depth 2 (10-30 ns, 25% half T-cycle)
+```
+[REGISTERED:dffr] gary  — CH4
+  [nor2] gofu  — CH4
+    [not_x1] huce  — CH4
+      [REGISTERED:tffnl] jyfu  — CH4
+```
+
+
+## Boot ROM (2 paths, max depth 3)
+
+### Path 1: depth 3 (15-45 ns, 38% half T-cycle)
+```
+[REGISTERED:dffr] tepu
+  [not_x1] tera
+    [and2] tutu
+      [BOUNDARY:sm83] cpu fan-out=42
+```
+
+### Path 2: depth 2 (10-30 ns, 25% half T-cycle)
+```
+[BUS:] bus:d0  — CPU data bus D0 fan-out=46
+  [or2] sato
+    [REGISTERED:dffr] tepu
 ```
 
 
@@ -1409,86 +2012,56 @@
 ```
 
 
-## VRAM Interface (13 paths, max depth 2)
+## OAM Interface (7 paths, max depth 2)
 
 ### Path 1: depth 2 (10-30 ns, 25% half T-cycle)
 ```
-[BUS:] bus:~ma0  — VRAM addr bus MA0
-  [not_x1] myfu  — VRAM
-    [not_x2] lexe  — VRAM x2
-      [PAD:pad_out] ma0  — VRAM
+[BUS:] bus:clk_t4  — Clock bus (clk_t4)
+  [not_x1] decy  — OAM
+    [not_x1] caty  — OAM
+      [REGISTERED:dffr] maka  — OAM
 ```
 
-### Path 2: depth 2 (10-30 ns, 25% half T-cycle)
+### Path 2: depth 1 (5-15 ns, 13% half T-cycle)
 ```
-[BUS:] bus:~ma1  — VRAM addr bus MA1
-  [not_x1] masa  — VRAM
-    [not_x2] lozu  — VRAM x2
-      [PAD:pad_out] ma1  — VRAM
-```
-
-### Path 3: depth 2 (10-30 ns, 25% half T-cycle)
-```
-[BUS:] bus:~ma10  — VRAM addr bus MA10
-  [not_x1] ruky  — VRAM
-    [not_x2] nuva  — VRAM x2
-      [PAD:pad_out] ma10  — VRAM
+[BUS:] bus:oam_~{a2}_tri
+  [not_x1] yfot  — OAM
+    [REGISTERED:dffr_cc] xadu  — OAM
 ```
 
-### Path 4: depth 2 (10-30 ns, 25% half T-cycle)
+### Path 3: depth 1 (5-15 ns, 13% half T-cycle)
 ```
-[BUS:] bus:~ma11  — VRAM addr bus MA11
-  [not_x1] ruma  — VRAM
-    [not_x2] pedu  — VRAM x2
-      [PAD:pad_out] ma11  — VRAM
-```
-
-### Path 5: depth 2 (10-30 ns, 25% half T-cycle)
-```
-[BUS:] bus:~ma12  — VRAM addr bus MA12
-  [not_x1] reho  — VRAM
-    [not_x2] pony  — VRAM x2
-      [PAD:pad_out] ma12  — VRAM
+[BUS:] bus:oam_~{a7}_tri
+  [not_x1] yzet  — OAM
+    [REGISTERED:dffr_cc] xecu  — OAM
 ```
 
-### Path 6: depth 2 (10-30 ns, 25% half T-cycle)
+### Path 4: depth 1 (5-15 ns, 13% half T-cycle)
 ```
-[BUS:] bus:~ma2  — VRAM addr bus MA2
-  [not_x1] myre  — VRAM
-    [not_x2] laca  — VRAM x2
-      [PAD:pad_out] ma2  — VRAM
-```
-
-### Path 7: depth 2 (10-30 ns, 25% half T-cycle)
-```
-[BUS:] bus:~ma3  — VRAM addr bus MA3
-  [not_x1] mavu  — VRAM
-    [not_x2] luvo  — VRAM x2
-      [PAD:pad_out] ma3  — VRAM
+[BUS:] bus:oam_~{a3}_tri
+  [not_x1] yfoc  — OAM
+    [REGISTERED:dffr_cc] xedy  — OAM
 ```
 
-### Path 8: depth 2 (10-30 ns, 25% half T-cycle)
+### Path 5: depth 1 (5-15 ns, 13% half T-cycle)
 ```
-[BUS:] bus:~ma4  — VRAM addr bus MA4
-  [not_x1] mepa  — VRAM
-    [not_x2] loly  — VRAM x2
-      [PAD:pad_out] ma4  — VRAM
-```
-
-### Path 9: depth 2 (10-30 ns, 25% half T-cycle)
-```
-[BUS:] bus:~ma5  — VRAM addr bus MA5
-  [not_x1] mysa  — VRAM
-    [not_x2] lalo  — VRAM x2
-      [PAD:pad_out] ma5  — VRAM
+[BUS:] bus:oam_~{a5}_tri
+  [not_x1] ymev  — OAM
+    [REGISTERED:dffr_cc] xobe  — OAM
 ```
 
-### Path 10: depth 2 (10-30 ns, 25% half T-cycle)
+### Path 6: depth 1 (5-15 ns, 13% half T-cycle)
 ```
-[BUS:] bus:~ma6  — VRAM addr bus MA6
-  [not_x1] mewy  — VRAM
-    [not_x2] lefa  — VRAM x2
-      [PAD:pad_out] ma6  — VRAM
+[BUS:] bus:oam_~{a6}_tri
+  [not_x1] xemu  — OAM
+    [REGISTERED:dffr_cc] yduf  — OAM
+```
+
+### Path 7: depth 1 (5-15 ns, 13% half T-cycle)
+```
+[BUS:] bus:oam_~{a4}_tri
+  [not_x1] yvom  — OAM
+    [REGISTERED:dffr_cc] zuze  — OAM
 ```
 
 
@@ -1500,16 +2073,6 @@
   [nand6] navo  — DMA
     [not_x1] nolo  — DMA
       [REGISTERED:dffr] myte  — DMA
-```
-
-
-## Boot ROM (1 paths, max depth 2)
-
-### Path 1: depth 2 (10-30 ns, 25% half T-cycle)
-```
-[BUS:] bus:d0  — CPU data bus D0 fan-out=46
-  [or2] sato
-    [REGISTERED:dffr] tepu
 ```
 
 
@@ -1586,6 +2149,16 @@
 ```
 
 
+## Other (1 paths, max depth 1)
+
+### Path 1: depth 1 (5-15 ns, 13% half T-cycle)
+```
+[BOUNDARY:sm83] cpu fan-out=42
+  [not_x1] lexy
+    [PAD:pad_out] m1
+```
+
+
 ## Timer (1 paths, max depth 1)
 
 ### Path 1: depth 1 (5-15 ns, 13% half T-cycle)
@@ -1593,49 +2166,4 @@
 [REGISTERED:tffnl] nuga  — Timer
   [nor2] mery  — Timer
     [REGISTERED:dffr] moba  — Timer
-```
-
-
-## OAM Interface (6 paths, max depth 1)
-
-### Path 1: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a2}_tri
-  [not_x1] yfot  — OAM
-    [REGISTERED:dffr_cc] xadu  — OAM
-```
-
-### Path 2: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a7}_tri
-  [not_x1] yzet  — OAM
-    [REGISTERED:dffr_cc] xecu  — OAM
-```
-
-### Path 3: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a3}_tri
-  [not_x1] yfoc  — OAM
-    [REGISTERED:dffr_cc] xedy  — OAM
-```
-
-### Path 4: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a5}_tri
-  [not_x1] ymev  — OAM
-    [REGISTERED:dffr_cc] xobe  — OAM
-```
-
-### Path 5: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a6}_tri
-  [not_x1] xemu  — OAM
-    [REGISTERED:dffr_cc] yduf  — OAM
-```
-
-### Path 6: depth 1 (5-15 ns, 13% half T-cycle)
-```
-[BUS:] bus:oam_~{a4}_tri
-  [not_x1] yvom  — OAM
-    [REGISTERED:dffr_cc] zuze  — OAM
 ```
